@@ -16,6 +16,7 @@ Doctrine_Manager::getInstance()->bindComponent('PERSONA', 'doctrine');
  * @property string $pe_email
  * @property string $pe_usr
  * @property string $pe_pwd
+ * @property Doctrine_Collection $CONTRATAR_SB
  * @property Doctrine_Collection $PAGOS
  * 
  * @method integer             getPeId()                Returns the current record's "pe_id" value
@@ -27,6 +28,7 @@ Doctrine_Manager::getInstance()->bindComponent('PERSONA', 'doctrine');
  * @method string              getPeEmail()             Returns the current record's "pe_email" value
  * @method string              getPeUsr()               Returns the current record's "pe_usr" value
  * @method string              getPePwd()               Returns the current record's "pe_pwd" value
+ * @method Doctrine_Collection getCONTRATARSB()         Returns the current record's "CONTRATAR_SB" collection
  * @method Doctrine_Collection getPAGOS()               Returns the current record's "PAGOS" collection
  * @method PERSONA             setPeId()                Sets the current record's "pe_id" value
  * @method PERSONA             setPeCedula()            Sets the current record's "pe_cedula" value
@@ -37,6 +39,7 @@ Doctrine_Manager::getInstance()->bindComponent('PERSONA', 'doctrine');
  * @method PERSONA             setPeEmail()             Sets the current record's "pe_email" value
  * @method PERSONA             setPeUsr()               Sets the current record's "pe_usr" value
  * @method PERSONA             setPePwd()               Sets the current record's "pe_pwd" value
+ * @method PERSONA             setCONTRATARSB()         Sets the current record's "CONTRATAR_SB" collection
  * @method PERSONA             setPAGOS()               Sets the current record's "PAGOS" collection
  * 
  * @package    dml
@@ -134,6 +137,10 @@ abstract class BasePERSONA extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
+        $this->hasMany('CONTRATAR_SB', array(
+             'local' => 'pe_id',
+             'foreign' => 'persona_pe_id'));
+
         $this->hasMany('PAGOS', array(
              'local' => 'pe_id',
              'foreign' => 'persona_pe_id'));

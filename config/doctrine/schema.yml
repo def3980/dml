@@ -1,3 +1,50 @@
+CONTRATAR_SB:
+  connection: doctrine
+  tableName: CONTRATAR_SB
+  columns:
+    csb_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    csb_identificacion:
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    csb_fecha:
+      type: date(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    persona_pe_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    servicios_basicos_sb_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    PERSONA:
+      local: persona_pe_id
+      foreign: pe_id
+      type: one
+    SERVICIOS_BASICOS:
+      local: servicios_basicos_sb_id
+      foreign: sb_id
+      type: one
 PAGOS:
   connection: doctrine
   tableName: PAGOS
@@ -16,7 +63,7 @@ PAGOS:
       notnull: false
       autoincrement: false
     pa_fecha:
-      type: timestamp(25)
+      type: date(25)
       fixed: false
       unsigned: false
       primary: false
@@ -143,7 +190,75 @@ PERSONA:
       notnull: false
       autoincrement: false
   relations:
+    CONTRATAR_SB:
+      local: pe_id
+      foreign: persona_pe_id
+      type: many
     PAGOS:
       local: pe_id
       foreign: persona_pe_id
+      type: many
+SERVICIOS_BASICOS:
+  connection: doctrine
+  tableName: SERVICIOS_BASICOS
+  columns:
+    sb_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    sb_entidad:
+      type: string(100)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    sb_entidad_alias:
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    sb_direccion:
+      type: string()
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    sb_sitio_web:
+      type: string(100)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    sb_tlf1:
+      type: string(9)
+      fixed: true
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    sb_tlf1_ext:
+      type: string(5)
+      fixed: true
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    sb_tlf2_ext:
+      type: string(5)
+      fixed: true
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+  relations:
+    CONTRATAR_SB:
+      local: sb_id
+      foreign: servicios_basicos_sb_id
       type: many

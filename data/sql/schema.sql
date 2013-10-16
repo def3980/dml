@@ -1,0 +1,3 @@
+CREATE TABLE PAGOS (pa_id INT AUTO_INCREMENT, pa_numero_factura CHAR(17), pa_fecha DATETIME, pa_detalle TEXT, pa_iva DECIMAL(10, 2), pa_ice DECIMAL(10, 2), pa_comision DECIMAL(10, 2), pa_valor_total DECIMAL(10, 2), pa_respaldo LONGBLOB, persona_pe_id INT NOT NULL, INDEX persona_pe_id_idx (persona_pe_id), PRIMARY KEY(pa_id)) ENGINE = INNODB;
+CREATE TABLE PERSONA (pe_id INT AUTO_INCREMENT, pe_cedula VARCHAR(100), pe_nombres VARCHAR(100), pe_apellidos VARCHAR(100), pe_fecha_nacimiento DATE, pe_imagen LONGBLOB, pe_email VARCHAR(100), pe_usr VARCHAR(100), pe_pwd VARCHAR(50), PRIMARY KEY(pe_id)) ENGINE = INNODB;
+ALTER TABLE PAGOS ADD CONSTRAINT PAGOS_persona_pe_id_PERSONA_pe_id FOREIGN KEY (persona_pe_id) REFERENCES PERSONA(pe_id);

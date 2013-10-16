@@ -1,35 +1,3 @@
-
-<!--<h1>Pago ss List</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Pa</th>
-      <th>Pa numero factura</th>
-      <th>Pa fecha</th>
-      <th>Pa detalle</th>
-      <th>Pa iva</th>
-      <th>Pa ice</th>
-      <th>Pa valor total</th>
-      <th>Pa respaldo</th>
-    </tr>
-  </thead>
-  <tbody>
-    <?php /*foreach ($pago_ss as $pagos): ?>
-    <tr>
-      <td><a href="<?php echo url_for('pagos/edit?pa_id='.$pagos->getPaId()) ?>"><?php echo $pagos->getPaId() ?></a></td>
-      <td><?php echo $pagos->getPaNumeroFactura() ?></td>
-      <td><?php echo $pagos->getPaFecha() ?></td>
-      <td><?php echo $pagos->getPaDetalle() ?></td>
-      <td><?php echo $pagos->getPaIva() ?></td>
-      <td><?php echo $pagos->getPaIce() ?></td>
-      <td><?php echo $pagos->getPaValorTotal() ?></td>
-      <td><?php echo link_to('PDF','pagos/info?factura='.$pagos->getPaNumeroFactura().'.pdf',array('target' => '_blank')) ?></td>
-    </tr>
-    <?php endforeach; ?>
-  </tbody>
-</table>
-<a href="<?php echo url_for('pagos/new')*/ ?>">New</a>-->
 <style>
     #tblAdm thead th:nth-child(1) {
         background-color: #fff; width: 15%
@@ -324,18 +292,17 @@
                                                     </tr><?php echo "\n"; endforeach; ?>
                                                 </tbody>
                                             </table>
-                                            <div>
+                                            <div><?php echo "\n"; if ($pago_ss->haveToPaginate()): ?>                                            
                                                 <ul class="pagination" style="margin: 0">
-                                                    <li class="disabled">
-                                                        <a href="#"><i class="icon-double-angle-left"></i></a>
-                                                    </li>
-                                                    <li class="active"><a href="#">1</a></li>
-                                                    <li><a href="#">2</a></li>
-                                                    <li><a href="#">3</a></li>
-                                                    <li><a href="#">4</a></li>
-                                                    <li><a href="#">5</a></li>
-                                                    <li><a href="#"><i class="icon-double-angle-right"></i></a></li>
-                                                </ul>
+                                                <?php echo ($pago_ss->getPage() == 1) ? '<li class="disabled"><a onclick="javascript:void(0)"><i class="icon-long-arrow-left"></i></a></li>' : '<li><a href="'.url_for('@pagos_vista?pagina='.$pago_ss->getFirstPage()).'"><i class="icon-long-arrow-left"></i></a></li>'."\n"; ?>
+                                                <?php echo ($pago_ss->getPreviousPage() == $pago_ss->getPage()) ? '<li class="disabled"><a onclick="javascript:void(0)"><i class="icon-double-angle-left"></i></a></li>' : '<li><a href="'.url_for('@pagos_vista?pagina='.$pago_ss->getPreviousPage()).'"><i class="icon-double-angle-left"></i></a></li>'; ?>
+                                                <?php echo "\n"; foreach ($pago_ss->getLinks() as $pag): if ($pag == $pago_ss->getPage()): ?>
+                                                <li class="active"><a onclick="javascript:void(0)"><?php echo $pag ?></a></li><?php echo "\n"; else: ?>
+                                                <li><a href="<?php echo url_for('@pagos_vista?pagina='.$pag) ?>"><?php echo $pag ?>
+                                                <?php echo "\n"; endif; endforeach; ?>
+                                                <?php echo ($pago_ss->getNextPage() == $pago_ss->getPage()) ? '<li class="disabled"><a onclick="javascript:void(0)"><i class="icon-double-angle-right"></i></a></li>' : '<li><a href="'.url_for('@pagos_vista?pagina='.$pago_ss->getNextPage()).'"><i class="icon-double-angle-right"></i></a></li>'; echo "\n"; ?>
+                                                <?php echo ($pago_ss->getPage() == $pago_ss->getLastPage()) ? '<li class="disabled"><a onclick="javascript:void(0)"><i class="icon-long-arrow-right"></i></a></li>' : '<li><a href="'.url_for('@pagos_vista?pagina='.$pago_ss->getLastPage()).'"><i class="icon-long-arrow-right"></i></a></li>'; echo "\n"; ?>
+                                                </ul><?php endif; echo "\n"; ?>
                                             </div>
                                         </div>
                                         <div id="profile3" class="tab-pane">

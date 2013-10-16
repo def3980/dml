@@ -1,0 +1,95 @@
+PAGOS:
+<?php 
+$pa = array(
+  array(
+      'pa_numero_factura' => '103-001-000226481',
+      'pa_fecha'          => '2013-10-15',
+      'pa_detalle'        => 'Desayuno',
+      'pa_iva'            => NULL,
+      'pa_ice'            => NULL,
+      'pa_comision'       => NULL,
+      'pa_valor_total'    => 14.55,
+      'pa_respaldo'       => NULL,
+      'persona_pe_id'     => 1,
+  ),
+  array(
+      'pa_numero_factura' => '103-001-000226482',
+      'pa_fecha'          => '2013-10-15',
+      'pa_detalle'        => 'Almuerzo',
+      'pa_iva'            => NULL,
+      'pa_ice'            => NULL,
+      'pa_comision'       => NULL,
+      'pa_valor_total'    => 10,
+      'pa_respaldo'       => NULL,
+      'persona_pe_id'     => 1,
+  ),
+  array(
+      'pa_numero_factura' => '103-001-000226483',
+      'pa_fecha'          => '2013-10-15',
+      'pa_detalle'        => 'Merienda',
+      'pa_iva'            => NULL,
+      'pa_ice'            => NULL,
+      'pa_comision'       => NULL,
+      'pa_valor_total'    => 25.75,
+      'pa_respaldo'       => NULL,
+      'persona_pe_id'     => 1,
+  ),
+  array(
+      'pa_numero_factura' => '103-001-000226484',
+      'pa_fecha'          => '2013-10-16',
+      'pa_detalle'        => 'Desayuno',
+      'pa_iva'            => NULL,
+      'pa_ice'            => NULL,
+      'pa_comision'       => NULL,
+      'pa_valor_total'    => 14.55,
+      'pa_respaldo'       => NULL,
+      'persona_pe_id'     => 1,
+  ),
+  array(
+      'pa_numero_factura' => '103-001-000226485',
+      'pa_fecha'          => '2013-10-16',
+      'pa_detalle'        => 'Almuerzo',
+      'pa_iva'            => NULL,
+      'pa_ice'            => NULL,
+      'pa_comision'       => NULL,
+      'pa_valor_total'    => 10,
+      'pa_respaldo'       => NULL,
+      'persona_pe_id'     => 1,
+  ),
+  array(
+      'pa_numero_factura' => '123-123-000000480',
+      'pa_fecha'          => '2013-10-16',
+      'pa_detalle'        => 'Medicinas para el Benjamín',
+      'pa_iva'            => NULL,
+      'pa_ice'            => NULL,
+      'pa_comision'       => NULL,
+      'pa_valor_total'    => 66.76,
+      'pa_respaldo'       => NULL,
+      'persona_pe_id'     => 1,
+  ),
+  array(
+      'pa_numero_factura' => '103-001-000226486',
+      'pa_fecha'          => '2013-10-16',
+      'pa_detalle'        => 'Merienda',
+      'pa_iva'            => NULL,
+      'pa_ice'            => NULL,
+      'pa_comision'       => NULL,
+      'pa_valor_total'    => 25.75,
+      'pa_respaldo'       => NULL,
+      'persona_pe_id'     => 1,
+  ),
+);
+?>
+<?php foreach ($pa as $k => $v): ?>
+  id_<?php echo $k ?>:
+    pa_numero_factura:  <?php echo $v['pa_numero_factura']."\n" ?>
+    pa_fecha: |
+                        <?php echo $v['pa_fecha']."\n" ?>
+    pa_detalle: |
+                        <?php echo $v['pa_detalle']."\n" ?>
+    pa_iva:             <?php echo $v['pa_iva']."\n" ?>
+    pa_ice:             <?php echo $v['pa_ice']."\n" ?>
+    pa_comision:        <?php echo $v['pa_comision']."\n" ?>
+    pa_valor_total:     <?php echo $v['pa_valor_total']."\n" ?>
+    persona_pe_id:      <?php echo $v['persona_pe_id']."\n" ?>
+<?php endforeach; ?>

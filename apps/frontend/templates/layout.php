@@ -20,7 +20,7 @@
 
             <!-- fonts -->
 
-            <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />
+            <link rel="stylesheet" href="<?php echo stylesheet_path('ace-fonts.css') ?>" />
 
             <!-- ace styles -->
 

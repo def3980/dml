@@ -270,7 +270,8 @@
                                                             <i class="icon-circle smaller-80 align-middle"></i>
                                                             online
                                                         </span>
-                                                    </h4>                                                    
+                                                    </h4>
+                                                    <button class="btn btn-white"><i class="icon-money"></i> Sumar</button>
                                                 </div><!-- /span -->
                                             </div>
                                             <div class="space-6"></div>
@@ -292,17 +293,37 @@
                                                     </tr><?php echo "\n"; endforeach; ?>
                                                 </tbody>
                                             </table>
-                                            <div><?php echo "\n"; if ($pago_ss->haveToPaginate()): ?>                                            
-                                                <ul class="pagination" style="margin: 0">
-                                                <?php echo ($pago_ss->getPage() == 1) ? '<li class="disabled"><a onclick="javascript:void(0)"><i class="icon-long-arrow-left"></i></a></li>' : '<li><a href="'.url_for('@pagos_vista?pagina='.$pago_ss->getFirstPage()).'"><i class="icon-long-arrow-left"></i></a></li>'."\n"; ?>
-                                                <?php echo ($pago_ss->getPreviousPage() == $pago_ss->getPage()) ? '<li class="disabled"><a onclick="javascript:void(0)"><i class="icon-double-angle-left"></i></a></li>' : '<li><a href="'.url_for('@pagos_vista?pagina='.$pago_ss->getPreviousPage()).'"><i class="icon-double-angle-left"></i></a></li>'; ?>
-                                                <?php echo "\n"; foreach ($pago_ss->getLinks() as $pag): if ($pag == $pago_ss->getPage()): ?>
-                                                <li class="active"><a onclick="javascript:void(0)"><?php echo $pag ?></a></li><?php echo "\n"; else: ?>
-                                                <li><a href="<?php echo url_for('@pagos_vista?pagina='.$pag) ?>"><?php echo $pag ?>
-                                                <?php echo "\n"; endif; endforeach; ?>
-                                                <?php echo ($pago_ss->getNextPage() == $pago_ss->getPage()) ? '<li class="disabled"><a onclick="javascript:void(0)"><i class="icon-double-angle-right"></i></a></li>' : '<li><a href="'.url_for('@pagos_vista?pagina='.$pago_ss->getNextPage()).'"><i class="icon-double-angle-right"></i></a></li>'; echo "\n"; ?>
-                                                <?php echo ($pago_ss->getPage() == $pago_ss->getLastPage()) ? '<li class="disabled"><a onclick="javascript:void(0)"><i class="icon-long-arrow-right"></i></a></li>' : '<li><a href="'.url_for('@pagos_vista?pagina='.$pago_ss->getLastPage()).'"><i class="icon-long-arrow-right"></i></a></li>'; echo "\n"; ?>
-                                                </ul><?php endif; echo "\n"; ?>
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-9">
+                                                    <div><?php echo "\n"; if ($pago_ss->haveToPaginate()): ?>                                            
+                                                        <ul class="pagination" style="margin: 0">
+                                                        <?php echo ($pago_ss->getPage() == 1) ? '<li class="disabled"><a onclick="javascript:void(0)"><i class="icon-long-arrow-left"></i></a></li>' : '<li><a href="'.url_for('@pagos_vista?pagina='.$pago_ss->getFirstPage()).'"><i class="icon-long-arrow-left"></i></a></li>'."\n"; ?>
+                                                        <?php echo ($pago_ss->getPreviousPage() == $pago_ss->getPage()) ? '<li class="disabled"><a onclick="javascript:void(0)"><i class="icon-double-angle-left"></i></a></li>' : '<li><a href="'.url_for('@pagos_vista?pagina='.$pago_ss->getPreviousPage()).'"><i class="icon-double-angle-left"></i></a></li>'; ?>
+                                                        <?php echo "\n"; foreach ($pago_ss->getLinks() as $pag): if ($pag == $pago_ss->getPage()): ?>
+                                                        <li class="active"><a onclick="javascript:void(0)"><?php echo $pag ?></a></li><?php echo "\n"; else: ?>
+                                                        <li><a href="<?php echo url_for('@pagos_vista?pagina='.$pag) ?>"><?php echo $pag ?>
+                                                        <?php echo "\n"; endif; endforeach; ?>
+                                                        <?php echo ($pago_ss->getNextPage() == $pago_ss->getPage()) ? '<li class="disabled"><a onclick="javascript:void(0)"><i class="icon-double-angle-right"></i></a></li>' : '<li><a href="'.url_for('@pagos_vista?pagina='.$pago_ss->getNextPage()).'"><i class="icon-double-angle-right"></i></a></li>'; echo "\n"; ?>
+                                                        <?php echo ($pago_ss->getPage() == $pago_ss->getLastPage()) ? '<li class="disabled"><a onclick="javascript:void(0)"><i class="icon-long-arrow-right"></i></a></li>' : '<li><a href="'.url_for('@pagos_vista?pagina='.$pago_ss->getLastPage()).'"><i class="icon-long-arrow-right"></i></a></li>'; echo "\n"; ?>
+                                                        </ul><?php endif; echo "\n"; ?>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-3">
+                                                    <div class="profile-user-info">
+                                                        <div class="profile-info-row">
+                                                            <div class="profile-info-name"> Vista actual </div>
+                                                            <div class="profile-info-value">
+                                                                <span><?php echo $pago_ss->getResults()->count() ?> registros</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="profile-info-row">
+                                                            <div class="profile-info-name"> Total resultados </div>
+                                                            <div class="profile-info-value">
+                                                                <span><?php echo $pago_ss->getNbResults() ?> registros</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div id="profile3" class="tab-pane">

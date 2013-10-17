@@ -11,3 +11,14 @@ function nowDateTime() {
         segundo = now.getSeconds()  <= 9 ? "0" + now.getSeconds()       : now.getSeconds();
     return anio + "-" + mes + "-" + dia + " " + hora + ":" + minuto + ":" + segundo;
 }
+
+/**
+ * UTILIZADO PARA MOSTRAR LA FECHA ACTUAL DEL SERVIDOR
+ */
+function nowDate() {
+    var now     = new Date(),
+        anio    = now.getFullYear(),
+        mes     = now.getMonth()    <= 9 ? "0" + (now.getMonth() + 1)   : now.getMonth() + 1,
+        dia     = now.getDate()     <= 9 ? "0" + now.getDate()          : now.getDate();
+    return anio + "-" + mes + "-" + dia;
+}

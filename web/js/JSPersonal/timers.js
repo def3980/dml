@@ -4,7 +4,7 @@
 function nowDateTime() {
     var now     = new Date(),
         anio    = now.getFullYear(),
-        mes     = now.getMonth()    <= 9 ? "0" + (now.getMonth() + 1)   : now.getMonth() + 1,
+        mes     = now.getMonth()    < 9  ? "0" + (now.getMonth() + 1)   : now.getMonth() + 1,
         dia     = now.getDate()     <= 9 ? "0" + now.getDate()          : now.getDate(),
         hora    = now.getHours()    <= 9 ? "0" + now.getHours()         : now.getHours(),
         minuto  = now.getMinutes()  <= 9 ? "0" + now.getMinutes()       : now.getMinutes(),
@@ -18,7 +18,7 @@ function nowDateTime() {
 function nowDate() {
     var now     = new Date(),
         anio    = now.getFullYear(),
-        mes     = now.getMonth()    <= 9 ? "0" + (now.getMonth() + 1)   : now.getMonth() + 1,
+        mes     = now.getMonth()    < 9  ? "0" + (now.getMonth() + 1)   : now.getMonth() + 1,
         dia     = now.getDate()     <= 9 ? "0" + now.getDate()          : now.getDate();
     return anio + "-" + mes + "-" + dia;
 }

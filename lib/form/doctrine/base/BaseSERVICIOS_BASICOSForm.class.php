@@ -20,9 +20,6 @@ abstract class BaseSERVICIOS_BASICOSForm extends BaseFormDoctrine
       'sb_entidad_alias' => new sfWidgetFormInputText(),
       'sb_direccion'     => new sfWidgetFormTextarea(),
       'sb_sitio_web'     => new sfWidgetFormInputText(),
-      'sb_tlf1'          => new sfWidgetFormInputText(),
-      'sb_tlf1_ext'      => new sfWidgetFormInputText(),
-      'sb_tlf2_ext'      => new sfWidgetFormInputText(),
     ));
 
     $this->setValidators(array(
@@ -31,9 +28,6 @@ abstract class BaseSERVICIOS_BASICOSForm extends BaseFormDoctrine
       'sb_entidad_alias' => new sfValidatorString(array('max_length' => 50, 'required' => false)),
       'sb_direccion'     => new sfValidatorString(array('required' => false)),
       'sb_sitio_web'     => new sfValidatorString(array('max_length' => 100, 'required' => false)),
-      'sb_tlf1'          => new sfValidatorString(array('max_length' => 9, 'required' => false)),
-      'sb_tlf1_ext'      => new sfValidatorString(array('max_length' => 5, 'required' => false)),
-      'sb_tlf2_ext'      => new sfValidatorString(array('max_length' => 5, 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('servicios_basicos[%s]');

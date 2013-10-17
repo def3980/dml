@@ -12,29 +12,23 @@ Doctrine_Manager::getInstance()->bindComponent('SERVICIOS_BASICOS', 'doctrine');
  * @property string $sb_entidad_alias
  * @property string $sb_direccion
  * @property string $sb_sitio_web
- * @property string $sb_tlf1
- * @property string $sb_tlf1_ext
- * @property string $sb_tlf2_ext
  * @property Doctrine_Collection $CONTRATAR_SB
+ * @property Doctrine_Collection $TELEFONOS
  * 
  * @method integer             getSbId()             Returns the current record's "sb_id" value
  * @method string              getSbEntidad()        Returns the current record's "sb_entidad" value
  * @method string              getSbEntidadAlias()   Returns the current record's "sb_entidad_alias" value
  * @method string              getSbDireccion()      Returns the current record's "sb_direccion" value
  * @method string              getSbSitioWeb()       Returns the current record's "sb_sitio_web" value
- * @method string              getSbTlf1()           Returns the current record's "sb_tlf1" value
- * @method string              getSbTlf1Ext()        Returns the current record's "sb_tlf1_ext" value
- * @method string              getSbTlf2Ext()        Returns the current record's "sb_tlf2_ext" value
  * @method Doctrine_Collection getCONTRATARSB()      Returns the current record's "CONTRATAR_SB" collection
+ * @method Doctrine_Collection getTELEFONOS()        Returns the current record's "TELEFONOS" collection
  * @method SERVICIOS_BASICOS   setSbId()             Sets the current record's "sb_id" value
  * @method SERVICIOS_BASICOS   setSbEntidad()        Sets the current record's "sb_entidad" value
  * @method SERVICIOS_BASICOS   setSbEntidadAlias()   Sets the current record's "sb_entidad_alias" value
  * @method SERVICIOS_BASICOS   setSbDireccion()      Sets the current record's "sb_direccion" value
  * @method SERVICIOS_BASICOS   setSbSitioWeb()       Sets the current record's "sb_sitio_web" value
- * @method SERVICIOS_BASICOS   setSbTlf1()           Sets the current record's "sb_tlf1" value
- * @method SERVICIOS_BASICOS   setSbTlf1Ext()        Sets the current record's "sb_tlf1_ext" value
- * @method SERVICIOS_BASICOS   setSbTlf2Ext()        Sets the current record's "sb_tlf2_ext" value
  * @method SERVICIOS_BASICOS   setCONTRATARSB()      Sets the current record's "CONTRATAR_SB" collection
+ * @method SERVICIOS_BASICOS   setTELEFONOS()        Sets the current record's "TELEFONOS" collection
  * 
  * @package    dml
  * @subpackage model
@@ -90,39 +84,16 @@ abstract class BaseSERVICIOS_BASICOS extends sfDoctrineRecord
              'autoincrement' => false,
              'length' => 100,
              ));
-        $this->hasColumn('sb_tlf1', 'string', 9, array(
-             'type' => 'string',
-             'fixed' => 1,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 9,
-             ));
-        $this->hasColumn('sb_tlf1_ext', 'string', 5, array(
-             'type' => 'string',
-             'fixed' => 1,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 5,
-             ));
-        $this->hasColumn('sb_tlf2_ext', 'string', 5, array(
-             'type' => 'string',
-             'fixed' => 1,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 5,
-             ));
     }
 
     public function setUp()
     {
         parent::setUp();
         $this->hasMany('CONTRATAR_SB', array(
+             'local' => 'sb_id',
+             'foreign' => 'servicios_basicos_sb_id'));
+
+        $this->hasMany('TELEFONOS', array(
              'local' => 'sb_id',
              'foreign' => 'servicios_basicos_sb_id'));
     }

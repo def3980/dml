@@ -236,29 +236,48 @@ SERVICIOS_BASICOS:
       primary: false
       notnull: false
       autoincrement: false
-    sb_tlf1:
+  relations:
+    CONTRATAR_SB:
+      local: sb_id
+      foreign: servicios_basicos_sb_id
+      type: many
+    TELEFONOS:
+      local: sb_id
+      foreign: servicios_basicos_sb_id
+      type: many
+TELEFONOS:
+  connection: doctrine
+  tableName: TELEFONOS
+  columns:
+    te_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    te_numero:
       type: string(9)
       fixed: true
       unsigned: false
       primary: false
       notnull: false
       autoincrement: false
-    sb_tlf1_ext:
+    te_ext:
       type: string(5)
       fixed: true
       unsigned: false
       primary: false
       notnull: false
       autoincrement: false
-    sb_tlf2_ext:
-      type: string(5)
-      fixed: true
+    servicios_basicos_sb_id:
+      type: integer(4)
+      fixed: false
       unsigned: false
       primary: false
-      notnull: false
+      notnull: true
       autoincrement: false
   relations:
-    CONTRATAR_SB:
-      local: sb_id
-      foreign: servicios_basicos_sb_id
-      type: many
+    SERVICIOS_BASICOS:
+      local: servicios_basicos_sb_id
+      foreign: sb_id
+      type: one

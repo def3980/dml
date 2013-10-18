@@ -1,3 +1,9 @@
+<?php use_javascript('JSPersonal/timers.js') ?>
+<?php use_javascript('JSPersonal/round.js') ?>
+<?php use_javascript('JSPersonal/dump.js') ?>
+<?php use_javascript('JSPersonal/validators.js') ?>
+<?php use_javascript('autoNumeric/autoNumeric.js') ?>
+<?php use_javascript('form/jquery.form.js') ?>
 <style>
     #tblAdm thead th:nth-child(1) {
         background-color: #fff; width: 15%
@@ -271,7 +277,7 @@
                                                             online
                                                         </span>
                                                     </h4>
-                                                    <button class="btn btn-white"><i class="icon-money"></i> Sumar</button>
+                                                    <a href="#modal-form" role="button" class="btn btn-white" data-toggle="modal"> <i class="icon-money"></i> Sumar </a>
                                                 </div><!-- /span -->
                                             </div>
                                             <div class="space-6"></div>
@@ -287,7 +293,7 @@
                                                 <tbody><?php echo "\n"; foreach($pago_ss->getResults() as $pagos): ?>
                                                     <tr>
                                                         <td><?php echo MyHelpers::opcion()->fechaEnEsp($pagos->getPaFecha(),false,true) ?></td>
-                                                        <td class="hidden-xs"><?php echo link_to($pagos->getPaDetalle(),'pagos/info?factura='.$pagos->getPaNumeroFactura().'.pdf',array('target' => '_blank')) ?></td>
+                                                        <td class="hidden-xs"><span data-rel="tooltip" title="<?php echo 'factura_'.$pagos->getPaNumeroFactura().'.pdf' ?>" data-original-title="<?php echo 'factura_'.$pagos->getPaNumeroFactura().'.pdf' ?>" data-placement="right"><?php echo link_to($pagos->getPaDetalle(),'pagos/info?factura='.$pagos->getPaNumeroFactura().'.pdf',array('target' => '_blank')) ?></span></td>
                                                         <td class="hidden-480"><?php echo $pagos->getPaIva() != NULL ? '$ '.MyHelpers::opcion()->dinero($pagos->getPaIva()) : '$ '.MyHelpers::opcion()->dinero(0) ?> | <?php echo $pagos->getPaIce() != NULL ? '$ '.MyHelpers::opcion()->dinero($pagos->getPaIce()) : '$ '.MyHelpers::opcion()->dinero(0) ?></td>
                                                         <td><?php echo '$ '.MyHelpers::opcion()->dinero($pagos->getPaValorTotal()) ?></td>
                                                     </tr><?php echo "\n"; endforeach; ?>
@@ -381,6 +387,13 @@
         <i class="icon-double-angle-up icon-only bigger-110"></i>
     </a>
 </div><!-- /.main-container -->
+<div id="modal-form" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="frm" class="modal-body overflow-visible" style="padding: 0"></div>
+        </div>
+    </div>
+</div><!-- PAGE CONTENT ENDS -->
 <script type="text/javascript">
     jQuery(function($) {
         /**
@@ -388,5 +401,7 @@
             console.log(e.target.getAttribute("href"));
         })
          */
+        $('#frm').load('<?php echo url_for('@pagos_nuevo') ?>');
+        $('[data-rel=tooltip]').tooltip();
     });
 </script>

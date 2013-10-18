@@ -79,6 +79,11 @@ class pagosActions extends sfActions
       $this->getResponse()->sendHttpHeaders();
       print $pdf['pa_respaldo'];
   }
+  
+  public function executeUpload(sfWebRequest $request)
+  {
+      
+  }
 
   protected function processFormSavePDF(sfWebRequest $request, sfForm $form) {
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));

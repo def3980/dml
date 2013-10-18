@@ -120,4 +120,18 @@ class MyHelpers {
     public function dinero($valor) {
         return number_format($valor,'2',',','.');
     }
+    
+    /**
+     * Usado para mostrar quitar el punto en un string numerico
+     */
+    public function quitarPunto($valor) {
+        return str_replace('.', '', $valor);
+    }
+    
+    /**
+     * Usado para mostrar reeemplazar la coma por el punto en un string numerico
+     */
+    public function reeemplazarComaXPunto($valor) {
+        return str_replace(',', '.', $valor);
+    }
 }

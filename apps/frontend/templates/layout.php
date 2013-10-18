@@ -17,6 +17,13 @@
             <![endif]-->
 
             <!-- page specific plugin styles -->
+            
+            <link rel="stylesheet" href="<?php echo stylesheet_path('jquery-ui-1.10.3.custom.min.css') ?>" />
+            <link rel="stylesheet" href="<?php echo stylesheet_path('chosen.css') ?>" />
+            <link rel="stylesheet" href="<?php echo stylesheet_path('datepicker.css') ?>" />
+            <link rel="stylesheet" href="<?php echo stylesheet_path('bootstrap-timepicker.css') ?>" />
+            <link rel="stylesheet" href="<?php echo stylesheet_path('daterangepicker.css') ?>" />
+            <link rel="stylesheet" href="<?php echo stylesheet_path('colorpicker.css') ?>" />
 
             <!-- fonts -->
 
@@ -93,11 +100,13 @@
             <script src="<?php echo javascript_path('bootstrap-wysiwyg.min.js') ?>"></script>
             <script src="<?php echo javascript_path('select2.min.js') ?>"></script>
             <script src="<?php echo javascript_path('date-time/bootstrap-datepicker.min.js') ?>"></script>
+            <script src="<?php echo javascript_path('date-time/locales/bootstrap-datepicker.es.js') ?>"></script>
             <script src="<?php echo javascript_path('fuelux/fuelux.spinner.min.js') ?>"></script>
             <script src="<?php echo javascript_path('x-editable/bootstrap-editable.min.js') ?>"></script>
             <script src="<?php echo javascript_path('x-editable/ace-editable.min.js') ?>"></script>
             <script src="<?php echo javascript_path('jquery.maskedinput.min.js') ?>"></script>
             <script src="<?php echo javascript_path('spin.min.js') ?>"></script>
+            <script src="<?php echo javascript_path('jquery.autosize.min.js') ?>"></script>
 
             <!-- ace scripts -->
 

@@ -43,3 +43,27 @@ function contador(obj,maxLen,objTxt) {
 function realLength(obj) {
     return obj.val().replace(/(\r\n|\n|\r)/g, "11").length;
 }
+
+/**
+ * VALIDADORES DE PUNTOS Y COMAS
+ */
+function reemplazarPunto(val){
+    str = val+"";
+    out = str.replace(/\./g,'');
+    return out;
+}
+function reemplazarComaXPunto(val){
+    str = val+"";
+    out = str.replace(/\,/g,'.');
+    return out;
+}
+function reemplazarPuntoXComa(val){
+    str = val+"";
+    out = str.replace(/\./g,',');
+    return out;
+}
+function quitarSignoDolar(val){
+    strLen = val.length;
+    out = val.substring(2,strLen);
+    return out;
+}

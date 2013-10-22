@@ -25,8 +25,8 @@ $pa = array(
   ),
   array(
       'pa_numero_factura' => '103-001-000226483',
-      'pa_fecha'          => '2013-10-15',
-      'pa_detalle'        => 'Merienda 19:30:10',
+      'pa_fecha'          => '2013-10-15 19:30:10',
+      'pa_detalle'        => 'Merienda',
       'pa_iva'            => NULL,
       'pa_ice'            => NULL,
       'pa_comision'       => NULL,

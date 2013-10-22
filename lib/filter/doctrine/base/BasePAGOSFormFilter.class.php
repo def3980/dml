@@ -26,7 +26,7 @@ abstract class BasePAGOSFormFilter extends BaseFormFilterDoctrine
 
     $this->setValidators(array(
       'pa_numero_factura' => new sfValidatorPass(array('required' => false)),
-      'pa_fecha'          => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDateTime(array('required' => false)))),
+      'pa_fecha'          => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
       'pa_detalle'        => new sfValidatorPass(array('required' => false)),
       'pa_iva'            => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
       'pa_ice'            => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),

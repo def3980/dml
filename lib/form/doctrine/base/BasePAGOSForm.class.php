@@ -17,7 +17,7 @@ abstract class BasePAGOSForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'pa_id'             => new sfWidgetFormInputHidden(),
       'pa_numero_factura' => new sfWidgetFormInputText(),
-      'pa_fecha'          => new sfWidgetFormDate(),
+      'pa_fecha'          => new sfWidgetFormDateTime(),
       'pa_detalle'        => new sfWidgetFormTextarea(),
       'pa_iva'            => new sfWidgetFormInputText(),
       'pa_ice'            => new sfWidgetFormInputText(),
@@ -30,7 +30,7 @@ abstract class BasePAGOSForm extends BaseFormDoctrine
     $this->setValidators(array(
       'pa_id'             => new sfValidatorChoice(array('choices' => array($this->getObject()->get('pa_id')), 'empty_value' => $this->getObject()->get('pa_id'), 'required' => false)),
       'pa_numero_factura' => new sfValidatorString(array('max_length' => 17, 'required' => false)),
-      'pa_fecha'          => new sfValidatorDate(array('required' => false)),
+      'pa_fecha'          => new sfValidatorDateTime(array('required' => false)),
       'pa_detalle'        => new sfValidatorString(array('required' => false)),
       'pa_iva'            => new sfValidatorNumber(array('required' => false)),
       'pa_ice'            => new sfValidatorNumber(array('required' => false)),

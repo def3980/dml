@@ -63,7 +63,7 @@ PAGOS:
       notnull: false
       autoincrement: false
     pa_fecha:
-      type: date(25)
+      type: timestamp(25)
       fixed: false
       unsigned: false
       primary: false

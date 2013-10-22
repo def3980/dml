@@ -9,7 +9,7 @@ Doctrine_Manager::getInstance()->bindComponent('PAGOS', 'doctrine');
  * 
  * @property integer $pa_id
  * @property string $pa_numero_factura
- * @property date $pa_fecha
+ * @property timestamp $pa_fecha
  * @property string $pa_detalle
  * @property decimal $pa_iva
  * @property decimal $pa_ice
@@ -19,28 +19,28 @@ Doctrine_Manager::getInstance()->bindComponent('PAGOS', 'doctrine');
  * @property integer $persona_pe_id
  * @property PERSONA $PERSONA
  * 
- * @method integer getPaId()              Returns the current record's "pa_id" value
- * @method string  getPaNumeroFactura()   Returns the current record's "pa_numero_factura" value
- * @method date    getPaFecha()           Returns the current record's "pa_fecha" value
- * @method string  getPaDetalle()         Returns the current record's "pa_detalle" value
- * @method decimal getPaIva()             Returns the current record's "pa_iva" value
- * @method decimal getPaIce()             Returns the current record's "pa_ice" value
- * @method decimal getPaComision()        Returns the current record's "pa_comision" value
- * @method decimal getPaValorTotal()      Returns the current record's "pa_valor_total" value
- * @method blob    getPaRespaldo()        Returns the current record's "pa_respaldo" value
- * @method integer getPersonaPeId()       Returns the current record's "persona_pe_id" value
- * @method PERSONA getPERSONA()           Returns the current record's "PERSONA" value
- * @method PAGOS   setPaId()              Sets the current record's "pa_id" value
- * @method PAGOS   setPaNumeroFactura()   Sets the current record's "pa_numero_factura" value
- * @method PAGOS   setPaFecha()           Sets the current record's "pa_fecha" value
- * @method PAGOS   setPaDetalle()         Sets the current record's "pa_detalle" value
- * @method PAGOS   setPaIva()             Sets the current record's "pa_iva" value
- * @method PAGOS   setPaIce()             Sets the current record's "pa_ice" value
- * @method PAGOS   setPaComision()        Sets the current record's "pa_comision" value
- * @method PAGOS   setPaValorTotal()      Sets the current record's "pa_valor_total" value
- * @method PAGOS   setPaRespaldo()        Sets the current record's "pa_respaldo" value
- * @method PAGOS   setPersonaPeId()       Sets the current record's "persona_pe_id" value
- * @method PAGOS   setPERSONA()           Sets the current record's "PERSONA" value
+ * @method integer   getPaId()              Returns the current record's "pa_id" value
+ * @method string    getPaNumeroFactura()   Returns the current record's "pa_numero_factura" value
+ * @method timestamp getPaFecha()           Returns the current record's "pa_fecha" value
+ * @method string    getPaDetalle()         Returns the current record's "pa_detalle" value
+ * @method decimal   getPaIva()             Returns the current record's "pa_iva" value
+ * @method decimal   getPaIce()             Returns the current record's "pa_ice" value
+ * @method decimal   getPaComision()        Returns the current record's "pa_comision" value
+ * @method decimal   getPaValorTotal()      Returns the current record's "pa_valor_total" value
+ * @method blob      getPaRespaldo()        Returns the current record's "pa_respaldo" value
+ * @method integer   getPersonaPeId()       Returns the current record's "persona_pe_id" value
+ * @method PERSONA   getPERSONA()           Returns the current record's "PERSONA" value
+ * @method PAGOS     setPaId()              Sets the current record's "pa_id" value
+ * @method PAGOS     setPaNumeroFactura()   Sets the current record's "pa_numero_factura" value
+ * @method PAGOS     setPaFecha()           Sets the current record's "pa_fecha" value
+ * @method PAGOS     setPaDetalle()         Sets the current record's "pa_detalle" value
+ * @method PAGOS     setPaIva()             Sets the current record's "pa_iva" value
+ * @method PAGOS     setPaIce()             Sets the current record's "pa_ice" value
+ * @method PAGOS     setPaComision()        Sets the current record's "pa_comision" value
+ * @method PAGOS     setPaValorTotal()      Sets the current record's "pa_valor_total" value
+ * @method PAGOS     setPaRespaldo()        Sets the current record's "pa_respaldo" value
+ * @method PAGOS     setPersonaPeId()       Sets the current record's "persona_pe_id" value
+ * @method PAGOS     setPERSONA()           Sets the current record's "PERSONA" value
  * 
  * @package    dml
  * @subpackage model
@@ -69,8 +69,8 @@ abstract class BasePAGOS extends sfDoctrineRecord
              'autoincrement' => false,
              'length' => 17,
              ));
-        $this->hasColumn('pa_fecha', 'date', 25, array(
-             'type' => 'date',
+        $this->hasColumn('pa_fecha', 'timestamp', 25, array(
+             'type' => 'timestamp',
              'fixed' => 0,
              'unsigned' => false,
              'primary' => false,

@@ -3,7 +3,7 @@ PAGOS:
 $pa = array(
   array(
       'pa_numero_factura' => '103-001-000226481',
-      'pa_fecha'          => '2013-10-15',
+      'pa_fecha'          => '2013-10-15 08:00:01',
       'pa_detalle'        => 'Desayuno',
       'pa_iva'            => NULL,
       'pa_ice'            => NULL,
@@ -14,7 +14,7 @@ $pa = array(
   ),
   array(
       'pa_numero_factura' => '103-001-000226482',
-      'pa_fecha'          => '2013-10-15',
+      'pa_fecha'          => '2013-10-15 14:01:22',
       'pa_detalle'        => 'Almuerzo',
       'pa_iva'            => NULL,
       'pa_ice'            => NULL,
@@ -26,7 +26,7 @@ $pa = array(
   array(
       'pa_numero_factura' => '103-001-000226483',
       'pa_fecha'          => '2013-10-15',
-      'pa_detalle'        => 'Merienda',
+      'pa_detalle'        => 'Merienda 19:30:10',
       'pa_iva'            => NULL,
       'pa_ice'            => NULL,
       'pa_comision'       => NULL,
@@ -36,7 +36,7 @@ $pa = array(
   ),
   array(
       'pa_numero_factura' => '103-001-000226484',
-      'pa_fecha'          => '2013-10-16',
+      'pa_fecha'          => '2013-10-16 07:30:21',
       'pa_detalle'        => 'Desayuno',
       'pa_iva'            => NULL,
       'pa_ice'            => NULL,
@@ -47,7 +47,7 @@ $pa = array(
   ),
   array(
       'pa_numero_factura' => '103-001-000226485',
-      'pa_fecha'          => '2013-10-16',
+      'pa_fecha'          => '2013-10-16 14:23:22',
       'pa_detalle'        => 'Almuerzo',
       'pa_iva'            => NULL,
       'pa_ice'            => NULL,
@@ -58,7 +58,7 @@ $pa = array(
   ),
   array(
       'pa_numero_factura' => '123-123-000000480',
-      'pa_fecha'          => '2013-10-16',
+      'pa_fecha'          => '2013-10-16 18:11:11',
       'pa_detalle'        => 'Medicinas para el Benjamín',
       'pa_iva'            => NULL,
       'pa_ice'            => NULL,
@@ -69,7 +69,7 @@ $pa = array(
   ),
   array(
       'pa_numero_factura' => '103-001-000226486',
-      'pa_fecha'          => '2013-10-16',
+      'pa_fecha'          => '2013-10-16 20:21:20',
       'pa_detalle'        => 'Merienda',
       'pa_iva'            => NULL,
       'pa_ice'            => NULL,

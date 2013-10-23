@@ -2,7 +2,7 @@
     <div class="widget-header">
         <h5>Ingresar un nuevo pago</h5>
         <span class="widget-toolbar">
-            <a href="#" data-action="close">
+            <a href="#" data-dismiss="modal" aria-hidden="true">
                 <i class="icon-remove"></i>
             </a>
         </span>
@@ -32,11 +32,48 @@
                         <div class="form-group">
                             <?php echo $form['pa_fecha']->renderLabel() ?>
                             <div class="input-group">
-                                <?php echo $form['pa_fecha']->render(array('class' => 'form-control date-picker', 'data-date-format' => 'yyyy-mm-dd', 'readonly' => true)) ?>
+                                <?php //echo $form['pa_fecha']->render(array('class' => 'form-control date-picker', 'data-date-format' => 'yyyy-mm-dd', 'readonly' => true)) ?>
+                                <input type="text" name="pa_fecha" class="form-control date-picker" data-date-format="yyyy-mm-dd" readonly="1" id="pa_fecha">
                                 <span class="input-group-addon">
                                     <i class="icon-calendar"></i>
                                 </span>
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6"></div>
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="input-group bootstrap-timepicker">
+                            <div class="bootstrap-timepicker-widget dropdown-menu">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td><a href="#" data-action="incrementHour"><i class="icon-chevron-up"></i></a></td>
+                                            <td class="separator">&nbsp;</td>
+                                            <td><a href="#" data-action="incrementMinute"><i class="icon-chevron-up"></i></a></td>
+                                            <td class="separator">&nbsp;</td>
+                                            <td><a href="#" data-action="incrementSecond"><i class="icon-chevron-up"></i></a></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="text" name="hour" class="bootstrap-timepicker-hour" maxlength="2"></td>
+                                            <td class="separator">:</td>
+                                            <td><input type="text" name="minute" class="bootstrap-timepicker-minute" maxlength="2"></td>
+                                            <td class="separator">:</td>
+                                            <td><input type="text" name="second" class="bootstrap-timepicker-second" maxlength="2"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="#" data-action="decrementHour"><i class="icon-chevron-down"></i></a></td>
+                                            <td class="separator"></td>
+                                            <td><a href="#" data-action="decrementMinute"><i class="icon-chevron-down"></i></a></td>
+                                            <td class="separator">&nbsp;</td>
+                                            <td><a href="#" data-action="decrementSecond"><i class="icon-chevron-down"></i></a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <input id="timepicker1" type="text" class="form-control" readonly="true">
+                            <span class="input-group-addon">
+                                <i class="icon-time bigger-110"></i>
+                            </span>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12">
@@ -116,7 +153,7 @@
                 <div class="row" style="margin: 0 auto">
                     <div class="col-xs-12 col-sm-6">
                         <div class="form-group" style="text-align: right">
-                            <button id="cancelar" class="btn btn-sm btn-danger">Cancelar</button>
+                            <button id="cancelar" class="btn btn-sm btn-danger" data-dismiss="modal" aria-hidden="true">Cancelar</button>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6">
@@ -124,22 +161,28 @@
                             <button class="btn btn-sm btn-primary">Guardar</button>
                         </div>
                     </div>
-                </div><?php echo $form->renderGlobalErrors() ?><?php echo $form->renderHiddenFields(false) ?>
+                </div>
+                    <?php echo $form->renderGlobalErrors() ?><?php echo $form->renderHiddenFields(false) ?>
             </form>
         </div>
-    </div>
+        </div>
 </div>
 
 <script type="text/javascript">
     jQuery(function($) {
         $('.date-picker')
             .val(nowDate())
-                .datepicker({ autoclose:true, language:'es' })
+                .datepicker({ autoclose:true, language:'es', startDate:'-15d', endDate:'-1d' })
                     .next()
                         .on(ace.click_event, function(){
                             $(this).prev().focus();
                         });
-        $('textarea[class*=autosize]').autosize({ append: "\n" });
+        $('#timepicker1').timepicker({
+            minuteStep  : 1,
+            showSeconds : true,
+            showMeridian: false
+        }).next().on(ace.click_event, function(){ $(this).prev().focus(); });
+        $('textarea[class*=autosize]').autosize({ append: "\n" });        
         $('#pagos_pa_respaldo').ace_file_input({
             no_file         : 'Sin archivo ...',
             btn_choose      : 'Escoger',
@@ -173,12 +216,12 @@
                 return true;
             }
         });
-        $('.ace-file-input').css({'margin':0, 'padding':0});
+//        $('.ace-file-input').css({'margin':0, 'padding':0});
         $('#pagos_pa_numero_factura').mask('999-999-999999999');
-        $('#pagos_pa_valor_total, '
-            +'#pagos_pa_comision, '
-                +'#pagos_pa_ice, '
-                    +'#pagos_pa_iva').autoNumeric('init');
+        $('#pa_valor_total, '
+            +'#pa_comision, '
+                +'#pa_ice, '
+                    +'#pa_iva').autoNumeric('init');
         $('#iva,#iva input,#ice,#ice input[type="text"]').css('cursor', 'pointer');
         $('#iva').css('cursor', 'pointer').bind('click',function(){
             if ($('#pagos_pa_valor_total').val().length) {        
@@ -206,30 +249,47 @@
         $('#pa_valor_total').keyup(function(){
             $('#pagos_pa_valor_total').val(reemplazarComaXPunto(reemplazarPunto($(this).val())));
         });
-        $('#frm_pa').ajaxForm({
-            dataType    : 'json',
-            beforeSubmit: validate,
-            success     : showResponse
+        $('#pagos_pa_fecha').val($('#pa_fecha').val() + ' ' +$('#timepicker1').val());
+        $('#pa_fecha,#timepicker1').change(function(){
+            $('#pagos_pa_fecha').val($('#pa_fecha').val() + ' ' +$('#timepicker1').val());
         });
+        $('#cancelar').bind('click', function(e){ e.preventDefault(); });
+        $('#frm_pa button:last').bind('click', function(){
+            if ($('#pagos_pa_numero_factura').val().length < 3) {
+                validador($('#pagos_pa_numero_factura'),"Logitud insuficiente",$('.msj-pa_numero_factura'));
+                return false;
+            } else if ($('#pagos_pa_detalle').val().length < 3) {
+                validador($('#pagos_pa_detalle'),"Logitud insuficiente",$('.msj-pa_detalle'));
+                return false;
+            } else if ($('#pa_valor_total').val().length < 1) {
+                validador($('#pa_valor_total'),"Vacío",$('.msj-pa_valor_total'));
+                return false;
+            }
+        });
+//        $('#frm_pa').ajaxForm({
+//            dataType    : 'json',
+//            beforeSubmit: validate,
+//            success     : showResponse
+//        });
     });
-    function validate(formData, jqForm, options) {
-        if ($('#pagos_pa_numero_factura').val().length < 3) {
-            validador($('#pagos_pa_numero_factura'),"Logitud insuficiente",$('.msj-pa_numero_factura'));
-            return false;
-        } else if ($('#pagos_pa_detalle').val().length < 3) {
-            validador($('#pagos_pa_detalle'),"Logitud insuficiente",$('.msj-pa_detalle'));
-            return false;
-        } else if ($('#pa_valor_total').val().length < 3) {
-            validador($('#pa_valor_total'),"Vacío",$('.msj-pa_valor_total'));
-            return false;
-        }
-    }
-    function showResponse(responseText, statusText, xhr, $form) {
-        if (responseText.pa_numero_factura.length) {
-            location.href = "<?php echo url_for('@pagos_vista') ?>";
-        } else {
-            alert('Algo pasoo...');
-        }
-//        var_dump(responseText);
-    }
+//    function validate(formData, jqForm, options) {
+//        if ($('#pagos_pa_numero_factura').val().length < 3) {
+//            validador($('#pagos_pa_numero_factura'),"Logitud insuficiente",$('.msj-pa_numero_factura'));
+//            return false;
+//        } else if ($('#pagos_pa_detalle').val().length < 3) {
+//            validador($('#pagos_pa_detalle'),"Logitud insuficiente",$('.msj-pa_detalle'));
+//            return false;
+//        } else if ($('#pa_valor_total').val().length < 1) {
+//            validador($('#pa_valor_total'),"Vacío",$('.msj-pa_valor_total'));
+//            return false;
+//        }
+//    }
+//    function showResponse(responseText, statusText, xhr, $form) {
+////        if (responseText.pa_numero_factura.length) {
+//            location.href = "<?php echo url_for('@pagos_vista') ?>";
+////        } else {
+////            alert('Algo pasoo...');
+////        }
+////        var_dump(responseText);
+//    }
 </script>

@@ -1,29 +1,26 @@
+<?php use_javascript('form/jquery.form.js') ?>
 <?php use_javascript('JSPersonal/timers.js') ?>
 <?php use_javascript('JSPersonal/round.js') ?>
 <?php use_javascript('JSPersonal/dump.js') ?>
 <?php use_javascript('JSPersonal/validators.js') ?>
 <?php use_javascript('autoNumeric/autoNumeric.js') ?>
-<?php use_javascript('form/jquery.form.js') ?>
 <style>
     #tblAdm thead th:nth-child(1) {
         background-color: #fff; width: 15%
     }
     #tblAdm thead th:nth-child(2) {
-        background-color: #fff; width: 49%
+        background-color: #fff; width: 67%
     }
-    #tblAdm thead th:nth-child(3),
-    #tblAdm thead th:nth-child(4) {
+    #tblAdm thead th:nth-child(3) {
         background-color: #fff; width: 18%
     }
     #tblAdm thead th:nth-child(1),
     #tblAdm thead th:nth-child(2),
     #tblAdm thead th:nth-child(3),
-    #tblAdm thead th:nth-child(4),
-    #tblAdm tbody td:nth-child(1),
-    #tblAdm tbody td:nth-child(3) {
+    #tblAdm tbody td:nth-child(1) {
         text-align: center;
     }
-    #tblAdm tbody td:nth-child(4){
+    #tblAdm tbody td:nth-child(3) {
         text-align: right;
     }
 </style>
@@ -286,16 +283,20 @@
                                                     <tr>
                                                         <th class="center">Fecha</th>
                                                         <th class="hidden-xs">Descripci&oacute;n</th>
-                                                        <th class="hidden-480">IVA | ICE</th>
                                                         <th>Total</th>
                                                     </tr>
-                                                </thead>
-                                                <tbody><?php echo "\n"; foreach($pago_ss->getResults() as $pagos): ?>
-                                                    <tr>
-                                                        <td><?php echo MyHelpers::opcion()->fechaEnEsp($pagos->getPaFecha(),false,true) ?></td>
-                                                        <td class="hidden-xs"><span data-rel="tooltip" title="<?php echo 'factura_'.$pagos->getPaNumeroFactura().'.pdf' ?>" data-original-title="<?php echo 'factura_'.$pagos->getPaNumeroFactura().'.pdf' ?>" data-placement="right"><?php echo link_to($pagos->getPaDetalle(),'pagos/info?factura='.$pagos->getPaNumeroFactura().'.pdf',array('target' => '_blank')) ?></span></td>
-                                                        <td class="hidden-480"><?php echo $pagos->getPaIva() != NULL ? '$ '.MyHelpers::opcion()->dinero($pagos->getPaIva()) : '$ '.MyHelpers::opcion()->dinero(0) ?> | <?php echo $pagos->getPaIce() != NULL ? '$ '.MyHelpers::opcion()->dinero($pagos->getPaIce()) : '$ '.MyHelpers::opcion()->dinero(0) ?></td>
-                                                        <td><?php echo '$ '.MyHelpers::opcion()->dinero($pagos->getPaValorTotal()) ?></td>
+                                                </thead><?php $arr = array(); foreach ($pago_ss->getResults() as $v): $tmp = explode(' ', $v['pa_fecha']); $arr[] = $tmp[0]; endforeach; $fechas = array_count_values($arr); // encuentro el numero de fecha repetidas ?>
+                                                <tbody><?php echo "\n"; $cont = 0; foreach ($pago_ss->getResults() as $pagos): $cont++;  $tmp = explode(' ', $pagos['pa_fecha']); ?>
+                                                    <tr><?php switch ($cont): 
+                                                                case 1: ?>
+                                                        <td rowspan="<?php echo $fechas[$tmp[0]] ?>"><?php echo MyHelpers::opcion()->fechaEnEsp($pagos->getPaFecha(),false,true) ?></td>
+                                                        <td class="hidden-xs"><i class="icon-double-angle-right"></i> <span data-rel="tooltip" title="<?php echo 'factura_'.$pagos->getPaNumeroFactura().'.pdf' ?>" data-original-title="<?php echo 'factura_'.$pagos->getPaNumeroFactura().'.pdf' ?>" data-placement="right"><?php echo link_to($pagos->getPaDetalle(),'pagos/info?factura='.$pagos->getPaNumeroFactura().'.pdf',array('target' => '_blank')) ?></span></td>                                                        
+                                                        <td><span class="text-danger"><?php echo '$ '.MyHelpers::opcion()->dinero($pagos->getPaValorTotal()) ?></span></td>
+                                                        <?php   if ($fechas[$tmp[0]] == $cont) $cont = 0; break; ?>
+                                                        <?php   case ($cont): ?>
+                                                        <td class="hidden-xs" style="text-align: left"><i class="icon-double-angle-right"></i> <span data-rel="tooltip" title="<?php echo 'factura_'.$pagos->getPaNumeroFactura().'.pdf' ?>" data-original-title="<?php echo 'factura_'.$pagos->getPaNumeroFactura().'.pdf' ?>" data-placement="right"><?php echo link_to($pagos->getPaDetalle(),'pagos/info?factura='.$pagos->getPaNumeroFactura().'.pdf',array('target' => '_blank')) ?></span></td>
+                                                        <td style="text-align: right"><span class="text-danger"><?php echo '$ '.MyHelpers::opcion()->dinero($pagos->getPaValorTotal()) ?></span></td>                                                        
+                                                        <?php   if ($fechas[$tmp[0]] == $cont) $cont = 0; break; endswitch; ?>
                                                     </tr><?php echo "\n"; endforeach; ?>
                                                 </tbody>
                                             </table>
@@ -311,26 +312,43 @@
                                                         <?php echo "\n"; endif; endforeach; ?>
                                                         <?php echo ($pago_ss->getNextPage() == $pago_ss->getPage()) ? '<li class="disabled"><a onclick="javascript:void(0)"><i class="icon-double-angle-right"></i></a></li>' : '<li><a href="'.url_for('@pagos_vista?pagina='.$pago_ss->getNextPage()).'"><i class="icon-double-angle-right"></i></a></li>'; echo "\n"; ?>
                                                         <?php echo ($pago_ss->getPage() == $pago_ss->getLastPage()) ? '<li class="disabled"><a onclick="javascript:void(0)"><i class="icon-long-arrow-right"></i></a></li>' : '<li><a href="'.url_for('@pagos_vista?pagina='.$pago_ss->getLastPage()).'"><i class="icon-long-arrow-right"></i></a></li>'; echo "\n"; ?>
-                                                        </ul><?php endif; echo "\n"; ?>
+                                                        </ul><?php else: ?>
+                                                        <ul class="pagination" style="margin: 0">
+                                                            <li class="disabled"><a onclick="javascript:void(0)"><i class="icon-long-arrow-left"></i></a></li>
+                                                            <li class="disabled"><a onclick="javascript:void(0)"><i class="icon-double-angle-left"></i></a></li>
+                                                            <li class="active"><a onclick="javascript:void(0)">1</a></li>
+                                                            <li class="disabled"><a onclick="javascript:void(0)"><i class="icon-double-angle-right"></i></a></li>
+                                                            <li class="disabled"><a onclick="javascript:void(0)"><i class="icon-long-arrow-right"></i></a></li>
+                                                        </ul>
+                                                        <?php endif; echo "\n"; ?>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-12 col-sm-3">
                                                     <div class="profile-user-info">
                                                         <div class="profile-info-row">
-                                                            <div class="profile-info-name"> Vista actual </div>
+                                                            <div class="profile-info-name"> Vista </div>
                                                             <div class="profile-info-value">
                                                                 <span><?php echo $pago_ss->getResults()->count() ?> registros</span>
                                                             </div>
                                                         </div>
                                                         <div class="profile-info-row">
-                                                            <div class="profile-info-name"> Total resultados </div>
+                                                            <div class="profile-info-name"> Total </div>
                                                             <div class="profile-info-value">
-                                                                <span><?php echo $pago_ss->getNbResults() ?> registros</span>
+                                                                <span><?php echo $pago_ss->getNbResults() ?> resultados</span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <pre>
+<?php
+echo PAGOSTable::getInstance()
+        ->createQuery('pa')
+            ->addSelect('sum(pa.pa_valor_total) as vt')
+            ->where('pa.pa_detalle LIKE "%desayuno%" ')
+                ->getSqlQuery();
+?>
+                                            </pre>
                                         </div>
                                         <div id="profile3" class="tab-pane">
                                             <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>

@@ -100,6 +100,7 @@
             <script src="<?php echo javascript_path('bootstrap-wysiwyg.min.js') ?>"></script>
             <script src="<?php echo javascript_path('select2.min.js') ?>"></script>
             <script src="<?php echo javascript_path('date-time/bootstrap-datepicker.min.js') ?>"></script>
+            <script src="<?php echo javascript_path('date-time/bootstrap-timepicker.min.js') ?>"></script>
             <script src="<?php echo javascript_path('date-time/locales/bootstrap-datepicker.es.js') ?>"></script>
             <script src="<?php echo javascript_path('fuelux/fuelux.spinner.min.js') ?>"></script>
             <script src="<?php echo javascript_path('x-editable/bootstrap-editable.min.js') ?>"></script>

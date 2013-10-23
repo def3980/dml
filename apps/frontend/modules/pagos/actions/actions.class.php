@@ -33,8 +33,7 @@ class pagosActions extends sfActions
     $this->form = new PAGOSForm();
 
     if ($this->processFormSavePDF($request, $this->form))
-        $this->array = $this->form->getValues();
-
+        $this->redirect('pagos/index');
 //    $this->setTemplate('new');
   }
 
@@ -89,7 +88,7 @@ class pagosActions extends sfActions
         foreach ($form->getValues() as $k => $v)
             if ($k != 'pa_id' || $k != 'pa_respaldo')
                 $pagos[$k] = $v;
-        $pagos->setPaRespaldo(file_get_contents($pdf['pa_respaldo']['tmp_name']));
+        $pagos->setPaRespaldo($pdf['pa_respaldo']['error'] > 0 ? NULL : file_get_contents($pdf['pa_respaldo']['tmp_name']));
         $pagos->save();
         $bool = true;
     endif;
@@ -105,7 +104,7 @@ class pagosActions extends sfActions
         foreach ($form->getValues() as $k => $v)
             if ($k != 'pa_respaldo')
                 $up->set('pa.'.$k.'', '?', array($v));
-        $up->set('pa.pa_respaldo', '?', array($pdf['pa_respaldo']['error'] ? NULL : file_get_contents($pdf['pa_respaldo']['tmp_name'])));
+        $up->set('pa.pa_respaldo', '?', array($pdf['pa_respaldo']['error'] > 0 ? NULL : file_get_contents($pdf['pa_respaldo']['tmp_name'])));
         $up->where('pa.pa_id = ?', array($request->getParameter('pa_id')))->execute();
         $bool = true;
     endif;

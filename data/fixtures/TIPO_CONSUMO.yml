@@ -1,0 +1,13 @@
+TIPO_CONSUMO:
+<?php 
+$tc = array(
+  array('tc_nombre' => 'Servicios Básicos'),
+  array('tc_nombre' => 'Medicinas'),
+  array('tc_nombre' => 'Comida'),
+  array('tc_nombre' => 'Varios'),
+);
+?>
+<?php foreach ($tc as $k => $v): ?>
+  id_<?php echo $k ?>:
+    tc_nombre:  <?php echo $v['tc_nombre']."\n" ?>
+<?php endforeach; ?>

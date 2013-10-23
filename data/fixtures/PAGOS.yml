@@ -11,6 +11,7 @@ $pa = array(
       'pa_valor_total'    => 14.55,
       'pa_respaldo'       => NULL,
       'persona_pe_id'     => 1,
+      'tipo_consumo_tc_id'=> 3,
   ),
   array(
       'pa_numero_factura' => '103-001-000226482',
@@ -22,6 +23,7 @@ $pa = array(
       'pa_valor_total'    => 10,
       'pa_respaldo'       => NULL,
       'persona_pe_id'     => 1,
+      'tipo_consumo_tc_id'=> 3,
   ),
   array(
       'pa_numero_factura' => '103-001-000226483',
@@ -33,6 +35,7 @@ $pa = array(
       'pa_valor_total'    => 25.75,
       'pa_respaldo'       => NULL,
       'persona_pe_id'     => 1,
+      'tipo_consumo_tc_id'=> 3,
   ),
   array(
       'pa_numero_factura' => '103-001-000226484',
@@ -44,6 +47,7 @@ $pa = array(
       'pa_valor_total'    => 14.55,
       'pa_respaldo'       => NULL,
       'persona_pe_id'     => 1,
+      'tipo_consumo_tc_id'=> 3,
   ),
   array(
       'pa_numero_factura' => '103-001-000226485',
@@ -55,6 +59,7 @@ $pa = array(
       'pa_valor_total'    => 10,
       'pa_respaldo'       => NULL,
       'persona_pe_id'     => 1,
+      'tipo_consumo_tc_id'=> 3,
   ),
   array(
       'pa_numero_factura' => '123-123-000000480',
@@ -66,6 +71,7 @@ $pa = array(
       'pa_valor_total'    => 66.76,
       'pa_respaldo'       => NULL,
       'persona_pe_id'     => 1,
+      'tipo_consumo_tc_id'=> 2,
   ),
   array(
       'pa_numero_factura' => '103-001-000226486',
@@ -77,6 +83,31 @@ $pa = array(
       'pa_valor_total'    => 25.75,
       'pa_respaldo'       => NULL,
       'persona_pe_id'     => 1,
+      'tipo_consumo_tc_id'=> 3,
+  ),
+  array(
+      'pa_numero_factura' => '103-001-232226486',
+      'pa_fecha'          => '2013-10-23 19:08:11',
+      'pa_detalle'        => 'Pago de consulta pediatrica para Benjamín',
+      'pa_iva'            => NULL,
+      'pa_ice'            => NULL,
+      'pa_comision'       => NULL,
+      'pa_valor_total'    => 40,
+      'pa_respaldo'       => NULL,
+      'persona_pe_id'     => 1,
+      'tipo_consumo_tc_id'=> 2,
+  ),
+  array(
+      'pa_numero_factura' => '103-001-131226486',
+      'pa_fecha'          => '2013-10-23 19:45:23',
+      'pa_detalle'        => 'Pago receta médica para Benjamín',
+      'pa_iva'            => NULL,
+      'pa_ice'            => NULL,
+      'pa_comision'       => NULL,
+      'pa_valor_total'    => 37.45,
+      'pa_respaldo'       => NULL,
+      'persona_pe_id'     => 1,
+      'tipo_consumo_tc_id'=> 2,
   ),
 );
 ?>
@@ -92,4 +123,5 @@ $pa = array(
     pa_comision:        <?php echo $v['pa_comision']."\n" ?>
     pa_valor_total:     <?php echo $v['pa_valor_total']."\n" ?>
     persona_pe_id:      <?php echo $v['persona_pe_id']."\n" ?>
+    tipo_consumo_tc_id: <?php echo $v['tipo_consumo_tc_id']."\n" ?>
 <?php endforeach; ?>

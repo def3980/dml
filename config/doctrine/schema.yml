@@ -118,10 +118,21 @@ PAGOS:
       primary: false
       notnull: true
       autoincrement: false
+    tipo_consumo_tc_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
   relations:
     PERSONA:
       local: persona_pe_id
       foreign: pe_id
+      type: one
+    TIPO_CONSUMO:
+      local: tipo_consumo_tc_id
+      foreign: tc_id
       type: one
 PERSONA:
   connection: doctrine
@@ -281,3 +292,25 @@ TELEFONOS:
       local: servicios_basicos_sb_id
       foreign: sb_id
       type: one
+TIPO_CONSUMO:
+  connection: doctrine
+  tableName: TIPO_CONSUMO
+  columns:
+    tc_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    tc_nombre:
+      type: string(100)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+  relations:
+    PAGOS:
+      local: tc_id
+      foreign: tipo_consumo_tc_id
+      type: many

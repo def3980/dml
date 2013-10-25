@@ -40,8 +40,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-6"></div>
                     <div class="col-xs-12 col-sm-6">
+                        <?php echo $form['tipo_consumo_tc_id']->renderLabel() ?>
+                        <br />
+                        <?php echo $form['tipo_consumo_tc_id']->render(array('class' => 'width-110 chosen-select', 'data-placeholder' => 'Escoger')) ?>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <label for="hora">Hora :</label>
+                        <br />
                         <div class="input-group bootstrap-timepicker">
                             <div class="bootstrap-timepicker-widget dropdown-menu">
                                 <table>
@@ -76,6 +82,8 @@
                             </span>
                         </div>
                     </div>
+                </div>
+                <div class="row" style="margin: 10px auto">
                     <div class="col-xs-12 col-sm-12">
                         <div class="form-group">
                             <?php echo $form['pa_detalle']->renderLabel() ?>
@@ -266,8 +274,11 @@
                 return false;
             }
         });
+        $(".chosen-select").chosen();
+        $('#pagos_tipo_consumo_tc_id').next('div:first').css({'width':'100%'});
 //        $('#frm_pa').ajaxForm({
 //            dataType    : 'json',
+        
 //            beforeSubmit: validate,
 //            success     : showResponse
 //        });

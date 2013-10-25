@@ -95,7 +95,11 @@
             <script src="<?php echo javascript_path('jquery.gritter.min.js') ?>"></script>
             <script src="<?php echo javascript_path('bootbox.min.js') ?>"></script>
             <script src="<?php echo javascript_path('jquery.slimscroll.min.js') ?>"></script>
+            <script src="<?php echo javascript_path('jquery.sparkline.min.js') ?>"></script>
             <script src="<?php echo javascript_path('jquery.easy-pie-chart.min.js') ?>"></script>
+            <script src="<?php echo javascript_path('flot/jquery.flot.min.js') ?>"></script>
+            <script src="<?php echo javascript_path('flot/jquery.flot.pie.min.js') ?>"></script>
+            <script src="<?php echo javascript_path('flot/jquery.flot.resize.min.js') ?>"></script>
             <script src="<?php echo javascript_path('jquery.hotkeys.min.js') ?>"></script>
             <script src="<?php echo javascript_path('bootstrap-wysiwyg.min.js') ?>"></script>
             <script src="<?php echo javascript_path('select2.min.js') ?>"></script>
@@ -108,6 +112,7 @@
             <script src="<?php echo javascript_path('jquery.maskedinput.min.js') ?>"></script>
             <script src="<?php echo javascript_path('spin.min.js') ?>"></script>
             <script src="<?php echo javascript_path('jquery.autosize.min.js') ?>"></script>
+            <script src="<?php echo javascript_path('chosen.jquery.min.js') ?>"></script>
 
             <!-- ace scripts -->
 

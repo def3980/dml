@@ -12,11 +12,31 @@ class pagosActions extends sfActions
 {
   public function executeIndex(sfWebRequest $request)
   {
-    $sql = PAGOSTable::getInstance()->createQuery('pa')->orderBy('pa.pa_fecha DESC');
+    $sql = PAGOSTable::getInstance()
+            ->createQuery('pa')
+                ->innerJoin('pa.TIPO_CONSUMO tc')
+                    ->where('MONTH(pa.pa_fecha) = MONTH(CURDATE())')
+                        ->orderBy('pa.pa_fecha DESC');
     $this->pago_ss = new sfDoctrinePager('PAGOS',sfConfig::get('app_maxperpage'));
     $this->pago_ss->setQuery($sql);
     $this->pago_ss->setPage($request->getParameter('pagina',1));
     $this->pago_ss->init();
+    $this->sb = PAGOSTable::consumoMensual('Servicios')
+                    ->fetchOne(array(), Doctrine::HYDRATE_ARRAY_SHALLOW);
+    $this->me = PAGOSTable::consumoMensual('Medicina')
+                    ->fetchOne(array(), Doctrine::HYDRATE_ARRAY_SHALLOW);
+    $this->co = PAGOSTable::consumoMensual('Comida')
+                    ->fetchOne(array(), Doctrine::HYDRATE_ARRAY_SHALLOW);
+    $this->va = PAGOSTable::consumoMensual('Varios')
+                    ->fetchOne(array(), Doctrine::HYDRATE_ARRAY_SHALLOW);
+    $this->tm = INGRESO_MONETARIOTable::getInstance()
+                    ->createQuery('im')
+                        ->addSelect('SUM(im.im_valor) as vt')
+                            ->where('MONTH(im.im_fecha) = MONTH(CURDATE())')
+                                ->fetchOne(array(), Doctrine::HYDRATE_ARRAY_SHALLOW);
+    $this->ingreso_monetario = INGRESO_MONETARIOTable::getInstance()
+                                ->createQuery('im')
+                                    ->where('MONTH(im.im_fecha) = MONTH(CURDATE())');
   }
 
   public function executeNew(sfWebRequest $request)
@@ -24,6 +44,7 @@ class pagosActions extends sfActions
     $this->form = new PAGOSForm();
 //    $this->form->setDefault('persona_pe_id',$this->getUser()->getAttribute('pe_id'));
     $this->form->setDefault('persona_pe_id',1);
+    $this->form->setDefault('tipo_consumo_tc_id',2);
   }
 
   public function executeCreate(sfWebRequest $request)

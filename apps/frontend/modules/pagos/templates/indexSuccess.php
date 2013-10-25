@@ -6,21 +6,25 @@
 <?php use_javascript('autoNumeric/autoNumeric.js') ?>
 <style>
     #tblAdm thead th:nth-child(1) {
-        background-color: #fff; width: 15%
+        background-color: #fff; width: 4%
     }
     #tblAdm thead th:nth-child(2) {
-        background-color: #fff; width: 67%
+        background-color: #fff; width: 13%
     }
     #tblAdm thead th:nth-child(3) {
+        background-color: #fff; width: 65%
+    }
+    #tblAdm thead th:nth-child(4) {
         background-color: #fff; width: 18%
     }
     #tblAdm thead th:nth-child(1),
     #tblAdm thead th:nth-child(2),
-    #tblAdm thead th:nth-child(3),
-    #tblAdm tbody td:nth-child(1) {
+    #tblAdm thead th:nth-child(4),
+    #tblAdm tbody td:nth-child(1),
+    #tblAdm tbody td:nth-child(2) {
         text-align: center;
     }
-    #tblAdm tbody td:nth-child(3) {
+    #tblAdm tbody td:nth-child(4) {
         text-align: right;
     }
 </style>
@@ -266,7 +270,7 @@
                                                         <?php echo image_tag('avatars/profile-pic.jpg', array('id' => 'miAvatar', 'class' => 'editable img-responsive', 'alt' => 'Alex\'s Avatar')) ?>
                                                     </span>
                                                 </div><!-- /span -->
-                                                <div class="col-xs-12 col-sm-11">
+                                                <div class="col-xs-12 col-sm-6">
                                                     <h4 class="blue">
                                                         <span class="middle">Alex M. Doe</span>
                                                         <span class="label label-purple arrowed-in-right">
@@ -275,26 +279,57 @@
                                                         </span>
                                                     </h4>
                                                     <a href="#modal-form" role="button" class="btn btn-white" data-toggle="modal"> <i class="icon-money"></i> Sumar </a>
+                                                    <span class="miSpan">Aqui</span>
+                                                </div><!-- /span -->
+                                                <div class="col-xs-12 col-sm-5">
+                                                    <div class="widget-box">
+                                                        <div class="widget-header widget-header-flat widget-header-small">
+                                                            <h5><i class="icon-signal"></i> Gr&aacute;fico Consumo</h5>
+                                                            <div class="widget-toolbar no-border">
+                                                                <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                                    Ingreso mensual: <?php echo $tm['vt'] ?> <i class="icon-angle-down icon-on-right bigger-110"></i>
+                                                                </button>
+                                                                <ul class="dropdown-menu pull-right dropdown-125 dropdown-lighter dropdown-caret">
+                                                                    <?php foreach ($ingreso_monetario->fetchArray() as $k => $im): ?>
+                                                                    <li<?php echo $k == 0 ? ' class="active"' : '' ?>>
+                                                                        <a href="#"<?php echo $k == 0 ? ' class="blue"' : '' ?>>
+                                                                            <i class="icon-caret-right bigger-110<?php echo $k == 0 ? ' class="invisible"' : '' ?>">&nbsp;</i>
+                                                                            <?php echo '$ '.MyHelpers::opcion()->dinero($im['im_valor']) ?>
+                                                                        </a>
+                                                                    </li>
+                                                                    <?php endforeach; ?>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <div class="widget-body">
+                                                            <div class="widget-main">
+                                                                <div id="piechart-placeholder"></div>
+                                                            </div><!-- /widget-main -->
+                                                        </div><!-- /widget-body -->
+                                                    </div>
                                                 </div><!-- /span -->
                                             </div>
                                             <div class="space-6"></div>
                                             <table id="tblAdm" class="table table-striped table-bordered table-condensed">
                                                 <thead>
                                                     <tr>
+                                                        <th class="center">E</th>
                                                         <th class="center">Fecha</th>
                                                         <th class="hidden-xs">Descripci&oacute;n</th>
                                                         <th>Total</th>
                                                     </tr>
                                                 </thead><?php $arr = array(); foreach ($pago_ss->getResults() as $v): $tmp = explode(' ', $v['pa_fecha']); $arr[] = $tmp[0]; endforeach; $fechas = array_count_values($arr); // encuentro el numero de fecha repetidas ?>
                                                 <tbody><?php echo "\n"; $cont = 0; foreach ($pago_ss->getResults() as $pagos): $cont++;  $tmp = explode(' ', $pagos['pa_fecha']); ?>
-                                                    <tr><?php switch ($cont): 
+                                                    <tr>
+                                                        <td><input name="form-field-checkbox" type="checkbox" class="ace" /></td>
+                                                        <?php switch ($cont): 
                                                                 case 1: ?>
                                                         <td rowspan="<?php echo $fechas[$tmp[0]] ?>"><?php echo MyHelpers::opcion()->fechaEnEsp($pagos->getPaFecha(),false,true) ?></td>
-                                                        <td class="hidden-xs"><i class="icon-double-angle-right"></i> <span data-rel="tooltip" title="<?php echo 'factura_'.$pagos->getPaNumeroFactura().'.pdf' ?>" data-original-title="<?php echo 'factura_'.$pagos->getPaNumeroFactura().'.pdf' ?>" data-placement="right"><?php echo link_to($pagos->getPaDetalle(),'pagos/info?factura='.$pagos->getPaNumeroFactura().'.pdf',array('target' => '_blank')) ?></span></td>                                                        
+                                                        <td class="hidden-xs"><i class="icon-double-angle-right"></i> <span data-rel="tooltip" title="<?php echo 'factura_'.$pagos->getPaNumeroFactura().'.pdf' ?>" data-original-title="<?php echo 'factura_'.$pagos->getPaNumeroFactura().'.pdf' ?>" data-placement="right"><?php echo link_to($pagos->getPaDetalle(),'pagos/info?factura='.$pagos->getPaNumeroFactura().'.pdf',array('target' => '_blank')) ?></span><sup><?php echo $pagos['TIPO_CONSUMO']['tc_alias'] ?></sup></td>
                                                         <td><span class="text-danger"><?php echo '$ '.MyHelpers::opcion()->dinero($pagos->getPaValorTotal()) ?></span></td>
                                                         <?php   if ($fechas[$tmp[0]] == $cont) $cont = 0; break; ?>
                                                         <?php   case ($cont): ?>
-                                                        <td class="hidden-xs" style="text-align: left"><i class="icon-double-angle-right"></i> <span data-rel="tooltip" title="<?php echo 'factura_'.$pagos->getPaNumeroFactura().'.pdf' ?>" data-original-title="<?php echo 'factura_'.$pagos->getPaNumeroFactura().'.pdf' ?>" data-placement="right"><?php echo link_to($pagos->getPaDetalle(),'pagos/info?factura='.$pagos->getPaNumeroFactura().'.pdf',array('target' => '_blank')) ?></span></td>
+                                                        <td class="hidden-xs" style="text-align: left"><i class="icon-double-angle-right"></i> <span data-rel="tooltip" title="<?php echo 'factura_'.$pagos->getPaNumeroFactura().'.pdf' ?>" data-original-title="<?php echo 'factura_'.$pagos->getPaNumeroFactura().'.pdf' ?>" data-placement="right"><?php echo link_to($pagos->getPaDetalle(),'pagos/info?factura='.$pagos->getPaNumeroFactura().'.pdf',array('target' => '_blank')) ?></span><sup><?php echo $pagos['TIPO_CONSUMO']['tc_alias'] ?></sup></td>
                                                         <td style="text-align: right"><span class="text-danger"><?php echo '$ '.MyHelpers::opcion()->dinero($pagos->getPaValorTotal()) ?></span></td>                                                        
                                                         <?php   if ($fechas[$tmp[0]] == $cont) $cont = 0; break; endswitch; ?>
                                                     </tr><?php echo "\n"; endforeach; ?>
@@ -340,15 +375,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <pre>
-<?php
-echo PAGOSTable::getInstance()
-        ->createQuery('pa')
-            ->addSelect('sum(pa.pa_valor_total) as vt')
-            ->where('pa.pa_detalle LIKE "%desayuno%" ')
-                ->getSqlQuery();
-?>
-                                            </pre>
                                         </div>
                                         <div id="profile3" class="tab-pane">
                                             <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
@@ -419,7 +445,95 @@ echo PAGOSTable::getInstance()
             console.log(e.target.getAttribute("href"));
         })
          */
-        $('#frm').load('<?php echo url_for('@pagos_nuevo') ?>');
+        $('#frm').load('<?php echo url_for('@pagos_nuevo') ?>');        
         $('[data-rel=tooltip]').tooltip();
+        <?php 
+            $cien = $tm['vt'] - ($sb['vt'] != NULL ? $sb['vt'] : 0) - ($me['vt'] != NULL ? $me['vt'] : 0) - ($co['vt'] != NULL ? $co['vt'] : 0) - ($va['vt'] != NULL ? $va['vt'] : 0);
+            $di = ($cien * 100) / $tm['vt'];
+            $col1 = ($sb['vt'] * 100) / $tm['vt'];
+            $col2 = ($me['vt'] * 100) / $tm['vt'];
+            $col3 = ($co['vt'] * 100) / $tm['vt'];
+            $col4 = ($va['vt'] * 100) / $tm['vt'];
+        ?>
+        var placeholder = $('#piechart-placeholder').css({'width':'55%', 'min-height':'110px', 'margin':'0 auto'});
+        var data = [
+        <?php echo $sb['vt'] != NULL ? '{ label: "Servicios Básicos", data: '.round($col1,2).',  color: "#68BC31", total: '.$sb['vt'].'},'."\n" : '' ?>
+        <?php echo $me['vt'] != NULL ? '{ label: "Medicinas",         data: '.round($col2,2).',  color: "#2091CF", total: '.$me['vt'].'},'."\n\t" : '' ?>
+        <?php echo $co['vt'] != NULL ? '{ label: "Comida",            data: '.round($col3,2).',  color: "#AF4E96", total: '.$co['vt'].'},'."\n\t" : '' ?>
+        <?php echo $va['vt'] != NULL ? '{ label: "Varios",            data: '.round($col4,2).',  color: "#DA5430", total: '.$va['vt'].'},'."\n\t" : '' ?>
+<?php echo '{ label: "Disponible",        data: '.round($di,2).',  color: "gold", total: '.$cien.' },'."\n" ?>
+            ];
+            var data2 = new Array();
+        <?php echo $sb['vt'] != NULL ? "data2['Servicios Básicos'] = '".MyHelpers::opcion()->dinero($sb['vt'])."';\n" : "" ?>
+        <?php echo $me['vt'] != NULL ? "data2['Medicinas'] = '".MyHelpers::opcion()->dinero($me['vt'])."';\n\t" : "" ?>
+        <?php echo $co['vt'] != NULL ? "data2['Comida'] = '".MyHelpers::opcion()->dinero($co['vt'])."';\n" : "" ?>
+        <?php echo $va['vt'] != NULL ? "data2['Varios'] = '".MyHelpers::opcion()->dinero($va['vt'])."';\n" : "" ?>
+        <?php echo "data2['Disponible'] = '".MyHelpers::opcion()->dinero($cien)."'" ?>;
+        function drawPieChart(placeholder, data, position) {
+            $.plot(placeholder, data, {
+                series: {
+                    pie: {
+                        show:   true,
+                        tilt:   0.8,
+                        highlight: { opacity: 0.25 },
+                        stroke: {
+                            color: '#fff',
+                            width: 2
+                        },
+                        startAngle: 2
+                    }
+                },
+                legend: {
+                    show:                   true,
+                    position:               position || "ne", 
+                    labelBoxBorderColor:    null,
+                    margin:                 [-30,15]
+                },
+                grid: {
+                    hoverable: true,
+                    clickable: true
+                }
+            })
+        }
+        drawPieChart(placeholder, data);
+
+        /**
+        we saved the drawing function and the data to redraw with different position later when switching to RTL mode dynamically
+        so that's not needed actually.
+        */
+        placeholder.data('chart', data);
+        placeholder.data('draw', drawPieChart);
+        $('#piechart-placeholder div div:first, '
+            +'#piechart-placeholder table:first').css({'top':'-1px'});
+        $(window).resize(function() {
+            if ($(window).width() == 1280) {
+                $('#piechart-placeholder div div:first, '
+                    +'#piechart-placeholder table:first').css({'top':'-1px'});
+            } else if ($(window).width() < 1280) {
+                $('#piechart-placeholder').css({
+                    'margin':'0', 'width':'70%'
+                });
+                $('#piechart-placeholder div div:first, '
+                    +'#piechart-placeholder table:first').css({'top':'-5px'});
+            }
+//alert($(window).width()+' px');
+        });
+        
+        var $tooltip = $("<div class='tooltip top in'><div class='tooltip-inner'></div></div>").hide().appendTo('body');
+        var previousPoint = null;
+
+        placeholder.on('plothover', function (event, pos, item) {
+            if(item) {
+                if (previousPoint != item.seriesIndex) {
+                    previousPoint = item.seriesIndex;
+                    var tip = item.series['label'] + " : " + item.series['percent'] + '% | $ ' + data2[item.series['label']];
+                    $tooltip.show().children(0).text(tip);
+                }
+                $tooltip.css({top:pos.pageY + 10, left:pos.pageX + 10});
+            } else {
+                $tooltip.hide();
+                previousPoint = null;
+            }
+        });
     });
 </script>

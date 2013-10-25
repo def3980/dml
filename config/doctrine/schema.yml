@@ -45,6 +45,182 @@ CONTRATAR_SB:
       local: servicios_basicos_sb_id
       foreign: sb_id
       type: one
+CONTRATO_IP:
+  connection: doctrine
+  tableName: CONTRATO_IP
+  columns:
+    cip_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    cip_fecha_ingreso:
+      type: date(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    cip_fecha_salida:
+      type: date(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    cip_motivos_salida:
+      type: string()
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    cip_actividad_desarrollada:
+      type: string(100)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    cip_activo:
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    institucion_publica_ip_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    remuneracion_re_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    persona_pe_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    INSTITUCION_PUBLICA:
+      local: institucion_publica_ip_id
+      foreign: ip_id
+      type: one
+    REMUNERACION:
+      local: remuneracion_re_id
+      foreign: re_id
+      type: one
+    PERSONA:
+      local: persona_pe_id
+      foreign: pe_id
+      type: one
+    RESPALDO_CONTRATOS:
+      local: cip_id
+      foreign: contrato_ip_cip_id
+      type: many
+INGRESO_MONETARIO:
+  connection: doctrine
+  tableName: INGRESO_MONETARIO
+  columns:
+    im_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    im_fecha:
+      type: date(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    im_razon:
+      type: string()
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    im_valor:
+      type: 'decimal(10, 2)'
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    persona_pe_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    PERSONA:
+      local: persona_pe_id
+      foreign: pe_id
+      type: one
+INSTITUCION_PUBLICA:
+  connection: doctrine
+  tableName: INSTITUCION_PUBLICA
+  columns:
+    ip_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    ip_nombre:
+      type: string(100)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    ip_alias:
+      type: string(7)
+      fixed: true
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    ip_direccion:
+      type: string()
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    ip_tlf:
+      type: string(9)
+      fixed: true
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    ip_sitio_web:
+      type: string(100)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+  relations:
+    CONTRATO_IP:
+      local: ip_id
+      foreign: institucion_publica_ip_id
+      type: many
 PAGOS:
   connection: doctrine
   tableName: PAGOS
@@ -205,10 +381,83 @@ PERSONA:
       local: pe_id
       foreign: persona_pe_id
       type: many
+    CONTRATO_IP:
+      local: pe_id
+      foreign: persona_pe_id
+      type: many
+    INGRESO_MONETARIO:
+      local: pe_id
+      foreign: persona_pe_id
+      type: many
     PAGOS:
       local: pe_id
       foreign: persona_pe_id
       type: many
+REMUNERACION:
+  connection: doctrine
+  tableName: REMUNERACION
+  columns:
+    re_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    re_nombre:
+      type: string(100)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    re_alias:
+      type: string(7)
+      fixed: true
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    re_valor:
+      type: 'decimal(10, 2)'
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+  relations:
+    CONTRATO_IP:
+      local: re_id
+      foreign: remuneracion_re_id
+      type: many
+RESPALDO_CONTRATOS:
+  connection: doctrine
+  tableName: RESPALDO_CONTRATOS
+  columns:
+    rc_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    rc_pdf:
+      type: blob()
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    contrato_ip_cip_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    CONTRATO_IP:
+      local: contrato_ip_cip_id
+      foreign: cip_id
+      type: one
 SERVICIOS_BASICOS:
   connection: doctrine
   tableName: SERVICIOS_BASICOS
@@ -305,6 +554,13 @@ TIPO_CONSUMO:
     tc_nombre:
       type: string(100)
       fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    tc_alias:
+      type: string(2)
+      fixed: true
       unsigned: false
       primary: false
       notnull: false

@@ -17,6 +17,8 @@ Doctrine_Manager::getInstance()->bindComponent('PERSONA', 'doctrine');
  * @property string $pe_usr
  * @property string $pe_pwd
  * @property Doctrine_Collection $CONTRATAR_SB
+ * @property Doctrine_Collection $CONTRATO_IP
+ * @property Doctrine_Collection $INGRESO_MONETARIO
  * @property Doctrine_Collection $PAGOS
  * 
  * @method integer             getPeId()                Returns the current record's "pe_id" value
@@ -29,6 +31,8 @@ Doctrine_Manager::getInstance()->bindComponent('PERSONA', 'doctrine');
  * @method string              getPeUsr()               Returns the current record's "pe_usr" value
  * @method string              getPePwd()               Returns the current record's "pe_pwd" value
  * @method Doctrine_Collection getCONTRATARSB()         Returns the current record's "CONTRATAR_SB" collection
+ * @method Doctrine_Collection getCONTRATOIP()          Returns the current record's "CONTRATO_IP" collection
+ * @method Doctrine_Collection getINGRESOMONETARIO()    Returns the current record's "INGRESO_MONETARIO" collection
  * @method Doctrine_Collection getPAGOS()               Returns the current record's "PAGOS" collection
  * @method PERSONA             setPeId()                Sets the current record's "pe_id" value
  * @method PERSONA             setPeCedula()            Sets the current record's "pe_cedula" value
@@ -40,6 +44,8 @@ Doctrine_Manager::getInstance()->bindComponent('PERSONA', 'doctrine');
  * @method PERSONA             setPeUsr()               Sets the current record's "pe_usr" value
  * @method PERSONA             setPePwd()               Sets the current record's "pe_pwd" value
  * @method PERSONA             setCONTRATARSB()         Sets the current record's "CONTRATAR_SB" collection
+ * @method PERSONA             setCONTRATOIP()          Sets the current record's "CONTRATO_IP" collection
+ * @method PERSONA             setINGRESOMONETARIO()    Sets the current record's "INGRESO_MONETARIO" collection
  * @method PERSONA             setPAGOS()               Sets the current record's "PAGOS" collection
  * 
  * @package    dml
@@ -138,6 +144,14 @@ abstract class BasePERSONA extends sfDoctrineRecord
     {
         parent::setUp();
         $this->hasMany('CONTRATAR_SB', array(
+             'local' => 'pe_id',
+             'foreign' => 'persona_pe_id'));
+
+        $this->hasMany('CONTRATO_IP', array(
+             'local' => 'pe_id',
+             'foreign' => 'persona_pe_id'));
+
+        $this->hasMany('INGRESO_MONETARIO', array(
              'local' => 'pe_id',
              'foreign' => 'persona_pe_id'));
 

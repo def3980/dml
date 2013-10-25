@@ -14,10 +14,12 @@ abstract class BaseTIPO_CONSUMOFormFilter extends BaseFormFilterDoctrine
   {
     $this->setWidgets(array(
       'tc_nombre' => new sfWidgetFormFilterInput(),
+      'tc_alias'  => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
       'tc_nombre' => new sfValidatorPass(array('required' => false)),
+      'tc_alias'  => new sfValidatorPass(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('tipo_consumo_filters[%s]');
@@ -39,6 +41,7 @@ abstract class BaseTIPO_CONSUMOFormFilter extends BaseFormFilterDoctrine
     return array(
       'tc_id'     => 'Number',
       'tc_nombre' => 'Text',
+      'tc_alias'  => 'Text',
     );
   }
 }

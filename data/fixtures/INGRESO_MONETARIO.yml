@@ -1,0 +1,37 @@
+INGRESO_MONETARIO:
+<?php 
+$im = array(
+  array(
+      'im_fecha'      => '2013-10-01',
+      'im_razon'      => 'Sueldo Septiembre 2013',
+      'im_valor'      => 724.27,
+      'persona_pe_id' => 1,
+  ),
+  array(
+      'im_fecha'      => '2013-10-01',
+      'im_razon'      => 'Horas Extras Septiembre 2013',
+      'im_valor'      => 67.52,
+      'persona_pe_id' => 1,
+  ),
+  array(
+      'im_fecha'      => '2013-10-03',
+      'im_razon'      => 'Viaticos 2 Agosto 2013',
+      'im_valor'      => 264.50,
+      'persona_pe_id' => 1,
+  ),
+  array(
+      'im_fecha'      => '2013-10-18',
+      'im_razon'      => 'Viaticos 3 Agosto 2013',
+      'im_valor'      => 272,
+      'persona_pe_id' => 1,
+  ),
+);
+?>
+<?php foreach ($im as $k => $v): ?>
+  id_<?php echo $k ?>:
+    im_fecha:  |
+                    <?php echo $v['im_fecha']."\n" ?>
+    im_razon:       <?php echo $v['im_razon']."\n" ?>
+    im_valor:       <?php echo $v['im_valor']."\n" ?>
+    persona_pe_id:  <?php echo $v['persona_pe_id']."\n" ?>
+<?php endforeach; ?>

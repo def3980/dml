@@ -1,0 +1,111 @@
+REMUNERACION:
+<?php 
+$re = array(
+  array(
+      're_nombre' => 'SERVIDOR PÚBLICO DE SERVICIO 1',
+      're_alias'  => 'SPS1',
+      're_valor'  => 527,
+  ),
+  array(
+      're_nombre' => 'SERVIDOR PÚBLICO DE SERVICIO 2',
+      're_alias'  => 'SPS2',
+      're_valor'  => 553,
+  ),
+  array(
+      're_nombre' => 'SERVIDOR PÚBLICO DE APOYO 1',
+      're_alias'  => 'SPA1',
+      're_valor'  => 585,
+  ),
+  array(
+      're_nombre' => 'SERVIDOR PÚBLICO DE APOYO 2',
+      're_alias'  => 'SPA2',
+      're_valor'  => 622,
+  ),
+  array(
+      're_nombre' => 'SERVIDOR PÚBLICO DE APOYO 3',
+      're_alias'  => 'SPA3',
+      're_valor'  => 675,
+  ),
+  array(
+      're_nombre' => 'SERVIDOR PÚBLICO DE APOYO 4',
+      're_alias'  => 'SPA4',
+      're_valor'  => 733,
+  ),
+  array(
+      're_nombre' => 'SERVIDOR PÚBLICO 1',
+      're_alias'  => 'SP1',
+      're_valor'  => 817,
+  ),
+  array(
+      're_nombre' => 'SERVIDOR PÚBLICO 2',
+      're_alias'  => 'SP2',
+      're_valor'  => 901,
+  ),
+  array(
+      're_nombre' => 'SERVIDOR PÚBLICO 3',
+      're_alias'  => 'SP3',
+      're_valor'  => 986,
+  ),
+  array(
+      're_nombre' => 'SERVIDOR PÚBLICO 4',
+      're_alias'  => 'SP4',
+      're_valor'  => 1086,
+  ),
+  array(
+      're_nombre' => 'SERVIDOR PÚBLICO 5',
+      're_alias'  => 'SP5',
+      're_valor'  => 1212,
+  ),
+  array(
+      're_nombre' => 'SERVIDOR PÚBLICO 6',
+      're_alias'  => 'SP6',
+      're_valor'  => 1412,
+  ),
+  array(
+      're_nombre' => 'SERVIDOR PÚBLICO 7',
+      're_alias'  => 'SP7',
+      're_valor'  => 1676,
+  ),
+  array(
+      're_nombre' => 'SERVIDOR PÚBLICO 8',
+      're_alias'  => 'SP8',
+      're_valor'  => 1760,
+  ),
+  array(
+      're_nombre' => 'SERVIDOR PÚBLICO 9',
+      're_alias'  => 'SP9',
+      're_valor'  => 2034,
+  ),
+  array(
+      're_nombre' => 'SERVIDOR PÚBLICO 10',
+      're_alias'  => 'SP10',
+      're_valor'  => 2308,
+  ),
+  array(
+      're_nombre' => 'SERVIDOR PÚBLICO 11',
+      're_alias'  => 'SP11',
+      're_valor'  => 2472,
+  ),
+  array(
+      're_nombre' => 'SERVIDOR PÚBLICO 12',
+      're_alias'  => 'SP12',
+      're_valor'  => 2641,
+  ),
+  array(
+      're_nombre' => 'SERVIDOR PÚBLICO 13',
+      're_alias'  => 'SP13',
+      're_valor'  => 2967,
+  ),
+  array(
+      're_nombre' => 'SERVIDOR PÚBLICO 14',
+      're_alias'  => 'SP14',
+      're_valor'  => 3542,
+  ),
+);
+?>
+<?php foreach ($re as $k => $v): ?>
+  id_<?php echo $k ?>:
+    re_nombre:  <?php echo $v['re_nombre']."\n" ?>
+    re_alias:   <?php echo $v['re_alias']."\n" ?>
+    re_valor:   <?php echo $v['re_valor']."\n" ?>
+<?php endforeach; ?>

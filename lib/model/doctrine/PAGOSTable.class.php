@@ -16,4 +16,17 @@ class PAGOSTable extends Doctrine_Table
     {
         return Doctrine_Core::getTable('PAGOS');
     }
+    
+    public static function EntidadPAGOS() {
+        return PAGOSTable::getInstance()
+                ->createQuery('pa');
+    }
+    
+    public static function consumoMensual($data) {
+        return PAGOSTable::EntidadPAGOS()
+                ->innerJoin('pa.TIPO_CONSUMO tc')
+                    ->addSelect('SUM(pa.pa_valor_total) as vt')
+                        ->where('MONTH(pa.pa_fecha) = MONTH(CURDATE())')
+                            ->andWhere('tc.tc_nombre LIKE ?',array('%'.$data.'%'));
+    }
 }

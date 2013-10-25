@@ -9,13 +9,16 @@ Doctrine_Manager::getInstance()->bindComponent('TIPO_CONSUMO', 'doctrine');
  * 
  * @property integer $tc_id
  * @property string $tc_nombre
+ * @property string $tc_alias
  * @property Doctrine_Collection $PAGOS
  * 
  * @method integer             getTcId()      Returns the current record's "tc_id" value
  * @method string              getTcNombre()  Returns the current record's "tc_nombre" value
+ * @method string              getTcAlias()   Returns the current record's "tc_alias" value
  * @method Doctrine_Collection getPAGOS()     Returns the current record's "PAGOS" collection
  * @method TIPO_CONSUMO        setTcId()      Sets the current record's "tc_id" value
  * @method TIPO_CONSUMO        setTcNombre()  Sets the current record's "tc_nombre" value
+ * @method TIPO_CONSUMO        setTcAlias()   Sets the current record's "tc_alias" value
  * @method TIPO_CONSUMO        setPAGOS()     Sets the current record's "PAGOS" collection
  * 
  * @package    dml
@@ -44,6 +47,15 @@ abstract class BaseTIPO_CONSUMO extends sfDoctrineRecord
              'notnull' => false,
              'autoincrement' => false,
              'length' => 100,
+             ));
+        $this->hasColumn('tc_alias', 'string', 2, array(
+             'type' => 'string',
+             'fixed' => 1,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
+             'length' => 2,
              ));
     }
 

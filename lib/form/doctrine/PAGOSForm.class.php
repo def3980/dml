@@ -13,7 +13,7 @@ class PAGOSForm extends BasePAGOSForm
   public function configure()
   {
     $this->widgetSchema->setLabels(array(
-        'pa_numero_factura' => '# Factura : <sup style="color:#dd5a43">*</sup> <small class="msj-pa_numero_factura" style="display: none; color:#dd5a43; font-size: 10px;"></small>',
+        'pa_numero_factura' => '# Factura : <!--<sup style="color:#dd5a43">*</sup> <small class="msj-pa_numero_factura" style="display: none; color:#dd5a43; font-size: 10px;"></small>-->',
         'pa_detalle'        => 'Descripción del gasto : <sup style="color:#dd5a43">*</sup> <small class="msj-pa_detalle" style="display: none; color:#dd5a43; font-size: 10px;"></small>',
     ));
     $this->widgetSchema['pa_fecha']         = new sfWidgetFormInputHidden();

@@ -142,6 +142,7 @@
                     </div>
                     <div class="col-xs-12 col-sm-12">
                         <?php echo $form['pa_respaldo']->renderLabel() ?>
+                        <?php echo (!$form->getObject()->isNew() ? (count($form['pa_respaldo']->getValue()) ? (count($form['pa_numero_factura']->getValue()) ? '<i class="icon-file bigger-120"></i> factura_'.$form['pa_numero_factura']->getValue().'.pdf' : '<i class="icon-file bigger-120"></i> referencia_'.$form['pa_id']->getValue().'.pdf') : '') : '') ?>
                         <div><?php echo $form['pa_respaldo']->render(array('style' => 'margin: 0; padding: 0;')) ?></div>
                         <div class="row">
                             <div class="col-xs-12 col-sm-6">
@@ -173,14 +174,14 @@
                     <?php echo $form->renderGlobalErrors() ?><?php echo $form->renderHiddenFields(false) ?>
             </form>
         </div>
-        </div>
+    </div>
 </div>
 
 <script type="text/javascript">
     jQuery(function($) {
         $('.date-picker')
-            .val(nowDate())
-                .datepicker({ autoclose:true, language:'es', startDate:'-15d', endDate:'-1d' })
+            .val(<?php echo (!$form->getObject()->isNew()) ? '"'.MyHelpers::opcion()->verSoloFecha($form['pa_fecha']->getValue()).'"' : 'nowDate()' ?>)
+                .datepicker({ autoclose:true, language:'es'/*, startDate:'-15d', endDate:'-1d'*/ })
                     .next()
                         .on(ace.click_event, function(){
                             $(this).prev().focus();
@@ -188,7 +189,7 @@
         $('#timepicker1').timepicker({
             minuteStep  : 1,
             showSeconds : true,
-            showMeridian: false
+            showMeridian: false<?php echo (!$form->getObject()->isNew()) ? ",\n\t    defaultTime : '".MyHelpers::opcion()->verHoraMinSeg($form['pa_fecha']->getValue())."'\n" : "\n" ?>
         }).next().on(ace.click_event, function(){ $(this).prev().focus(); });
         $('textarea[class*=autosize]').autosize({ append: "\n" });        
         $('#pagos_pa_respaldo').ace_file_input({
@@ -229,7 +230,7 @@
         $('#pa_valor_total, '
             +'#pa_comision, '
                 +'#pa_ice, '
-                    +'#pa_iva').autoNumeric('init');
+                    +'#pa_iva').autoNumeric('init',{aPad:false});
         $('#iva,#iva input,#ice,#ice input[type="text"]').css('cursor', 'pointer');
         $('#iva').css('cursor', 'pointer').bind('click',function(){
             if ($('#pagos_pa_valor_total').val().length) {        
@@ -244,7 +245,11 @@
                 $('#pa_ice').val(reemplazarPuntoXComa(round(vi - (vi / 1.15), 2)));
                 $('#pagos_pa_ice').val(round(vi - (vi / 1.15), 2));
             }
-        });
+        });<?php echo (!$form->getObject()->isNew()) ? $form['pa_iva']->getValue() != NULL ? "\n\t$('#pa_iva').autoNumeric('set',".$form['pa_iva']->getValue().");\n" : "\n" : "\n"; 
+        echo (!$form->getObject()->isNew()) ? $form['pa_ice']->getValue() != NULL ? "\n\t$('#pa_ice').autoNumeric('set',".$form['pa_ice']->getValue().");\n" : "\n" : "\n"; 
+        echo (!$form->getObject()->isNew()) ? $form['pa_comision']->getValue() != NULL ? "\n\t$('#pa_comision').autoNumeric('set',".$form['pa_comision']->getValue().");\n" : "\n" : "\n"; 
+        echo (!$form->getObject()->isNew()) ? $form['pa_valor_total']->getValue() != NULL ? "\n\t$('#pa_valor_total').autoNumeric('set',".$form['pa_valor_total']->getValue().");\n" : "\n" : "\n"; 
+        ?>
         $('#pa_iva').keyup(function(){
             $('#pagos_pa_iva').val(reemplazarComaXPunto(reemplazarPunto($(this).val())));
         });
@@ -254,8 +259,12 @@
         $('#pa_comision').keyup(function(){
             $('#pagos_pa_comision').val(reemplazarComaXPunto(reemplazarPunto($(this).val())));
         });
-        $('#pa_valor_total').keyup(function(){
-            $('#pagos_pa_valor_total').val(reemplazarComaXPunto(reemplazarPunto($(this).val())));
+        $('#pa_valor_total').bind('blur keyup', function(){
+//            if (!$(this).val().length) {
+//                $('#pagos_pa_iva,#pa_ice,#pagos_pa_comision').val(NULL);
+//            } else {
+                $('#pagos_pa_valor_total').val(reemplazarComaXPunto(reemplazarPunto($(this).val())));
+//            }
         });
         $('#pagos_pa_fecha').val($('#pa_fecha').val() + ' ' +$('#timepicker1').val());
         $('#pa_fecha,#timepicker1').change(function(){
@@ -263,10 +272,10 @@
         });
         $('#cancelar').bind('click', function(e){ e.preventDefault(); });
         $('#frm_pa button:last').bind('click', function(){
-            if ($('#pagos_pa_numero_factura').val().length < 3) {
+            /*if ($('#pagos_pa_numero_factura').val().length < 3) {
                 validador($('#pagos_pa_numero_factura'),"Logitud insuficiente",$('.msj-pa_numero_factura'));
                 return false;
-            } else if ($('#pagos_pa_detalle').val().length < 3) {
+            } else*/ if ($('#pagos_pa_detalle').val().length < 3) {
                 validador($('#pagos_pa_detalle'),"Logitud insuficiente",$('.msj-pa_detalle'));
                 return false;
             } else if ($('#pa_valor_total').val().length < 1) {
@@ -276,31 +285,5 @@
         });
         $(".chosen-select").chosen();
         $('#pagos_tipo_consumo_tc_id').next('div:first').css({'width':'100%'});
-//        $('#frm_pa').ajaxForm({
-//            dataType    : 'json',
-        
-//            beforeSubmit: validate,
-//            success     : showResponse
-//        });
     });
-//    function validate(formData, jqForm, options) {
-//        if ($('#pagos_pa_numero_factura').val().length < 3) {
-//            validador($('#pagos_pa_numero_factura'),"Logitud insuficiente",$('.msj-pa_numero_factura'));
-//            return false;
-//        } else if ($('#pagos_pa_detalle').val().length < 3) {
-//            validador($('#pagos_pa_detalle'),"Logitud insuficiente",$('.msj-pa_detalle'));
-//            return false;
-//        } else if ($('#pa_valor_total').val().length < 1) {
-//            validador($('#pa_valor_total'),"Vacío",$('.msj-pa_valor_total'));
-//            return false;
-//        }
-//    }
-//    function showResponse(responseText, statusText, xhr, $form) {
-////        if (responseText.pa_numero_factura.length) {
-//            location.href = "<?php echo url_for('@pagos_vista') ?>";
-////        } else {
-////            alert('Algo pasoo...');
-////        }
-////        var_dump(responseText);
-//    }
 </script>

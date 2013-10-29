@@ -134,4 +134,30 @@ class MyHelpers {
     public function reeemplazarComaXPunto($valor) {
         return str_replace(',', '.', $valor);
     }
+    
+    /**
+     * Usado para mostrar solamente fecha de un campo DATETIME
+     */
+    public function verSoloFecha($fecha) {
+        $fechacom = explode(' ', $fecha);
+        return $fechacom[0];
+    }
+    
+    /**
+     * Usado para mostrar solamente hora y minuto de un reloj
+     */
+    public function verHoraMin($tiempo) {
+        $horacom = explode(' ', $tiempo);
+        $hms = explode(':', $horacom[1]);
+        return $hms[0].':'.$hms[1];
+    }
+    
+    /**
+     * Usado para mostrar hora, minuto y segundo de un reloj
+     */
+    public function verHoraMinSeg($tiempo) {
+        $horacom = explode(' ', $tiempo);
+        $hms = explode(':', $horacom[1]);
+        return $hms[0].':'.$hms[1].':'.$hms[2];
+    }
 }

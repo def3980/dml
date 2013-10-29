@@ -5,26 +5,25 @@
 <?php use_javascript('JSPersonal/validators.js') ?>
 <?php use_javascript('autoNumeric/autoNumeric.js') ?>
 <style>
+    #tblAdm sup {
+        font-size: 73%;
+    }
     #tblAdm thead th:nth-child(1) {
-        background-color: #fff; width: 4%
+        background-color: #fff; width: 14%
     }
     #tblAdm thead th:nth-child(2) {
-        background-color: #fff; width: 13%
+        background-color: #fff; width: 68%
     }
     #tblAdm thead th:nth-child(3) {
-        background-color: #fff; width: 65%
-    }
-    #tblAdm thead th:nth-child(4) {
         background-color: #fff; width: 18%
     }
     #tblAdm thead th:nth-child(1),
     #tblAdm thead th:nth-child(2),
-    #tblAdm thead th:nth-child(4),
-    #tblAdm tbody td:nth-child(1),
-    #tblAdm tbody td:nth-child(2) {
+    #tblAdm thead th:nth-child(3),
+    #tblAdm tbody td:nth-child(1) {
         text-align: center;
     }
-    #tblAdm tbody td:nth-child(4) {
+    #tblAdm tbody td:nth-child(3) {
         text-align: right;
     }
 </style>
@@ -278,7 +277,7 @@
                                                             online
                                                         </span>
                                                     </h4>
-                                                    <a href="#modal-form" role="button" class="btn btn-white" data-toggle="modal"> <i class="icon-money"></i> Sumar </a>
+                                                    <a id="n" onclick="javascript:void(0)" role="button" class="btn btn-white" data-toggle="modal"> <i class="icon-money"></i> Sumar </a>
                                                     <span class="miSpan">Aqui</span>
                                                 </div><!-- /span -->
                                                 <div class="col-xs-12 col-sm-5">
@@ -287,7 +286,7 @@
                                                             <h5><i class="icon-signal"></i> Gr&aacute;fico Consumo</h5>
                                                             <div class="widget-toolbar no-border">
                                                                 <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown">
-                                                                    Ingreso mensual: <?php echo $tm['vt'] ?> <i class="icon-angle-down icon-on-right bigger-110"></i>
+                                                                    Ingreso mensual: <?php echo '$ '.MyHelpers::opcion()->dinero($tm['vt']) ?> <i class="icon-angle-down icon-on-right bigger-110"></i>
                                                                 </button>
                                                                 <ul class="dropdown-menu pull-right dropdown-125 dropdown-lighter dropdown-caret">
                                                                     <?php foreach ($ingreso_monetario->fetchArray() as $k => $im): ?>
@@ -310,10 +309,9 @@
                                                 </div><!-- /span -->
                                             </div>
                                             <div class="space-6"></div>
-                                            <table id="tblAdm" class="table table-striped table-bordered table-condensed">
+                                            <table id="tblAdm" class="table table-bordered">
                                                 <thead>
                                                     <tr>
-                                                        <th class="center">E</th>
                                                         <th class="center">Fecha</th>
                                                         <th class="hidden-xs">Descripci&oacute;n</th>
                                                         <th>Total</th>
@@ -321,15 +319,34 @@
                                                 </thead><?php $arr = array(); foreach ($pago_ss->getResults() as $v): $tmp = explode(' ', $v['pa_fecha']); $arr[] = $tmp[0]; endforeach; $fechas = array_count_values($arr); // encuentro el numero de fecha repetidas ?>
                                                 <tbody><?php echo "\n"; $cont = 0; foreach ($pago_ss->getResults() as $pagos): $cont++;  $tmp = explode(' ', $pagos['pa_fecha']); ?>
                                                     <tr>
-                                                        <td><input name="form-field-checkbox" type="checkbox" class="ace" /></td>
                                                         <?php switch ($cont): 
                                                                 case 1: ?>
                                                         <td rowspan="<?php echo $fechas[$tmp[0]] ?>"><?php echo MyHelpers::opcion()->fechaEnEsp($pagos->getPaFecha(),false,true) ?></td>
-                                                        <td class="hidden-xs"><i class="icon-double-angle-right"></i> <span data-rel="tooltip" title="<?php echo 'factura_'.$pagos->getPaNumeroFactura().'.pdf' ?>" data-original-title="<?php echo 'factura_'.$pagos->getPaNumeroFactura().'.pdf' ?>" data-placement="right"><?php echo link_to($pagos->getPaDetalle(),'pagos/info?factura='.$pagos->getPaNumeroFactura().'.pdf',array('target' => '_blank')) ?></span><sup><?php echo $pagos['TIPO_CONSUMO']['tc_alias'] ?></sup></td>
+                                                        <td class="hidden-xs">
+                                                            <div class="row">
+                                                                <div class="col-md-9">
+                                                                    <sup><?php echo MyHelpers::opcion()->verHoraMin($pagos->getPaFecha()) ?></sup> <i class="icon-angle-right"></i> <?php echo count($pagos->getPaRespaldo()) ? '<span data-rel="tooltip" title="'.(count($pagos->getPaNumeroFactura()) ? 'factura_'.$pagos->getPaNumeroFactura().'.pdf' : 'referencia_'.$pagos->getPaId().'.pdf').'" data-original-title="'.(count($pagos->getPaNumeroFactura()) ? 'factura_'.$pagos->getPaNumeroFactura().'.pdf' : 'referencia_'.$pagos->getPaId().'.pdf').'" data-placement="right">'.link_to($pagos->getPaDetalle(), (count($pagos->getPaNumeroFactura()) ? 'pagos/info?factura='.$pagos->getPaNumeroFactura().'.pdf' : 'pagos/info?referencia='.$pagos->getPaId().'.pdf'),array('target' => '_blank')).'</span>' : '<span class="text-danger">'.$pagos->getPaDetalle().'</span>' ?><sup><?php echo $pagos['TIPO_CONSUMO']['tc_alias'] ?></sup>
+                                                                </div>
+                                                                <div class="col-md-3" style="text-align: right">
+                                                                    <a id="e<?php echo $pagos->getPaId() ?>" onclick="javascript:void(0)"><i class="icon-edit bigger-120"></i></a>
+                                                                    <a id="d<?php echo $pagos->getPaId() ?>" onclick="javascript:void(0)"><i class="icon-trash bigger-120" style="margin: 10px 0 0 0"></i></a>
+                                                                </div>
+                                                            </div>
+                                                        </td>
                                                         <td><span class="text-danger"><?php echo '$ '.MyHelpers::opcion()->dinero($pagos->getPaValorTotal()) ?></span></td>
                                                         <?php   if ($fechas[$tmp[0]] == $cont) $cont = 0; break; ?>
                                                         <?php   case ($cont): ?>
-                                                        <td class="hidden-xs" style="text-align: left"><i class="icon-double-angle-right"></i> <span data-rel="tooltip" title="<?php echo 'factura_'.$pagos->getPaNumeroFactura().'.pdf' ?>" data-original-title="<?php echo 'factura_'.$pagos->getPaNumeroFactura().'.pdf' ?>" data-placement="right"><?php echo link_to($pagos->getPaDetalle(),'pagos/info?factura='.$pagos->getPaNumeroFactura().'.pdf',array('target' => '_blank')) ?></span><sup><?php echo $pagos['TIPO_CONSUMO']['tc_alias'] ?></sup></td>
+                                                        <td class="hidden-xs" style="text-align: left">
+                                                            <div class="row">
+                                                                <div class="col-md-9">
+                                                                    <sup><?php echo MyHelpers::opcion()->verHoraMin($pagos->getPaFecha()) ?></sup> <i class="icon-angle-right"></i> <?php echo count($pagos->getPaRespaldo()) ? '<span data-rel="tooltip" title="'.(count($pagos->getPaNumeroFactura()) ? 'factura_'.$pagos->getPaNumeroFactura().'.pdf' : 'referencia_'.$pagos->getPaId().'.pdf').'" data-original-title="'.(count($pagos->getPaNumeroFactura()) ? 'factura_'.$pagos->getPaNumeroFactura().'.pdf' : 'referencia_'.$pagos->getPaId().'.pdf').'" data-placement="right">'.link_to($pagos->getPaDetalle(), (count($pagos->getPaNumeroFactura()) ? 'pagos/info?factura='.$pagos->getPaNumeroFactura().'.pdf' : 'pagos/info?referencia='.$pagos->getPaId().'.pdf'),array('target' => '_blank')).'</span>' : '<span class="text-danger">'.$pagos->getPaDetalle().'</span>' ?><sup><?php echo $pagos['TIPO_CONSUMO']['tc_alias'] ?></sup>
+                                                                </div>
+                                                                <div class="col-md-3" style="text-align: right">
+                                                                    <a id="e<?php echo $pagos->getPaId() ?>" onclick="javascript:void(0)"><i class="icon-edit bigger-120"></i></a>
+                                                                    <a id="d<?php echo $pagos->getPaId() ?>" onclick="javascript:void(0)"><i class="icon-trash bigger-120" style="margin: 10px 0 0 0"></i></a>
+                                                                </div>
+                                                            </div>
+                                                        </td>
                                                         <td style="text-align: right"><span class="text-danger"><?php echo '$ '.MyHelpers::opcion()->dinero($pagos->getPaValorTotal()) ?></span></td>                                                        
                                                         <?php   if ($fechas[$tmp[0]] == $cont) $cont = 0; break; endswitch; ?>
                                                     </tr><?php echo "\n"; endforeach; ?>
@@ -444,8 +461,7 @@
         $('#myTab a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
             console.log(e.target.getAttribute("href"));
         })
-         */
-        $('#frm').load('<?php echo url_for('@pagos_nuevo') ?>');        
+         */        
         $('[data-rel=tooltip]').tooltip();
         <?php 
             $cien = $tm['vt'] - ($sb['vt'] != NULL ? $sb['vt'] : 0) - ($me['vt'] != NULL ? $me['vt'] : 0) - ($co['vt'] != NULL ? $co['vt'] : 0) - ($va['vt'] != NULL ? $va['vt'] : 0);
@@ -457,18 +473,18 @@
         ?>
         var placeholder = $('#piechart-placeholder').css({'width':'55%', 'min-height':'110px', 'margin':'0 auto'});
         var data = [
-        <?php echo $sb['vt'] != NULL ? '{ label: "Servicios Básicos", data: '.round($col1,2).',  color: "#68BC31", total: '.$sb['vt'].'},'."\n" : '' ?>
-        <?php echo $me['vt'] != NULL ? '{ label: "Medicinas",         data: '.round($col2,2).',  color: "#2091CF", total: '.$me['vt'].'},'."\n\t" : '' ?>
-        <?php echo $co['vt'] != NULL ? '{ label: "Comida",            data: '.round($col3,2).',  color: "#AF4E96", total: '.$co['vt'].'},'."\n\t" : '' ?>
-        <?php echo $va['vt'] != NULL ? '{ label: "Varios",            data: '.round($col4,2).',  color: "#DA5430", total: '.$va['vt'].'},'."\n\t" : '' ?>
-<?php echo '{ label: "Disponible",        data: '.round($di,2).',  color: "gold", total: '.$cien.' },'."\n" ?>
+        <?php echo $sb['vt'] != NULL ? '{ label: "Servicios Básicos", data: '.round($col1,2).',  color: "#68BC31" },'."\n" : '' ?>
+        <?php echo $me['vt'] != NULL ? '{ label: "Medicinas",         data: '.round($col2,2).',  color: "#2091CF" },'."\n" : '' ?>
+        <?php echo $co['vt'] != NULL ? '{ label: "Comida",            data: '.round($col3,2).',  color: "#AF4E96" },'."\n" : '' ?>
+        <?php echo $va['vt'] != NULL ? '{ label: "Varios",            data: '.round($col4,2).',  color: "#DA5430" },'."\n\t" : '' ?>
+<?php echo '{ label: "Disponible",        data: '.round($di,2).',  color: "gold" },'."\n" ?>
             ];
             var data2 = new Array();
-        <?php echo $sb['vt'] != NULL ? "data2['Servicios Básicos'] = '".MyHelpers::opcion()->dinero($sb['vt'])."';\n" : "" ?>
-        <?php echo $me['vt'] != NULL ? "data2['Medicinas'] = '".MyHelpers::opcion()->dinero($me['vt'])."';\n\t" : "" ?>
-        <?php echo $co['vt'] != NULL ? "data2['Comida'] = '".MyHelpers::opcion()->dinero($co['vt'])."';\n" : "" ?>
-        <?php echo $va['vt'] != NULL ? "data2['Varios'] = '".MyHelpers::opcion()->dinero($va['vt'])."';\n" : "" ?>
-        <?php echo "data2['Disponible'] = '".MyHelpers::opcion()->dinero($cien)."'" ?>;
+        <?php echo $sb['vt'] != NULL ? "data2['Servicios Básicos']  = '".MyHelpers::opcion()->dinero($sb['vt'])."';\n" : "" ?>
+        <?php echo $me['vt'] != NULL ? "data2['Medicinas']          = '".MyHelpers::opcion()->dinero($me['vt'])."';\n" : "" ?>
+        <?php echo $co['vt'] != NULL ? "data2['Comida']             = '".MyHelpers::opcion()->dinero($co['vt'])."';\n" : "" ?>
+        <?php echo $va['vt'] != NULL ? "data2['Varios']             = '".MyHelpers::opcion()->dinero($va['vt'])."';\n" : "" ?>
+        <?php echo "data2['Disponible']         = '".MyHelpers::opcion()->dinero($cien)."'" ?>;
         function drawPieChart(placeholder, data, position) {
             $.plot(placeholder, data, {
                 series: {
@@ -526,8 +542,9 @@
             if(item) {
                 if (previousPoint != item.seriesIndex) {
                     previousPoint = item.seriesIndex;
-                    var tip = item.series['label'] + " : " + item.series['percent'] + '% | $ ' + data2[item.series['label']];
+                    var tip = item.series['label'] + " : " + round(item.series['percent'],2) + '% | $ ' + data2[item.series['label']];
                     $tooltip.show().children(0).text(tip);
+                    $('.tooltip-inner').css({'max-width':'600px'});
                 }
                 $tooltip.css({top:pos.pageY + 10, left:pos.pageX + 10});
             } else {
@@ -535,5 +552,19 @@
                 previousPoint = null;
             }
         });
+        $('a[id^="n"],a[id^="e"],a[id^="d"]').css('cursor','pointer');
+        $('#modal-form').on('hidden.bs.modal', function () {
+            $('#frm').empty();
+        });
+        $('#n').bind('click',function(){
+            $('#frm').load('<?php echo url_for('@pagos_nuevo') ?>');
+            $('#modal-form').modal('show');
+        });
+        <?php echo "\n"; foreach ($pago_ss->getResults() as $pagos): ?>
+        $('#e<?php echo $pagos->getPaId() ?>').bind('click',function(){
+            $('#frm').load('<?php echo url_for('@pagos_edita?pa_id='.$pagos->getPaId()) ?>');
+            $('#modal-form').modal('show');
+        });
+        <?php echo "\n"; endforeach; ?>
     });
 </script>

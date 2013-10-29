@@ -71,7 +71,7 @@ class pagosActions extends sfActions
     $this->form = new PAGOSForm($pagos);
 
     if ($this->processFormUpdPDF($request, $this->form))
-        $this->array = $this->form->getValues();
+        $this->redirect('pagos/index');
 
 //    $this->setTemplate('edit');
   }
@@ -88,14 +88,15 @@ class pagosActions extends sfActions
   
   public function executeInfo(sfWebRequest $request)
   {
-      $factura = explode('.', $request->getParameter('factura'));
+      $factura = explode('.', ($request->getParameter('factura') != NULL ? $request->getParameter('factura') : $request->getParameter('referencia')));
       $pdf = PAGOSTable::getInstance()
                 ->createQuery('pa')
-                    ->where('pa.pa_numero_factura = ?', array($factura[0]))
-                        ->fetchOne(array(), Doctrine::HYDRATE_ARRAY_SHALLOW);
+                    ->where('pa.pa_id = ?', array($factura[0]))
+                        ->orWhere('pa.pa_numero_factura = ?', array($factura[0]))
+                            ->fetchOne(array(), Doctrine::HYDRATE_ARRAY_SHALLOW);
       $this->getResponse()->setHttpHeader('Content-Type', 'application/pdf');
       $this->getResponse()->setHttpHeader('Content-Length', strlen($pdf['pa_respaldo']));
-      $this->getResponse()->setHttpHeader('Content-Disposition', ' ; filename="factura_'.$request->getParameter('factura').'"');
+      $this->getResponse()->setHttpHeader('Content-Disposition', ' ; filename="'.($request->getParameter('factura') != NULL ? 'factura_'.$request->getParameter('factura') : 'referencia_'.$request->getParameter('referencia')).'"');
       $this->getResponse()->sendHttpHeaders();
       print $pdf['pa_respaldo'];
   }
@@ -108,7 +109,7 @@ class pagosActions extends sfActions
         $pagos = new PAGOS();
         foreach ($form->getValues() as $k => $v)
             if ($k != 'pa_id' || $k != 'pa_respaldo')
-                $pagos[$k] = $v;
+                $pagos[$k] = (($k == 'pa_numero_factura' & $v == "") ? NULL : $v);
         $pagos->setPaRespaldo($pdf['pa_respaldo']['error'] > 0 ? NULL : file_get_contents($pdf['pa_respaldo']['tmp_name']));
         $pagos->save();
         $bool = true;
@@ -124,8 +125,9 @@ class pagosActions extends sfActions
         $up = Doctrine_Query::create()->update('PAGOS pa');
         foreach ($form->getValues() as $k => $v)
             if ($k != 'pa_respaldo')
-                $up->set('pa.'.$k.'', '?', array($v));
-        $up->set('pa.pa_respaldo', '?', array($pdf['pa_respaldo']['error'] > 0 ? NULL : file_get_contents($pdf['pa_respaldo']['tmp_name'])));
+                $up->set('pa.'.$k.'', '?', array(($k == 'pa_numero_factura' & $v == "") ? NULL : $v));
+        if ($pdf['pa_respaldo']['error'] == 0)
+            $up->set('pa.pa_respaldo', '?', array(file_get_contents($pdf['pa_respaldo']['tmp_name'])));
         $up->where('pa.pa_id = ?', array($request->getParameter('pa_id')))->execute();
         $bool = true;
     endif;

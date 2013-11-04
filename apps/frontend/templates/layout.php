@@ -24,6 +24,7 @@
             <link rel="stylesheet" href="<?php echo stylesheet_path('bootstrap-timepicker.css') ?>" />
             <link rel="stylesheet" href="<?php echo stylesheet_path('daterangepicker.css') ?>" />
             <link rel="stylesheet" href="<?php echo stylesheet_path('colorpicker.css') ?>" />
+            <link rel="stylesheet" href="<?php echo stylesheet_path('jquery.gritter.css') ?>" />
 
             <!-- fonts -->
 

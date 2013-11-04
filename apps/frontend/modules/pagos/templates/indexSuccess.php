@@ -4,29 +4,6 @@
 <?php use_javascript('JSPersonal/dump.js') ?>
 <?php use_javascript('JSPersonal/validators.js') ?>
 <?php use_javascript('autoNumeric/autoNumeric.js') ?>
-<style>
-    #tblAdm sup {
-        font-size: 73%;
-    }
-    #tblAdm thead th:nth-child(1) {
-        background-color: #fff; width: 14%
-    }
-    #tblAdm thead th:nth-child(2) {
-        background-color: #fff; width: 68%
-    }
-    #tblAdm thead th:nth-child(3) {
-        background-color: #fff; width: 18%
-    }
-    #tblAdm thead th:nth-child(1),
-    #tblAdm thead th:nth-child(2),
-    #tblAdm thead th:nth-child(3),
-    #tblAdm tbody td:nth-child(1) {
-        text-align: center;
-    }
-    #tblAdm tbody td:nth-child(3) {
-        text-align: right;
-    }
-</style>
 <div class="navbar navbar-default" id="navbar">
     <script type="text/javascript">
         try{ace.settings.check('navbar' , 'fixed')}catch(e){}
@@ -231,215 +208,311 @@
             </div>
             <div class="page-content">
                 <div class="page-header">
-                    <h1>Pagos realizados
-                        <small>
-                            <i class="icon-double-angle-right"></i> &nbsp;Efectivo &amp; Tarjeta de cr&eacute;dito
-                        </small>
-                    </h1>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6">
+                            <h1>Pagos realizados
+                                <small>
+                                    <i class="icon-double-angle-right"></i> &nbsp;Efectivo &amp; Tarjeta de cr&eacute;dito
+                                </small>
+                            </h1>
+                        </div>
+                        <div class="col-xs-12 col-sm-2">
+                            <h1>Meses<small><i class="icon-double-angle-right"></i></small>
+                                <select class="width-80" id="meses" data-placeholder="Choose a Country..." style="display: none;">
+                                    <option value="10">Octubre</option>
+                                    <option value="9">Septiembre</option>
+                                    <option value="8">Agosto</option>
+                                </select>
+                            </h1>
+                        </div>
+                        <div class="col-xs-12 col-sm-4"></div>
+                    </div>
                 </div><!-- /.page-header -->
-                <div class="row"><?php if ($pago_ss->getResults()->count()): ?>
+                <div class="row">
                     <div class="col-xs-12">
                     <!-- PAGE CONTENT BEGINS -->
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="tabbable tabs-left">
-                                    <ul class="nav nav-tabs" id="myTab3">
-                                        <li class="active">
-                                            <a data-toggle="tab" href="#home3">
-                                                <i class="pink icon-dashboard bigger-110"></i> Home
-                                            </a>
+                    
+                        <div class="tabbable">
+                            <ul class="nav nav-tabs padding-18 tab-size-bigger" id="myTab">
+                                <li class="active">
+                                    <a data-toggle="tab" href="#faq-tab-1">
+                                        <i class="blue icon-question-sign bigger-120"></i>
+                                        General
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a data-toggle="tab" href="#faq-tab-2">
+                                        <i class="green icon-user bigger-120"></i>
+                                        Account
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a data-toggle="tab" href="#faq-tab-3">
+                                        <i class="orange icon-credit-card bigger-120"></i>
+                                        Payments
+                                    </a>
+                                </li>
+                                <li class="dropdown">
+                                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                        <i class="purple icon-magic bigger-120"></i>
+                                        Misc
+                                        <i class="icon-caret-down"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-lighter dropdown-125">
+                                        <li>
+                                            <a data-toggle="tab" href="#faq-tab-4"> Affiliates </a>
                                         </li>
                                         <li>
-                                            <a data-toggle="tab" href="#profile3">
-                                                <i class="blue icon-user bigger-110"></i> Profile
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a data-toggle="tab" href="#dropdown13">
-                                                <i class="icon-rocket"></i> More
-                                            </a>
+                                            <a data-toggle="tab" href="#faq-tab-4"> Merchants </a>
                                         </li>
                                     </ul>
-
-                                    <div class="tab-content">
-                                        <div id="home3" class="tab-pane in active">                                           
-                                            <div class="row">
-                                                <div class="col-xs-12 col-sm-1">
-                                                    <span class="profile-picture">
-                                                        <?php echo image_tag('avatars/profile-pic.jpg', array('id' => 'miAvatar', 'class' => 'editable img-responsive', 'alt' => 'Alex\'s Avatar')) ?>
-                                                    </span>
-                                                </div><!-- /span -->
-                                                <div class="col-xs-12 col-sm-6">
-                                                    <h4 class="blue">
-                                                        <span class="middle">Alex M. Doe</span>
-                                                        <span class="label label-purple arrowed-in-right">
-                                                            <i class="icon-circle smaller-80 align-middle"></i>
-                                                            online
-                                                        </span>
-                                                    </h4>
-                                                    <a id="n" onclick="javascript:void(0)" role="button" class="btn btn-white" data-toggle="modal"> <i class="icon-money"></i> Sumar </a>
-                                                    <span class="miSpan">Aqui</span>
-                                                </div><!-- /span -->
-                                                <div class="col-xs-12 col-sm-5">
-                                                    <div class="widget-box">
-                                                        <div class="widget-header widget-header-flat widget-header-small">
-                                                            <h5><i class="icon-signal"></i> Gr&aacute;fico Consumo</h5>
-                                                            <div class="widget-toolbar no-border">
-                                                                <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown">
-                                                                    Ingreso mensual: <?php echo '$ '.MyHelpers::opcion()->dinero($tm['vt']) ?> <i class="icon-angle-down icon-on-right bigger-110"></i>
-                                                                </button>
-                                                                <ul class="dropdown-menu pull-right dropdown-125 dropdown-lighter dropdown-caret">
-                                                                    <?php foreach ($ingreso_monetario->fetchArray() as $k => $im): ?>
-                                                                    <li<?php echo $k == 0 ? ' class="active"' : '' ?>>
-                                                                        <a href="#"<?php echo $k == 0 ? ' class="blue"' : '' ?>>
-                                                                            <i class="icon-caret-right bigger-110<?php echo $k == 0 ? ' class="invisible"' : '' ?>">&nbsp;</i>
-                                                                            <?php echo '$ '.MyHelpers::opcion()->dinero($im['im_valor']) ?>
-                                                                        </a>
-                                                                    </li>
-                                                                    <?php endforeach; ?>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <div class="widget-body">
-                                                            <div class="widget-main">
-                                                                <div id="piechart-placeholder"></div>
-                                                            </div><!-- /widget-main -->
-                                                        </div><!-- /widget-body -->
-                                                    </div>
-                                                </div><!-- /span -->
+                                </li><!-- /.dropdown -->
+                            </ul>
+                            <div class="tab-content no-border padding-24">
+                                <div id="faq-tab-1" class="tab-pane fade active in">
+                                    <h4 class="blue">
+                                        <i class="icon-ok bigger-110"></i>
+                                        General Questions
+                                    </h4>
+                                    <div class="space-8"></div>
+                                    <div id="faq-list-1" class="panel-group accordion-style1 accordion-style2">
+                                        <?php echo "\n"; $cont = 0; $date = ""; foreach ($pago_ss->getResults() as $pagos): $cont++;  $tmp = explode(' ', $pagos['pa_fecha']); ?>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <a href="#faq-<?php echo $pagos->getPaId() ?>" data-parent="#faq-list-1" data-toggle="collapse" class="accordion-toggle collapsed">
+                                                    <i class="icon-chevron-left pull-right" data-icon-hide="icon-chevron-down" data-icon-show="icon-chevron-left"></i>
+                                                    <i class="icon-sort-by-attributes-alt"></i>
+                                                    &nbsp; <?php echo MyHelpers::opcion()->fechaEnEsp($pagos->getPaFecha(), false) ?>
+                                                </a>
                                             </div>
-                                            <div class="space-6"></div>
-                                            <table id="tblAdm" class="table table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="center">Fecha</th>
-                                                        <th class="hidden-xs">Descripci&oacute;n</th>
-                                                        <th>Total</th>
-                                                    </tr>
-                                                </thead><?php $arr = array(); foreach ($pago_ss->getResults() as $v): $tmp = explode(' ', $v['pa_fecha']); $arr[] = $tmp[0]; endforeach; $fechas = array_count_values($arr); // encuentro el numero de fecha repetidas ?>
-                                                <tbody><?php echo "\n"; $cont = 0; foreach ($pago_ss->getResults() as $pagos): $cont++;  $tmp = explode(' ', $pagos['pa_fecha']); ?>
-                                                    <tr>
-                                                        <?php switch ($cont): 
-                                                                case 1: ?>
-                                                        <td rowspan="<?php echo $fechas[$tmp[0]] ?>"><?php echo MyHelpers::opcion()->fechaEnEsp($pagos->getPaFecha(),false,true) ?></td>
-                                                        <td class="hidden-xs">
-                                                            <div class="row">
-                                                                <div class="col-md-9">
-                                                                    <sup><?php echo MyHelpers::opcion()->verHoraMin($pagos->getPaFecha()) ?></sup> <i class="icon-angle-right"></i> <?php echo count($pagos->getPaRespaldo()) ? '<span data-rel="tooltip" title="'.(count($pagos->getPaNumeroFactura()) ? 'factura_'.$pagos->getPaNumeroFactura().'.pdf' : 'referencia_'.$pagos->getPaId().'.pdf').'" data-original-title="'.(count($pagos->getPaNumeroFactura()) ? 'factura_'.$pagos->getPaNumeroFactura().'.pdf' : 'referencia_'.$pagos->getPaId().'.pdf').'" data-placement="right">'.link_to($pagos->getPaDetalle(), (count($pagos->getPaNumeroFactura()) ? 'pagos/info?factura='.$pagos->getPaNumeroFactura().'.pdf' : 'pagos/info?referencia='.$pagos->getPaId().'.pdf'),array('target' => '_blank')).'</span>' : '<span class="text-danger">'.$pagos->getPaDetalle().'</span>' ?><sup><?php echo $pagos['TIPO_CONSUMO']['tc_alias'] ?></sup>
-                                                                </div>
-                                                                <div class="col-md-3" style="text-align: right">
-                                                                    <a id="e<?php echo $pagos->getPaId() ?>" onclick="javascript:void(0)"><i class="icon-edit bigger-120"></i></a>
-                                                                    <a id="d<?php echo $pagos->getPaId() ?>" onclick="javascript:void(0)"><i class="icon-trash bigger-120" style="margin: 10px 0 0 0"></i></a>
-                                                                </div>
+                                            <div class="panel-collapse collapse" id="faq-<?php echo $pagos->getPaId() ?>">
+                                                <div class="panel-body">
+                                                    <div id="faq-list-nested-1" class="panel-group accordion-style1 accordion-style2">                                                        
+                                                        <div class="panel panel-default">
+                                                            <div class="panel-heading">
+                                                                <a href="#faq-list-1-sub-1" data-parent="#faq-list-nested-1" data-toggle="collapse" class="accordion-toggle collapsed">
+                                                                    <i class="icon-plus smaller-80 middle" data-icon-hide="icon-minus" data-icon-show="icon-plus"></i>
+                                                                    &nbsp;
+                                                                    <?php echo $pagos->getPaDetalle() ?>
+                                                                </a>
                                                             </div>
-                                                        </td>
-                                                        <td><span class="text-danger"><?php echo '$ '.MyHelpers::opcion()->dinero($pagos->getPaValorTotal()) ?></span></td>
-                                                        <?php   if ($fechas[$tmp[0]] == $cont) $cont = 0; break; ?>
-                                                        <?php   case ($cont): ?>
-                                                        <td class="hidden-xs" style="text-align: left">
-                                                            <div class="row">
-                                                                <div class="col-md-9">
-                                                                    <sup><?php echo MyHelpers::opcion()->verHoraMin($pagos->getPaFecha()) ?></sup> <i class="icon-angle-right"></i> <?php echo count($pagos->getPaRespaldo()) ? '<span data-rel="tooltip" title="'.(count($pagos->getPaNumeroFactura()) ? 'factura_'.$pagos->getPaNumeroFactura().'.pdf' : 'referencia_'.$pagos->getPaId().'.pdf').'" data-original-title="'.(count($pagos->getPaNumeroFactura()) ? 'factura_'.$pagos->getPaNumeroFactura().'.pdf' : 'referencia_'.$pagos->getPaId().'.pdf').'" data-placement="right">'.link_to($pagos->getPaDetalle(), (count($pagos->getPaNumeroFactura()) ? 'pagos/info?factura='.$pagos->getPaNumeroFactura().'.pdf' : 'pagos/info?referencia='.$pagos->getPaId().'.pdf'),array('target' => '_blank')).'</span>' : '<span class="text-danger">'.$pagos->getPaDetalle().'</span>' ?><sup><?php echo $pagos['TIPO_CONSUMO']['tc_alias'] ?></sup>
+                                                            <div class="panel-collapse collapse" id="faq-list-1-sub-1">
+                                                                <div class="panel-body">
+                                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
                                                                 </div>
-                                                                <div class="col-md-3" style="text-align: right">
-                                                                    <a id="e<?php echo $pagos->getPaId() ?>" onclick="javascript:void(0)"><i class="icon-edit bigger-120"></i></a>
-                                                                    <a id="d<?php echo $pagos->getPaId() ?>" onclick="javascript:void(0)"><i class="icon-trash bigger-120" style="margin: 10px 0 0 0"></i></a>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td style="text-align: right"><span class="text-danger"><?php echo '$ '.MyHelpers::opcion()->dinero($pagos->getPaValorTotal()) ?></span></td>                                                        
-                                                        <?php   if ($fechas[$tmp[0]] == $cont) $cont = 0; break; endswitch; ?>
-                                                    </tr><?php echo "\n"; endforeach; ?>
-                                                </tbody>
-                                            </table>
-                                            <div class="row">
-                                                <div class="col-xs-12 col-sm-9">
-                                                    <div><?php echo "\n"; if ($pago_ss->haveToPaginate()): ?>                                            
-                                                        <ul class="pagination" style="margin: 0">
-                                                        <?php echo ($pago_ss->getPage() == 1) ? '<li class="disabled"><a onclick="javascript:void(0)"><i class="icon-long-arrow-left"></i></a></li>' : '<li><a href="'.url_for('@pagos_vista?pagina='.$pago_ss->getFirstPage()).'"><i class="icon-long-arrow-left"></i></a></li>'."\n"; ?>
-                                                        <?php echo ($pago_ss->getPreviousPage() == $pago_ss->getPage()) ? '<li class="disabled"><a onclick="javascript:void(0)"><i class="icon-double-angle-left"></i></a></li>' : '<li><a href="'.url_for('@pagos_vista?pagina='.$pago_ss->getPreviousPage()).'"><i class="icon-double-angle-left"></i></a></li>'; ?>
-                                                        <?php echo "\n"; foreach ($pago_ss->getLinks() as $pag): if ($pag == $pago_ss->getPage()): ?>
-                                                        <li class="active"><a onclick="javascript:void(0)"><?php echo $pag ?></a></li><?php echo "\n"; else: ?>
-                                                        <li><a href="<?php echo url_for('@pagos_vista?pagina='.$pag) ?>"><?php echo $pag ?>
-                                                        <?php echo "\n"; endif; endforeach; ?>
-                                                        <?php echo ($pago_ss->getNextPage() == $pago_ss->getPage()) ? '<li class="disabled"><a onclick="javascript:void(0)"><i class="icon-double-angle-right"></i></a></li>' : '<li><a href="'.url_for('@pagos_vista?pagina='.$pago_ss->getNextPage()).'"><i class="icon-double-angle-right"></i></a></li>'; echo "\n"; ?>
-                                                        <?php echo ($pago_ss->getPage() == $pago_ss->getLastPage()) ? '<li class="disabled"><a onclick="javascript:void(0)"><i class="icon-long-arrow-right"></i></a></li>' : '<li><a href="'.url_for('@pagos_vista?pagina='.$pago_ss->getLastPage()).'"><i class="icon-long-arrow-right"></i></a></li>'; echo "\n"; ?>
-                                                        </ul><?php else: ?>
-                                                        <ul class="pagination" style="margin: 0">
-                                                            <li class="disabled"><a onclick="javascript:void(0)"><i class="icon-long-arrow-left"></i></a></li>
-                                                            <li class="disabled"><a onclick="javascript:void(0)"><i class="icon-double-angle-left"></i></a></li>
-                                                            <li class="active"><a onclick="javascript:void(0)">1</a></li>
-                                                            <li class="disabled"><a onclick="javascript:void(0)"><i class="icon-double-angle-right"></i></a></li>
-                                                            <li class="disabled"><a onclick="javascript:void(0)"><i class="icon-long-arrow-right"></i></a></li>
-                                                        </ul>
-                                                        <?php endif; echo "\n"; ?>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-12 col-sm-3">
-                                                    <div class="profile-user-info">
-                                                        <div class="profile-info-row">
-                                                            <div class="profile-info-name"> Vista </div>
-                                                            <div class="profile-info-value">
-                                                                <span><?php echo $pago_ss->getResults()->count() ?> registros</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="profile-info-row">
-                                                            <div class="profile-info-name"> Total </div>
-                                                            <div class="profile-info-value">
-                                                                <span><?php echo $pago_ss->getNbResults() ?> resultados</span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="profile3" class="tab-pane">
-                                            <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
-                                            <p>Raw denim you probably haven't heard of them jean shorts Austin.</p>
+                                        <?php endforeach; ?>
+                                    </div>
+                                </div>
+                                <div id="faq-tab-2" class="tab-pane fade">
+                                    <h4 class="blue">
+                                        <i class="green icon-user bigger-110"></i>
+                                        Account Questions
+                                    </h4>
+                                    <div class="space-8"></div>
+                                    <div id="faq-list-2" class="panel-group accordion-style1 accordion-style2">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <a href="#faq-2-1" data-parent="#faq-list-2" data-toggle="collapse" class="accordion-toggle">
+                                                    <i class="smaller-80 icon-chevron-down align-top" data-icon-hide="icon-chevron-down align-top" data-icon-show="icon-chevron-right"></i>
+                                                    &nbsp;
+                                                    Enim eiusmod high life accusamus terry richardson?
+                                                </a>
+                                            </div>
+                                            <div class="panel-collapse in" id="faq-2-1" style="height: auto;">
+                                                <div class="panel-body">
+                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div id="dropdown13" class="tab-pane">
-                                            <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade.</p>
-                                            <p>Raw denim you probably haven't heard of them jean shorts Austin.</p>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <a href="#faq-2-2" data-parent="#faq-list-2" data-toggle="collapse" class="accordion-toggle collapsed">
+                                                    <i class="smaller-80 icon-chevron-right" data-icon-hide="icon-chevron-down align-top" data-icon-show="icon-chevron-right"></i>
+                                                    &nbsp;
+                                                    Single-origin coffee nulla assumenda shoreditch et?
+                                                </a>
+                                            </div>
+                                            <div class="panel-collapse collapse" id="faq-2-2" style="height: 0px;">
+                                                <div class="panel-body">
+                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <a href="#faq-2-3" data-parent="#faq-list-2" data-toggle="collapse" class="accordion-toggle collapsed">
+                                                    <i class="icon-chevron-right middle smaller-80" data-icon-hide="icon-chevron-down align-top" data-icon-show="icon-chevron-right"></i>
+                                                    &nbsp;
+                                                    Sunt aliqua put a bird on it squid?
+                                                </a>
+                                            </div>
+                                            <div class="panel-collapse collapse" id="faq-2-3">
+                                                <div class="panel-body">
+                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <a href="#faq-2-4" data-parent="#faq-list-2" data-toggle="collapse" class="accordion-toggle collapsed">
+                                                    <i class="icon-chevron-right smaller-80" data-icon-hide="icon-chevron-down align-top" data-icon-show="icon-chevron-right"></i>
+                                                    &nbsp;
+                                                    Brunch 3 wolf moon tempor sunt aliqua put?
+                                                </a>
+                                            </div>
+                                            <div class="panel-collapse collapse" id="faq-2-4">
+                                                <div class="panel-body">
+                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div><!-- /span -->
-                        </div><!-- /row -->
+                                <div id="faq-tab-3" class="tab-pane fade">
+                                    <h4 class="blue">
+                                        <i class="orange icon-credit-card bigger-110"></i>
+                                        Payment Questions
+                                    </h4>
+                                    <div class="space-8"></div>
+                                    <div id="faq-list-3" class="panel-group accordion-style1 accordion-style2">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <a href="#faq-3-1" data-parent="#faq-list-3" data-toggle="collapse" class="accordion-toggle collapsed">
+                                                    <i class="smaller-80 icon-plus" data-icon-hide="icon-minus" data-icon-show="icon-plus"></i>
+                                                    &nbsp;
+                                                    Enim eiusmod high life accusamus terry richardson?
+                                                </a>
+                                            </div>
+                                            <div class="panel-collapse collapse" id="faq-3-1" style="height: 0px;">
+                                                <div class="panel-body">
+                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <a href="#faq-3-2" data-parent="#faq-list-3" data-toggle="collapse" class="accordion-toggle collapsed">
+                                                    <i class="icon-plus smaller-80" data-icon-hide="icon-minus" data-icon-show="icon-plus"></i>
+                                                    &nbsp;
+                                                    Single-origin coffee nulla assumenda shoreditch et?
+                                                </a>
+                                            </div>
+                                            <div class="panel-collapse collapse" id="faq-3-2">
+                                                <div class="panel-body">
+                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <a href="#faq-3-3" data-parent="#faq-list-3" data-toggle="collapse" class="accordion-toggle collapsed">
+                                                    <i class="icon-plus smaller-80" data-icon-hide="icon-minus" data-icon-show="icon-plus"></i>
+                                                    &nbsp;
+                                                    Sunt aliqua put a bird on it squid?
+                                                </a>
+                                            </div>
+                                            <div class="panel-collapse collapse" id="faq-3-3">
+                                                <div class="panel-body">
+                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <a href="#faq-3-4" data-parent="#faq-list-3" data-toggle="collapse" class="accordion-toggle collapsed">
+                                                    <i class="icon-plus smaller-80" data-icon-hide="icon-minus" data-icon-show="icon-plus"></i>
+                                                    &nbsp;
+                                                    Brunch 3 wolf moon tempor sunt aliqua put?
+                                                </a>
+                                            </div>
+                                            <div class="panel-collapse collapse" id="faq-3-4">
+                                                <div class="panel-body">
+                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="faq-tab-4" class="tab-pane fade">
+                                    <h4 class="blue">
+                                        <i class="purple icon-magic bigger-110"></i>
+                                        Miscellaneous Questions
+                                    </h4>
+                                    <div class="space-8"></div>
+                                    <div id="faq-list-4" class="panel-group accordion-style1 accordion-style2">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <a href="#faq-4-1" data-parent="#faq-list-4" data-toggle="collapse" class="accordion-toggle collapsed">
+                                                    <i class="icon-hand-right" data-icon-hide="icon-hand-down" data-icon-show="icon-hand-right"></i>
+                                                    &nbsp;
+                                                    Enim eiusmod high life accusamus terry richardson?
+                                                </a>
+                                            </div>
+                                            <div class="panel-collapse collapse" id="faq-4-1">
+                                                <div class="panel-body">
+                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <a href="#faq-4-2" data-parent="#faq-list-4" data-toggle="collapse" class="accordion-toggle collapsed">
+                                                    <i class="icon-frown bigger-120" data-icon-hide="icon-smile" data-icon-show="icon-frown"></i>
+                                                    &nbsp;
+                                                    Single-origin coffee nulla assumenda shoreditch et?
+                                                </a>
+                                            </div>
+                                            <div class="panel-collapse collapse" id="faq-4-2">
+                                                <div class="panel-body">
+                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <a href="#faq-4-3" data-parent="#faq-list-4" data-toggle="collapse" class="accordion-toggle collapsed">
+                                                    <i class="icon-plus smaller-80" data-icon-hide="icon-minus" data-icon-show="icon-plus"></i>
+                                                    &nbsp;
+                                                    Sunt aliqua put a bird on it squid?
+                                                </a>
+                                            </div>
+                                            <div class="panel-collapse collapse" id="faq-4-3">
+                                                <div class="panel-body">
+                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <a href="#faq-4-4" data-parent="#faq-list-4" data-toggle="collapse" class="accordion-toggle collapsed">
+                                                    <i class="icon-plus smaller-80" data-icon-hide="icon-minus" data-icon-show="icon-plus"></i>
+                                                    &nbsp;
+                                                    Brunch 3 wolf moon tempor sunt aliqua put?
+                                                </a>
+                                            </div>
+                                            <div class="panel-collapse collapse" id="faq-4-4">
+                                                <div class="panel-body">
+                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="hr hr-double hr-dotted hr18"></div>
                         <script type="text/javascript">
                             var $path_assets = "/images/avatars";//this will be used in gritter alerts containing images
                         </script>
                     <!-- PAGE CONTENT ENDS -->
-                    </div><!-- /.col --><?php else: ?>
-                    <div class="col-xs-12">
-                        <div class="col-sm-12">
-                            <div class="widget-box">
-                                <div class="widget-header widget-header-flat">
-                                    <h4 class="smaller">
-                                        <i class="icon-quote-left smaller-80"></i> Aviso actual &nbsp;<i class="icon-quote-right smaller-80"></i>
-                                    </h4>
-                                </div>
-                                <div class="widget-body">
-                                    <div class="widget-main">
-                                        <div class="row">
-                                            <div class="col-xs-12">
-                                                <blockquote>
-                                                    <p>Por el momento no tienes gastos en este mes.</p>
-                                                    <small>Felicitaciones... <cite title="Source Title">por ahora.... :-S</cite></small>
-                                                </blockquote>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <address>
-                                            <strong>Full Name</strong>
-                                            <br>
-                                            <a href="mailto:#">first.last@example.com</a>
-                                        </address>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><?php endif; ?>
+                    </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.page-content -->
         </div><!-- /.main-content -->
@@ -457,114 +530,7 @@
 </div><!-- PAGE CONTENT ENDS -->
 <script type="text/javascript">
     jQuery(function($) {
-        /**
-        $('#myTab a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-            console.log(e.target.getAttribute("href"));
-        })
-         */        
-        $('[data-rel=tooltip]').tooltip();
-        <?php 
-            $cien = $tm['vt'] - ($sb['vt'] != NULL ? $sb['vt'] : 0) - ($me['vt'] != NULL ? $me['vt'] : 0) - ($co['vt'] != NULL ? $co['vt'] : 0) - ($va['vt'] != NULL ? $va['vt'] : 0);
-            $di = ($cien * 100) / $tm['vt'];
-            $col1 = ($sb['vt'] * 100) / $tm['vt'];
-            $col2 = ($me['vt'] * 100) / $tm['vt'];
-            $col3 = ($co['vt'] * 100) / $tm['vt'];
-            $col4 = ($va['vt'] * 100) / $tm['vt'];
-        ?>
-        var placeholder = $('#piechart-placeholder').css({'width':'55%', 'min-height':'110px', 'margin':'0 auto'});
-        var data = [
-        <?php echo $sb['vt'] != NULL ? '{ label: "Servicios Básicos", data: '.round($col1,2).',  color: "#68BC31" },'."\n" : '' ?>
-        <?php echo $me['vt'] != NULL ? '{ label: "Medicinas",         data: '.round($col2,2).',  color: "#2091CF" },'."\n" : '' ?>
-        <?php echo $co['vt'] != NULL ? '{ label: "Comida",            data: '.round($col3,2).',  color: "#AF4E96" },'."\n" : '' ?>
-        <?php echo $va['vt'] != NULL ? '{ label: "Varios",            data: '.round($col4,2).',  color: "#DA5430" },'."\n\t" : '' ?>
-<?php echo '{ label: "Disponible",        data: '.round($di,2).',  color: "gold" },'."\n" ?>
-            ];
-            var data2 = new Array();
-        <?php echo $sb['vt'] != NULL ? "data2['Servicios Básicos']  = '".MyHelpers::opcion()->dinero($sb['vt'])."';\n" : "" ?>
-        <?php echo $me['vt'] != NULL ? "data2['Medicinas']          = '".MyHelpers::opcion()->dinero($me['vt'])."';\n" : "" ?>
-        <?php echo $co['vt'] != NULL ? "data2['Comida']             = '".MyHelpers::opcion()->dinero($co['vt'])."';\n" : "" ?>
-        <?php echo $va['vt'] != NULL ? "data2['Varios']             = '".MyHelpers::opcion()->dinero($va['vt'])."';\n" : "" ?>
-        <?php echo "data2['Disponible']         = '".MyHelpers::opcion()->dinero($cien)."'" ?>;
-        function drawPieChart(placeholder, data, position) {
-            $.plot(placeholder, data, {
-                series: {
-                    pie: {
-                        show:   true,
-                        tilt:   0.8,
-                        highlight: { opacity: 0.25 },
-                        stroke: {
-                            color: '#fff',
-                            width: 2
-                        },
-                        startAngle: 2
-                    }
-                },
-                legend: {
-                    show:                   true,
-                    position:               position || "ne", 
-                    labelBoxBorderColor:    null,
-                    margin:                 [-30,15]
-                },
-                grid: {
-                    hoverable: true,
-                    clickable: true
-                }
-            })
-        }
-        drawPieChart(placeholder, data);
-
-        /**
-        we saved the drawing function and the data to redraw with different position later when switching to RTL mode dynamically
-        so that's not needed actually.
-        */
-        placeholder.data('chart', data);
-        placeholder.data('draw', drawPieChart);
-        $('#piechart-placeholder div div:first, '
-            +'#piechart-placeholder table:first').css({'top':'-1px'});
-        $(window).resize(function() {
-            if ($(window).width() == 1280) {
-                $('#piechart-placeholder div div:first, '
-                    +'#piechart-placeholder table:first').css({'top':'-1px'});
-            } else if ($(window).width() < 1280) {
-                $('#piechart-placeholder').css({
-                    'margin':'0', 'width':'70%'
-                });
-                $('#piechart-placeholder div div:first, '
-                    +'#piechart-placeholder table:first').css({'top':'-5px'});
-            }
-//alert($(window).width()+' px');
-        });
-        
-        var $tooltip = $("<div class='tooltip top in'><div class='tooltip-inner'></div></div>").hide().appendTo('body');
-        var previousPoint = null;
-
-        placeholder.on('plothover', function (event, pos, item) {
-            if(item) {
-                if (previousPoint != item.seriesIndex) {
-                    previousPoint = item.seriesIndex;
-                    var tip = item.series['label'] + " : " + round(item.series['percent'],2) + '% | $ ' + data2[item.series['label']];
-                    $tooltip.show().children(0).text(tip);
-                    $('.tooltip-inner').css({'max-width':'600px'});
-                }
-                $tooltip.css({top:pos.pageY + 10, left:pos.pageX + 10});
-            } else {
-                $tooltip.hide();
-                previousPoint = null;
-            }
-        });
-        $('a[id^="n"],a[id^="e"],a[id^="d"]').css('cursor','pointer');
-        $('#modal-form').on('hidden.bs.modal', function () {
-            $('#frm').empty();
-        });
-        $('#n').bind('click',function(){
-            $('#frm').load('<?php echo url_for('@pagos_nuevo') ?>');
-            $('#modal-form').modal('show');
-        });
-        <?php echo "\n"; foreach ($pago_ss->getResults() as $pagos): ?>
-        $('#e<?php echo $pagos->getPaId() ?>').bind('click',function(){
-            $('#frm').load('<?php echo url_for('@pagos_edita?pa_id='.$pagos->getPaId()) ?>');
-            $('#modal-form').modal('show');
-        });
-        <?php echo "\n"; endforeach; ?>
+        $("#meses").chosen();
+        $("#meses").next('div:first').css({'width':'100%'});
     });
 </script>

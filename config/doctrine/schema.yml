@@ -1,3 +1,53 @@
+BINARIOS:
+  connection: doctrine
+  tableName: BINARIOS
+  columns:
+    bi_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    bi_nombre:
+      type: string(100)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    bi_tamanio:
+      type: 'decimal(10, 2)'
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    bi_bin:
+      type: blob()
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    bi_ext:
+      type: string(100)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    pagos_pa_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    PAGOS:
+      local: pagos_pa_id
+      foreign: pa_id
+      type: one
 CONTRATAR_SB:
   connection: doctrine
   tableName: CONTRATAR_SB
@@ -280,13 +330,6 @@ PAGOS:
       primary: false
       notnull: false
       autoincrement: false
-    pa_respaldo:
-      type: blob()
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: false
-      autoincrement: false
     persona_pe_id:
       type: integer(4)
       fixed: false
@@ -310,6 +353,10 @@ PAGOS:
       local: tipo_consumo_tc_id
       foreign: tc_id
       type: one
+    BINARIOS:
+      local: pa_id
+      foreign: pagos_pa_id
+      type: many
 PERSONA:
   connection: doctrine
   tableName: PERSONA

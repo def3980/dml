@@ -43,7 +43,7 @@ class MyHelpers {
                         "julio","agosto","septiembre","octubre","noviembre","diciembre");
         $mesesAbrev = array("","Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic");
 
-        return $completa ? $tomadia.", ".$day." ".ucfirst($meses[$month])." ".$year
+        return $completa ? ucfirst($tomadia).", ".$day." ".ucfirst($meses[$month])." ".$year
                 : $tomadiaAbrev.", ".$day." ".$mesesAbrev[$month]." ".$year;
         //return $tomadiaAbrev.", ".$day." ".$mesesAbrev[$month]." ".$year;
     }

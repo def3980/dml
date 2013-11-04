@@ -23,7 +23,6 @@ abstract class BasePAGOSForm extends BaseFormDoctrine
       'pa_ice'             => new sfWidgetFormInputText(),
       'pa_comision'        => new sfWidgetFormInputText(),
       'pa_valor_total'     => new sfWidgetFormInputText(),
-      'pa_respaldo'        => new sfWidgetFormTextarea(),
       'persona_pe_id'      => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('PERSONA'), 'add_empty' => false)),
       'tipo_consumo_tc_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('TIPO_CONSUMO'), 'add_empty' => false)),
     ));
@@ -37,7 +36,6 @@ abstract class BasePAGOSForm extends BaseFormDoctrine
       'pa_ice'             => new sfValidatorNumber(array('required' => false)),
       'pa_comision'        => new sfValidatorNumber(array('required' => false)),
       'pa_valor_total'     => new sfValidatorNumber(array('required' => false)),
-      'pa_respaldo'        => new sfValidatorString(array('required' => false)),
       'persona_pe_id'      => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('PERSONA'))),
       'tipo_consumo_tc_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('TIPO_CONSUMO'))),
     ));

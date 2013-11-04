@@ -20,7 +20,6 @@ abstract class BasePAGOSFormFilter extends BaseFormFilterDoctrine
       'pa_ice'             => new sfWidgetFormFilterInput(),
       'pa_comision'        => new sfWidgetFormFilterInput(),
       'pa_valor_total'     => new sfWidgetFormFilterInput(),
-      'pa_respaldo'        => new sfWidgetFormFilterInput(),
       'persona_pe_id'      => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('PERSONA'), 'add_empty' => true)),
       'tipo_consumo_tc_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('TIPO_CONSUMO'), 'add_empty' => true)),
     ));
@@ -33,7 +32,6 @@ abstract class BasePAGOSFormFilter extends BaseFormFilterDoctrine
       'pa_ice'             => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
       'pa_comision'        => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
       'pa_valor_total'     => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
-      'pa_respaldo'        => new sfValidatorPass(array('required' => false)),
       'persona_pe_id'      => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('PERSONA'), 'column' => 'pe_id')),
       'tipo_consumo_tc_id' => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('TIPO_CONSUMO'), 'column' => 'tc_id')),
     ));
@@ -63,7 +61,6 @@ abstract class BasePAGOSFormFilter extends BaseFormFilterDoctrine
       'pa_ice'             => 'Number',
       'pa_comision'        => 'Number',
       'pa_valor_total'     => 'Number',
-      'pa_respaldo'        => 'Text',
       'persona_pe_id'      => 'ForeignKey',
       'tipo_consumo_tc_id' => 'ForeignKey',
     );

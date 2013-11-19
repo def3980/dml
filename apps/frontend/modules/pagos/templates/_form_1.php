@@ -1,3 +1,14 @@
+<div class="widget-box" style="margin: 0">
+    <div class="widget-header">
+        <h5>Ingresar un nuevo pago</h5>
+        <span class="widget-toolbar">
+            <a href="#" data-dismiss="modal" aria-hidden="true">
+                <i class="icon-remove"></i>
+            </a>
+        </span>
+    </div>
+    <div class="widget-body">
+        <div class="widget-main">
             <form id="frm_pa" action="<?php echo url_for('pagos/'
                 .($form->getObject()->isNew() ? 'create' : 'update')
                     .(!$form->getObject()->isNew() ? '?pa_id='.$form->getObject()->getPaId() : '')) ?>" 
@@ -6,7 +17,7 @@
                 <input type="hidden" name="sf_method" value="put" /><?php endif; ?>
                 <h3 class="header smaller lighter green">Formulario de ingreso</h3>
                 <div class="row" style="margin: 0 auto">
-                    <div class="col-xs-12 col-sm-3">
+                    <div class="col-xs-12 col-sm-6">
                         <div class="form-group">
                             <?php echo $form['pa_numero_factura']->renderLabel() ?>
                             <div class="input-group">
@@ -17,7 +28,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-3">
+                    <div class="col-xs-12 col-sm-6">
                         <div class="form-group">
                             <?php echo $form['pa_fecha']->renderLabel() ?>
                             <div class="input-group">
@@ -30,21 +41,11 @@
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6">
-                        <div class="form-group">
-                            <?php echo $form['pa_detalle']->renderLabel() ?>
-                            <div class="input-group">
-                                <?php echo $form['pa_detalle']->render(array('class' => 'autosize-transition form-control', 'style' => 'overflow: hidden; word-wrap: break-word; resize: vertical; height: 52px;', 'cols' => '90')) ?>
-                            </div>
-                        </div>
-                    </div>                    
-                </div>
-                <div class="row" style="margin: 10px auto">
-                    <div class="col-xs-12 col-sm-3">
                         <?php echo $form['tipo_consumo_tc_id']->renderLabel() ?>
                         <br />
                         <?php echo $form['tipo_consumo_tc_id']->render(array('class' => 'width-110 chosen-select', 'data-placeholder' => 'Escoger')) ?>
                     </div>
-                    <div class="col-xs-12 col-sm-3">
+                    <div class="col-xs-12 col-sm-6">
                         <label for="hora">Hora :</label>
                         <br />
                         <div class="input-group bootstrap-timepicker">
@@ -81,6 +82,16 @@
                             </span>
                         </div>
                     </div>
+                </div>
+                <div class="row" style="margin: 10px auto">
+                    <div class="col-xs-12 col-sm-12">
+                        <div class="form-group">
+                            <?php echo $form['pa_detalle']->renderLabel() ?>
+                            <div class="input-group">
+                                <?php echo $form['pa_detalle']->render(array('class' => 'autosize-transition form-control', 'style' => 'overflow: hidden; word-wrap: break-word; resize: vertical; height: 52px;', 'cols' => '90')) ?>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-xs-12 col-sm-3">
                         <div class="form-group" style="cursor: pointer">
                             <?php echo $form['pa_iva']->renderLabel() ?>
@@ -92,6 +103,8 @@
                                 <input type="text" name="pa_iva" class="form-control" readonly="1" style="text-align: right" data-a-dec="," data-a-sep="." data-v-max="999999.99" data-v-min="0.00" id="pa_iva">
                             </div>
                         </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-3">
                         <div class="form-group">
                             <?php echo $form['pa_ice']->renderLabel() ?>
                             <div class="input-group" id="ice">
@@ -114,6 +127,8 @@
                                 <input type="text" name="pa_comision" class="form-control" style="text-align: right" data-a-dec="," data-a-sep="." data-v-max="999999.99" data-v-min="0.00" id="pa_comision">
                             </div>
                         </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-3">
                         <div class="form-group">
                             <?php echo $form['pa_valor_total']->renderLabel() ?>
                             <div class="input-group">
@@ -125,7 +140,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
 <!--                    <div class="col-xs-12 col-sm-12">
                         <?php /*echo $form['pa_respaldo']->renderLabel() ?>
                         <?php echo (!$form->getObject()->isNew() ? (count($form['pa_respaldo']->getValue()) ? (count($form['pa_numero_factura']->getValue()) ? '<i class="icon-file bigger-120"></i> factura_'.$form['pa_numero_factura']->getValue().'.pdf' : '<i class="icon-file bigger-120"></i> referencia_'.$form['pa_id']->getValue().'.pdf') : '') : '') ?>
@@ -159,6 +173,9 @@
                 </div>
                     <?php echo $form->renderGlobalErrors() ?><?php echo $form->renderHiddenFields(false) ?>
             </form>
+        </div>
+    </div>
+</div>
 
 <script type="text/javascript">
     jQuery(function($) {

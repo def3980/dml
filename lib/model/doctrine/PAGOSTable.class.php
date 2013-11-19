@@ -29,4 +29,17 @@ class PAGOSTable extends Doctrine_Table
                         ->where('MONTH(pa.pa_fecha) = MONTH(CURDATE())')
                             ->andWhere('tc.tc_nombre LIKE ?',array('%'.$data.'%'));
     }
+    
+    public static function consumoDiario($fecha) {
+        return PAGOSTable::EntidadPAGOS()
+                ->addSelect('SUM(pa.pa_valor_total) as vtd')
+                    ->where('DATE(pa.pa_fecha) = DATE(?)',array($fecha));
+    }
+    
+    public static function cuentaConsumoDiario($fecha) {
+        return PAGOSTable::EntidadPAGOS()
+                ->addSelect('COUNT(pa.pa_valor_total) as ccd')
+                    ->where('DATE(pa.pa_fecha) = DATE(?)',array($fecha))
+                        ->fetchOne(array(), Doctrine::HYDRATE_ARRAY_SHALLOW);
+    }
 }

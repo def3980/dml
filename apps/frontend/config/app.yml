@@ -4,4 +4,4 @@
 # default values
 all:
   admin: 'Administrador'
-  maxperpage: 4
+  maxperpage: 5

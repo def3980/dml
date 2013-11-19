@@ -16,6 +16,7 @@ class pagosActions extends sfActions
             ->createQuery('pa')
                 ->innerJoin('pa.TIPO_CONSUMO tc')
                     ->where('MONTH(pa.pa_fecha) = MONTH(CURDATE())')
+                    //->where('MONTH(pa.pa_fecha) = MONTH(DATE_ADD(NOW(),INTERVAL -1 MONTH))')
                         ->orderBy('pa.pa_fecha DESC');
     $this->pago_ss = new sfDoctrinePager('PAGOS',sfConfig::get('app_maxperpage'));
     $this->pago_ss->setQuery($sql);
@@ -54,7 +55,8 @@ class pagosActions extends sfActions
     $this->form = new PAGOSForm();
 
     if ($this->processFormSavePDF($request, $this->form))
-        $this->redirect('pagos/index');
+//        $this->redirect('pagos/index');
+            $this->msj = 'Ingresado';
 //    $this->setTemplate('new');
   }
 
@@ -105,13 +107,14 @@ class pagosActions extends sfActions
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
     $bool = false;
     if ($form->isValid()):
-        $pdf = $request->getFiles($form->getName());
-        $pagos = new PAGOS();
-        foreach ($form->getValues() as $k => $v)
-            if ($k != 'pa_id' || $k != 'pa_respaldo')
-                $pagos[$k] = (($k == 'pa_numero_factura' & $v == "") ? NULL : $v);
-        $pagos->setPaRespaldo($pdf['pa_respaldo']['error'] > 0 ? NULL : file_get_contents($pdf['pa_respaldo']['tmp_name']));
-        $pagos->save();
+//        $pdf = $request->getFiles($form->getName());
+//        $pagos = new PAGOS();
+//        foreach ($form->getValues() as $k => $v)
+//            if ($k != 'pa_id' || $k != 'pa_respaldo')
+//                $pagos[$k] = (($k == 'pa_numero_factura' & $v == "") ? NULL : $v);
+//        $pagos->setPaRespaldo($pdf['pa_respaldo']['error'] > 0 ? NULL : file_get_contents($pdf['pa_respaldo']['tmp_name']));
+//        $pagos->save();
+        $form->save();
         $bool = true;
     endif;
     return $bool;

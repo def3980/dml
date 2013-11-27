@@ -1,0 +1,1 @@
+<?php include_partial('jsonMsj', array('msj' => $msj)) ?>

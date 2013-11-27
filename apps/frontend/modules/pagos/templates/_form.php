@@ -4,7 +4,10 @@
                         method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?> 
                             autocomplete="off"><?php if (!$form->getObject()->isNew()): echo "\n"; ?>
                 <input type="hidden" name="sf_method" value="put" /><?php endif; ?>
-                <h3 class="header smaller lighter green">Formulario de ingreso</h3>
+                <h3 class="header smaller lighter blue" style="margin-top: 0">
+                    <i class="purple icon-magic bigger-110"></i>
+                    Formulario de ingreso
+                </h3>
                 <div class="row" style="margin: 0 auto">
                     <div class="col-xs-12 col-sm-3">
                         <div class="form-group">
@@ -16,72 +19,11 @@
                                 </span>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-3">
                         <div class="form-group">
-                            <?php echo $form['pa_fecha']->renderLabel() ?>
-                            <div class="input-group">
-                                <?php //echo $form['pa_fecha']->render(array('class' => 'form-control date-picker', 'data-date-format' => 'yyyy-mm-dd', 'readonly' => true)) ?>
-                                <input type="text" name="pa_fecha" class="form-control date-picker" data-date-format="yyyy-mm-dd" readonly="1" id="pa_fecha">
-                                <span class="input-group-addon">
-                                    <i class="icon-calendar"></i>
-                                </span>
-                            </div>
+                            <?php echo $form['tipo_consumo_tc_id']->renderLabel() ?>
+                            <br />
+                            <?php echo $form['tipo_consumo_tc_id']->render(array('class' => 'width-110 chosen-select', 'data-placeholder' => 'Escoger')) ?>
                         </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6">
-                        <div class="form-group">
-                            <?php echo $form['pa_detalle']->renderLabel() ?>
-                            <div class="input-group">
-                                <?php echo $form['pa_detalle']->render(array('class' => 'autosize-transition form-control', 'style' => 'overflow: hidden; word-wrap: break-word; resize: vertical; height: 52px;', 'cols' => '90')) ?>
-                            </div>
-                        </div>
-                    </div>                    
-                </div>
-                <div class="row" style="margin: 10px auto">
-                    <div class="col-xs-12 col-sm-3">
-                        <?php echo $form['tipo_consumo_tc_id']->renderLabel() ?>
-                        <br />
-                        <?php echo $form['tipo_consumo_tc_id']->render(array('class' => 'width-110 chosen-select', 'data-placeholder' => 'Escoger')) ?>
-                    </div>
-                    <div class="col-xs-12 col-sm-3">
-                        <label for="hora">Hora :</label>
-                        <br />
-                        <div class="input-group bootstrap-timepicker">
-                            <div class="bootstrap-timepicker-widget dropdown-menu">
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <td><a href="#" data-action="incrementHour"><i class="icon-chevron-up"></i></a></td>
-                                            <td class="separator">&nbsp;</td>
-                                            <td><a href="#" data-action="incrementMinute"><i class="icon-chevron-up"></i></a></td>
-                                            <td class="separator">&nbsp;</td>
-                                            <td><a href="#" data-action="incrementSecond"><i class="icon-chevron-up"></i></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="text" name="hour" class="bootstrap-timepicker-hour" maxlength="2"></td>
-                                            <td class="separator">:</td>
-                                            <td><input type="text" name="minute" class="bootstrap-timepicker-minute" maxlength="2"></td>
-                                            <td class="separator">:</td>
-                                            <td><input type="text" name="second" class="bootstrap-timepicker-second" maxlength="2"></td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="#" data-action="decrementHour"><i class="icon-chevron-down"></i></a></td>
-                                            <td class="separator"></td>
-                                            <td><a href="#" data-action="decrementMinute"><i class="icon-chevron-down"></i></a></td>
-                                            <td class="separator">&nbsp;</td>
-                                            <td><a href="#" data-action="decrementSecond"><i class="icon-chevron-down"></i></a></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <input id="timepicker1" type="text" class="form-control" readonly="true">
-                            <span class="input-group-addon">
-                                <i class="icon-time bigger-110"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-3">
                         <div class="form-group" style="cursor: pointer">
                             <?php echo $form['pa_iva']->renderLabel() ?>
                             <div class="input-group" id="iva">
@@ -105,6 +47,53 @@
                     </div>
                     <div class="col-xs-12 col-sm-3">
                         <div class="form-group">
+                            <?php echo $form['pa_fecha']->renderLabel() ?>
+                            <div class="input-group">
+                                <?php //echo $form['pa_fecha']->render(array('class' => 'form-control date-picker', 'data-date-format' => 'yyyy-mm-dd', 'readonly' => true)) ?>
+                                <input type="text" name="pa_fecha" class="form-control date-picker" data-date-format="yyyy-mm-dd" readonly="1" id="pa_fecha">
+                                <span class="input-group-addon">
+                                    <i class="icon-calendar"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="hora">Hora :</label>
+                            <br />
+                            <div class="input-group bootstrap-timepicker">
+                                <div class="bootstrap-timepicker-widget dropdown-menu">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td><a href="#" data-action="incrementHour"><i class="icon-chevron-up"></i></a></td>
+                                                <td class="separator">&nbsp;</td>
+                                                <td><a href="#" data-action="incrementMinute"><i class="icon-chevron-up"></i></a></td>
+                                                <td class="separator">&nbsp;</td>
+                                                <td><a href="#" data-action="incrementSecond"><i class="icon-chevron-up"></i></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="text" name="hour" class="bootstrap-timepicker-hour" maxlength="2"></td>
+                                                <td class="separator">:</td>
+                                                <td><input type="text" name="minute" class="bootstrap-timepicker-minute" maxlength="2"></td>
+                                                <td class="separator">:</td>
+                                                <td><input type="text" name="second" class="bootstrap-timepicker-second" maxlength="2"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#" data-action="decrementHour"><i class="icon-chevron-down"></i></a></td>
+                                                <td class="separator"></td>
+                                                <td><a href="#" data-action="decrementMinute"><i class="icon-chevron-down"></i></a></td>
+                                                <td class="separator">&nbsp;</td>
+                                                <td><a href="#" data-action="decrementSecond"><i class="icon-chevron-down"></i></a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <input id="timepicker1" type="text" class="form-control" readonly="true">
+                                <span class="input-group-addon">
+                                    <i class="icon-time bigger-110"></i>
+                                </span>
+                            </div>
+                        </div>                        
+                        <div class="form-group">
                             <?php echo $form['pa_comision']->renderLabel() ?>
                             <div class="input-group">
                                 <span class="input-group-addon">
@@ -122,6 +111,22 @@
                                 </span>
                                 <?php //echo $form['pa_valor_total']->render(array('class' => 'form-control', 'style' => 'text-align: right', 'data-a-dec' => ',', 'data-a-sep' => '.', 'data-v-max' => '999999.99', 'data-v-min' => '0.00')) ?>
                                 <input type="text" name="pa_valor_total" class="form-control" style="text-align: right" data-a-dec="," data-a-sep="." data-v-max="999999.99" data-v-min="0.00" id="pa_valor_total">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="form-group">
+                            <?php echo $form['pa_detalle']->renderLabel() ?>
+                            <div class="input-group">
+                                <?php echo $form['pa_detalle']->render(array('class' => 'autosize-transition form-control', 'style' => 'overflow: hidden; word-wrap: break-word; resize: vertical; height: 52px;', 'cols' => '90')) ?>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="file">Subir respaldos :</label>
+                            <div id="dropzone">
+                                <div id="clickable" class="dropzone" style="width: 100%; min-height: 165px; padding: 0;">
+                                    <div id="previews" class="dropzone-previews" style="text-align: center"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -143,8 +148,7 @@
                             </div>
                         </div>
                     </div>-->
-                </div>
-                <div class="header smaller lighter green"></div>
+                <div class="header smaller lighter blue"></div>
                 <div class="row" style="margin: 0 auto">
                     <div class="col-xs-12 col-sm-6">
                         <div class="form-group" style="text-align: right">
@@ -153,13 +157,12 @@
                     </div>
                     <div class="col-xs-12 col-sm-6">
                         <div class="form-group">
-                            <button class="btn btn-sm btn-primary">Guardar</button>
+                            <button id="submit-all" class="btn btn-sm btn-primary">Guardar</button>
                         </div>
                     </div>
                 </div>
-                    <?php echo $form->renderGlobalErrors() ?><?php echo $form->renderHiddenFields(false) ?>
+                <?php echo $form->renderGlobalErrors() ?><?php echo $form->renderHiddenFields(false) ?>
             </form>
-
 <script type="text/javascript">
     jQuery(function($) {
         $('.date-picker')
@@ -268,5 +271,56 @@
         });
         $(".chosen-select").chosen();
         $('#pagos_tipo_consumo_tc_id').next('div:first').css({'width':'100%'});
+        
+        // modificando un poco el select - chosen single
+        $('a.chosen-single').css({
+            'height'        : '34px',
+            'line-height'   : '32px'
+        });
+        
+        
+        // Dropzone
+//        try {
+//            $(".dropzone").dropzone({
+//                paramName: "file", // The name that will be used to transfer the file
+//                maxFilesize: 0.5, // MB
+//
+//                addRemoveLinks : true,
+//                dictDefaultMessage :
+//                    '<span class="bigger-150 bolder"><i class="icon-caret-right red"></i> Drop files</span> to upload \
+//                    <span class="smaller-80 grey">(or click)</span> <br /> \
+//                    <i class="upload-icon icon-cloud-upload blue icon-3x"></i>'
+//                    ,
+//                dictResponseError: 'Error while uploading file!',
+//
+//                //change the previewTemplate to use Bootstrap progress bars
+//                previewTemplate: "<div class=\"dz-preview dz-file-preview\">\n  <div class=\"dz-details\">\n    <div class=\"dz-filename\"><span data-dz-name></span></div>\n    <div class=\"dz-size\" data-dz-size></div>\n    <img data-dz-thumbnail />\n  </div>\n  <div class=\"progress progress-small progress-striped active\"><div class=\"progress-bar progress-bar-success\" data-dz-uploadprogress></div></div>\n  <div class=\"dz-success-mark\"><span></span></div>\n  <div class=\"dz-error-mark\"><span></span></div>\n  <div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n</div>"
+//            });
+//        } catch(e) {
+//            alert('Dropzone.js does not support older browsers!');
+//        }
+
+            new Dropzone(document.body, {                   // Make the whole body a dropzone
+                url                     : '<?php echo url_for('pagos/guardarBin') ?>',// Set the url
+                previewsContainer       : '#previews',      // Define the container to display the previews
+                clickable               : '#clickable',     // Define the element that should be used as click trigger to select files.
+                autoProcessQueue        : false,            // Evitamos que el archivo se guarde en la BDD inmediatamente
+                addRemoveLinks          : true,             // Añadimos un botón de eliminacion del archivo seleccionado
+                maxFilesize             : 1024,             // Tamaño máximo por archivo es de 5 MB
+                maxFiles                : 4,                // Permite 4 archivos a la vez para ser enviados
+                parallelUploads         : 4,                // Se envian 4 archivos al servidor de forma paralela
+                dictRemoveFile          : 'Quitar',         // Poniendo un nombre corto para la acción de eliminar  
+                dictCancelUpload        : 'Cancelar',       // Texto indicativo para cancelar el subir el archivo
+                dictInvalidFileType     : 'No permitido',   // Mensaje de archivo no permitido
+                acceptedFiles           : '.pdf',           // Sólo aceptamos archivos con extensión *.pdf
+                init                    : function() {
+                    var submitButton    = document.querySelector("#submit-all")
+                    myDropzone          = this;             // closure
+                    submitButton.addEventListener("click", function() {
+                        myDropzone.processQueue();          // Tell Dropzone to process all queued files.
+                    });
+                }
+            });
+
     });
 </script>

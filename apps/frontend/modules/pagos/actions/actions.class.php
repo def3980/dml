@@ -102,6 +102,44 @@ class pagosActions extends sfActions
       $this->getResponse()->sendHttpHeaders();
       print $pdf['pa_respaldo'];
   }
+  
+  public function executeGuardarBin(sfWebRequest $request)
+  {
+    if(isset($_FILES['file'])):
+        // Make sure the file was sent without errors
+        if($_FILES['file']['error'] == 0):
+            // Gather all required data
+            $name   = trim($_FILES['file']['name']);
+            $mime   = trim($_FILES['file']['type']);
+            $data   = file_get_contents($_FILES['file']['tmp_name']);
+            $size   = intval($_FILES['file']['size']);
+            $bi     = new BINARIOS();
+            $bi->setBiNombre($name);
+            $bi->setBiTamanioBytes($size);
+            $bi->setBiBin($data);
+            $bi->setBiExt($mime);
+            $bi->setPagosPaId(1);
+            $bi->save();
+            $this->msj = $bi->getBiId();
+        endif;
+    endif;
+  }
+//  protected function processFormSavePDF(sfWebRequest $request, sfForm $form) {
+//    $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+//    $bool = false;
+//    if ($form->isValid()):
+////        $pdf = $request->getFiles($form->getName());
+////        $pagos = new PAGOS();
+////        foreach ($form->getValues() as $k => $v)
+////            if ($k != 'pa_id' || $k != 'pa_respaldo')
+////                $pagos[$k] = (($k == 'pa_numero_factura' & $v == "") ? NULL : $v);
+////        $pagos->setPaRespaldo($pdf['pa_respaldo']['error'] > 0 ? NULL : file_get_contents($pdf['pa_respaldo']['tmp_name']));
+////        $pagos->save();
+//        $form->save();
+//        $bool = true;
+//    endif;
+//    return $bool;
+//  }
 
   protected function processFormSavePDF(sfWebRequest $request, sfForm $form) {
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));

@@ -12,4 +12,7 @@
  */
 class PAGOS extends BasePAGOS
 {
+    public function __toString() {
+        return $this->getPaId();
+    }
 }

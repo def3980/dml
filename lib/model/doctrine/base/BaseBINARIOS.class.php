@@ -9,26 +9,26 @@ Doctrine_Manager::getInstance()->bindComponent('BINARIOS', 'doctrine');
  * 
  * @property integer $bi_id
  * @property string $bi_nombre
- * @property decimal $bi_tamanio
+ * @property decimal $bi_tamanio_bytes
  * @property blob $bi_bin
  * @property string $bi_ext
  * @property integer $pagos_pa_id
  * @property PAGOS $PAGOS
  * 
- * @method integer  getBiId()        Returns the current record's "bi_id" value
- * @method string   getBiNombre()    Returns the current record's "bi_nombre" value
- * @method decimal  getBiTamanio()   Returns the current record's "bi_tamanio" value
- * @method blob     getBiBin()       Returns the current record's "bi_bin" value
- * @method string   getBiExt()       Returns the current record's "bi_ext" value
- * @method integer  getPagosPaId()   Returns the current record's "pagos_pa_id" value
- * @method PAGOS    getPAGOS()       Returns the current record's "PAGOS" value
- * @method BINARIOS setBiId()        Sets the current record's "bi_id" value
- * @method BINARIOS setBiNombre()    Sets the current record's "bi_nombre" value
- * @method BINARIOS setBiTamanio()   Sets the current record's "bi_tamanio" value
- * @method BINARIOS setBiBin()       Sets the current record's "bi_bin" value
- * @method BINARIOS setBiExt()       Sets the current record's "bi_ext" value
- * @method BINARIOS setPagosPaId()   Sets the current record's "pagos_pa_id" value
- * @method BINARIOS setPAGOS()       Sets the current record's "PAGOS" value
+ * @method integer  getBiId()             Returns the current record's "bi_id" value
+ * @method string   getBiNombre()         Returns the current record's "bi_nombre" value
+ * @method decimal  getBiTamanioBytes()   Returns the current record's "bi_tamanio_bytes" value
+ * @method blob     getBiBin()            Returns the current record's "bi_bin" value
+ * @method string   getBiExt()            Returns the current record's "bi_ext" value
+ * @method integer  getPagosPaId()        Returns the current record's "pagos_pa_id" value
+ * @method PAGOS    getPAGOS()            Returns the current record's "PAGOS" value
+ * @method BINARIOS setBiId()             Sets the current record's "bi_id" value
+ * @method BINARIOS setBiNombre()         Sets the current record's "bi_nombre" value
+ * @method BINARIOS setBiTamanioBytes()   Sets the current record's "bi_tamanio_bytes" value
+ * @method BINARIOS setBiBin()            Sets the current record's "bi_bin" value
+ * @method BINARIOS setBiExt()            Sets the current record's "bi_ext" value
+ * @method BINARIOS setPagosPaId()        Sets the current record's "pagos_pa_id" value
+ * @method BINARIOS setPAGOS()            Sets the current record's "PAGOS" value
  * 
  * @package    dml
  * @subpackage model
@@ -57,7 +57,7 @@ abstract class BaseBINARIOS extends sfDoctrineRecord
              'autoincrement' => false,
              'length' => 100,
              ));
-        $this->hasColumn('bi_tamanio', 'decimal', 10, array(
+        $this->hasColumn('bi_tamanio_bytes', 'decimal', 10, array(
              'type' => 'decimal',
              'fixed' => 0,
              'unsigned' => false,

@@ -861,11 +861,11 @@
                                     </div>
                                 </div><!-- Payment Questions -->
                                 <div id="faq-tab-4" class="tab-pane fade in active">
-                                    <h4 class="blue">
+<!--                                    <h4 class="blue">
                                         <i class="purple icon-magic bigger-110"></i>
                                         Miscellaneous Questions
                                     </h4>
-                                    <div class="space-8"></div>
+                                    <div class="space-8"></div>-->
                                     <div id="frm_load"></div>                                    
                                 </div><!-- Miscellaneous Questions -->
                             </div>

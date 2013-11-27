@@ -15,7 +15,7 @@ BINARIOS:
       primary: false
       notnull: false
       autoincrement: false
-    bi_tamanio:
+    bi_tamanio_bytes:
       type: 'decimal(10, 2)'
       fixed: false
       unsigned: false

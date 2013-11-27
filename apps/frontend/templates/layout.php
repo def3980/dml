@@ -25,6 +25,7 @@
             <link rel="stylesheet" href="<?php echo stylesheet_path('daterangepicker.css') ?>" />
             <link rel="stylesheet" href="<?php echo stylesheet_path('colorpicker.css') ?>" />
             <link rel="stylesheet" href="<?php echo stylesheet_path('jquery.gritter.css') ?>" />
+            <link rel="stylesheet" href="<?php echo stylesheet_path('dropzone.css') ?>" />
 
             <!-- fonts -->
 
@@ -114,6 +115,7 @@
             <script src="<?php echo javascript_path('spin.min.js') ?>"></script>
             <script src="<?php echo javascript_path('jquery.autosize.min.js') ?>"></script>
             <script src="<?php echo javascript_path('chosen.jquery.min.js') ?>"></script>
+            <script src="<?php echo javascript_path('dropzone.min.js') ?>"></script>
 
             <!-- ace scripts -->
 

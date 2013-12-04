@@ -49,6 +49,12 @@ $im = array(
       'im_valor'      => 200,
       'persona_pe_id' => 1,
   ),
+  array(
+      'im_fecha'      => '2013-12-03',
+      'im_razon'      => 'Aporte para los gastos de la casa de parte de Sara Rojas',
+      'im_valor'      => 100,
+      'persona_pe_id' => 1,
+  ),
 );
 ?>
 <?php foreach ($im as $k => $v): ?>

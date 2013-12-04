@@ -16,7 +16,7 @@ class pagosActions extends sfActions
             ->createQuery('pa')
                 ->innerJoin('pa.TIPO_CONSUMO tc')
                     ->where('MONTH(pa.pa_fecha) = MONTH(CURDATE())')
-                    //->where('MONTH(pa.pa_fecha) = MONTH(DATE_ADD(NOW(),INTERVAL -1 MONTH))')
+//                    ->where('MONTH(pa.pa_fecha) = MONTH(DATE_ADD(NOW(),INTERVAL -1 MONTH))')
                         ->orderBy('pa.pa_fecha DESC');
     $this->pago_ss = new sfDoctrinePager('PAGOS',sfConfig::get('app_maxperpage'));
     $this->pago_ss->setQuery($sql);
@@ -34,29 +34,38 @@ class pagosActions extends sfActions
                     ->createQuery('im')
                         ->addSelect('SUM(im.im_valor) as vt')
                             ->where('MONTH(im.im_fecha) = MONTH(CURDATE())')
+//                            ->where('MONTH(im.im_fecha) = MONTH(DATE_ADD(NOW(),INTERVAL -1 MONTH))')
                                 ->fetchOne(array(), Doctrine::HYDRATE_ARRAY_SHALLOW);
     $this->ingreso_monetario = INGRESO_MONETARIOTable::getInstance()
                                 ->createQuery('im')
                                     ->where('MONTH(im.im_fecha) = MONTH(CURDATE())');
+//                                    ->where('MONTH(im.im_fecha) = MONTH(DATE_ADD(NOW(),INTERVAL -1 MONTH))');
   }
 
   public function executeNew(sfWebRequest $request)
   {
     $this->form = new PAGOSForm();
-//    $this->form->setDefault('persona_pe_id',$this->getUser()->getAttribute('pe_id'));
-    $this->form->setDefault('persona_pe_id',1);
-    $this->form->setDefault('tipo_consumo_tc_id',2);
+    $this->form->setDefault('persona_pe_id', 1);
+    $this->form->setDefault('tipo_consumo_tc_id', rand(1, 4));
   }
 
   public function executeCreate(sfWebRequest $request)
   {
     $this->forward404Unless($request->isMethod(sfRequest::POST));
-
     $this->form = new PAGOSForm();
 
-    if ($this->processFormSavePDF($request, $this->form))
-//        $this->redirect('pagos/index');
-            $this->msj = 'Ingresado';
+    if ($this->processFormSavePDF($request, $this->form)):
+        $pa = PAGOSTable::EntidadPAGOS()
+                ->orderBy('pa.pa_id DESC')
+                    ->limit(1)
+                        ->fetchOne(array(), Doctrine::HYDRATE_ARRAY_SHALLOW);
+        foreach ($this->form->getValues() as $k => $v):
+            if ($k == 'pa_id'): $pagos[$k] = $pa['pa_id'];
+            else: $pagos[$k] = (($k == 'pa_numero_factura' & $v == "") ? NULL : $v); endif;
+        endforeach;
+    endif;
+    $this->array = $pagos;
+//    $this->processForm($request, $this->form);
 //    $this->setTemplate('new');
   }
 
@@ -72,10 +81,9 @@ class pagosActions extends sfActions
     $this->forward404Unless($pagos = Doctrine_Core::getTable('PAGOS')->find(array($request->getParameter('pa_id'))), sprintf('Object pagos does not exist (%s).', $request->getParameter('pa_id')));
     $this->form = new PAGOSForm($pagos);
 
-    if ($this->processFormUpdPDF($request, $this->form))
-        $this->redirect('pagos/index');
+    $this->processForm($request, $this->form);
 
-//    $this->setTemplate('edit');
+    $this->setTemplate('edit');
   }
 
   public function executeDelete(sfWebRequest $request)
@@ -87,91 +95,49 @@ class pagosActions extends sfActions
 
     $this->redirect('pagos/index');
   }
-  
-  public function executeInfo(sfWebRequest $request)
-  {
-      $factura = explode('.', ($request->getParameter('factura') != NULL ? $request->getParameter('factura') : $request->getParameter('referencia')));
-      $pdf = PAGOSTable::getInstance()
-                ->createQuery('pa')
-                    ->where('pa.pa_id = ?', array($factura[0]))
-                        ->orWhere('pa.pa_numero_factura = ?', array($factura[0]))
-                            ->fetchOne(array(), Doctrine::HYDRATE_ARRAY_SHALLOW);
-      $this->getResponse()->setHttpHeader('Content-Type', 'application/pdf');
-      $this->getResponse()->setHttpHeader('Content-Length', strlen($pdf['pa_respaldo']));
-      $this->getResponse()->setHttpHeader('Content-Disposition', ' ; filename="'.($request->getParameter('factura') != NULL ? 'factura_'.$request->getParameter('factura') : 'referencia_'.$request->getParameter('referencia')).'"');
-      $this->getResponse()->sendHttpHeaders();
-      print $pdf['pa_respaldo'];
-  }
-  
-  public function executeGuardarBin(sfWebRequest $request)
-  {
-    if(isset($_FILES['file'])):
-        // Make sure the file was sent without errors
-        if($_FILES['file']['error'] == 0):
-            // Gather all required data
-            $name   = trim($_FILES['file']['name']);
-            $mime   = trim($_FILES['file']['type']);
-            $data   = file_get_contents($_FILES['file']['tmp_name']);
-            $size   = intval($_FILES['file']['size']);
-            $bi     = new BINARIOS();
-            $bi->setBiNombre($name);
-            $bi->setBiTamanioBytes($size);
-            $bi->setBiBin($data);
-            $bi->setBiExt($mime);
-            $bi->setPagosPaId(1);
-            $bi->save();
-            $this->msj = $bi->getBiId();
-        endif;
-    endif;
-  }
-//  protected function processFormSavePDF(sfWebRequest $request, sfForm $form) {
-//    $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
-//    $bool = false;
-//    if ($form->isValid()):
-////        $pdf = $request->getFiles($form->getName());
-////        $pagos = new PAGOS();
-////        foreach ($form->getValues() as $k => $v)
-////            if ($k != 'pa_id' || $k != 'pa_respaldo')
-////                $pagos[$k] = (($k == 'pa_numero_factura' & $v == "") ? NULL : $v);
-////        $pagos->setPaRespaldo($pdf['pa_respaldo']['error'] > 0 ? NULL : file_get_contents($pdf['pa_respaldo']['tmp_name']));
-////        $pagos->save();
-//        $form->save();
-//        $bool = true;
-//    endif;
-//    return $bool;
-//  }
 
+  protected function processForm(sfWebRequest $request, sfForm $form)
+  {
+    $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+    if ($form->isValid())
+    {
+      $pagos = $form->save();
+
+      $this->redirect('pagos/edit?pa_id='.$pagos->getPaId());
+    }
+  }
+  
   protected function processFormSavePDF(sfWebRequest $request, sfForm $form) {
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
     $bool = false;
     if ($form->isValid()):
-//        $pdf = $request->getFiles($form->getName());
-//        $pagos = new PAGOS();
-//        foreach ($form->getValues() as $k => $v)
-//            if ($k != 'pa_id' || $k != 'pa_respaldo')
-//                $pagos[$k] = (($k == 'pa_numero_factura' & $v == "") ? NULL : $v);
-//        $pagos->setPaRespaldo($pdf['pa_respaldo']['error'] > 0 ? NULL : file_get_contents($pdf['pa_respaldo']['tmp_name']));
-//        $pagos->save();
-        $form->save();
+        $pagos = new PAGOS();
+        foreach ($form->getValues() as $k => $v)
+            if ($k != 'pa_id')
+                $pagos[$k] = (($k == 'pa_numero_factura' & $v == "") ? NULL : $v);
+        $pagos->save();
         $bool = true;
     endif;
     return $bool;
   }
-
-  protected function processFormUpdPDF(sfWebRequest $request, sfForm $form) {
-    $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
-    $bool = false;
-    if ($form->isValid()):
-        $pdf = $request->getFiles($form->getName());
-        $up = Doctrine_Query::create()->update('PAGOS pa');
-        foreach ($form->getValues() as $k => $v)
-            if ($k != 'pa_respaldo')
-                $up->set('pa.'.$k.'', '?', array(($k == 'pa_numero_factura' & $v == "") ? NULL : $v));
-        if ($pdf['pa_respaldo']['error'] == 0)
-            $up->set('pa.pa_respaldo', '?', array(file_get_contents($pdf['pa_respaldo']['tmp_name'])));
-        $up->where('pa.pa_id = ?', array($request->getParameter('pa_id')))->execute();
-        $bool = true;
-    endif;
-    return $bool;
+  
+  public function executeDropzoneSavePDF(sfWebRequest $request) {
+    $pdf = $request->getFiles('file');
+    if(isset($pdf)):
+        if($pdf['error'] == 0):
+            $name = $pdf['name'];
+            $mime = $pdf['type'];
+            $data = file_get_contents($pdf['tmp_name']);
+            $size = intval($pdf['size']);
+            $bi = new BINARIOS();
+            $bi->setBiNombre($name);
+            $bi->setBiTamanioBytes($size);
+            $bi->setBiBin($data);
+            $bi->setBiExt($mime);
+            $bi->setPagosPaId($request->getParameter('id'));
+            $bi->save();
+            $this->msj = $request->getParameter('id');
+        endif;
+    else: $this->msj = 'Error! A file was not sent!'; endif;
   }
 }

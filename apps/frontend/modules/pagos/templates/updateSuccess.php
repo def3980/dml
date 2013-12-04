@@ -1,1 +1,0 @@
-<?php include_partial('jsonArray', array('array' => $array)) ?>

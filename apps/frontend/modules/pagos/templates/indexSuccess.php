@@ -866,7 +866,7 @@
                                         Miscellaneous Questions
                                     </h4>
                                     <div class="space-8"></div>-->
-                                    <div id="frm_load"></div>                                    
+                                    <div id="frm_load"></div>
                                 </div><!-- Miscellaneous Questions -->
                             </div>
                         </div>
@@ -921,7 +921,6 @@
         <i class="icon-double-angle-up icon-only bigger-110"></i>
     </a>
 </div><!-- /.main-container -->
-
 <script type="text/javascript">
     jQuery(function($) {
         $('.accordion').on('hide', function (e) {
@@ -961,7 +960,7 @@
         <?php echo $me['vt'] != NULL ? '{ label: "Medicinas",         data: '.round($col2,2).',  color: "#2091CF" },'."\n" : '' ?>
         <?php echo $co['vt'] != NULL ? '{ label: "Comida",            data: '.round($col3,2).',  color: "#AF4E96" },'."\n" : '' ?>
         <?php echo $va['vt'] != NULL ? '{ label: "Varios",            data: '.round($col4,2).',  color: "#DA5430" },'."\n\t" : '' ?>
-<?php echo '{ label: "Disponible",        data: '.round($di,2).',  color: "gold" },'."\n" ?>
+        <?php echo '{ label: "Disponible",        data: '.round($di,2).',  color: "gold" },'."\n" ?>
             ];
         var data2 = new Array();
         <?php echo $sb['vt'] != NULL ? "data2['Servicios Básicos']  = '".MyHelpers::opcion()->dinero($sb['vt'])."';\n" : "" ?>

@@ -849,6 +849,28 @@ $pa = array(
       'persona_pe_id'     => 1,
       'tipo_consumo_tc_id'=> 4,
   ),
+  array(
+      'pa_numero_factura' => NULL,
+      'pa_fecha'          => '2013-12-03 17:53:12',
+      'pa_detalle'        => 'Pago de comida para Benjamín Rojas Andy en el AKí',
+      'pa_iva'            => 5.61,
+      'pa_ice'            => NULL,
+      'pa_comision'       => NULL,
+      'pa_valor_total'    => 52.38,
+      'persona_pe_id'     => 1,
+      'tipo_consumo_tc_id'=> 4,
+  ),
+  array(
+      'pa_numero_factura' => NULL,
+      'pa_fecha'          => '2013-12-03 18:39:21',
+      'pa_detalle'        => 'Pago de un pollo entero asado en Texas Chicken',
+      'pa_iva'            => 1.52,
+      'pa_ice'            => NULL,
+      'pa_comision'       => NULL,
+      'pa_valor_total'    => 14.25,
+      'persona_pe_id'     => 1,
+      'tipo_consumo_tc_id'=> 3,
+  ),
 );
 ?>
 <?php foreach ($pa as $k => $v): ?>

@@ -26,6 +26,7 @@ class PAGOSTable extends Doctrine_Table
         return PAGOSTable::EntidadPAGOS()
                 ->innerJoin('pa.TIPO_CONSUMO tc')
                     ->addSelect('SUM(pa.pa_valor_total) as vt')
+//                        ->where('MONTH(pa.pa_fecha) = MONTH(DATE_ADD(NOW(),INTERVAL -1 MONTH))')
                         ->where('MONTH(pa.pa_fecha) = MONTH(CURDATE())')
                             ->andWhere('tc.tc_nombre LIKE ?',array('%'.$data.'%'));
     }

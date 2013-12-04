@@ -1,24 +1,6 @@
 # You can find more information about this file on the symfony website:
 # http://www.symfony-project.org/reference/1_4/en/10-Routing
 
-# -------------------------------------------------------------- BINARIOS
-binarios_vista:
-  url:   /informacion-binarios/*
-  param: { module: binarios, action: index }
-
-binarios_nuevo:
-  url:   /nuevo-binario
-  param: { module: binarios, action: new }
-
-binarios_edita:
-  url:   /editar-binario/:bi_id
-  param: { module: binarios, action: edit }
-
-binarios_update:
-  url:   /actualizar-binario
-  param: { module: binarios, action: update }
-# --------------------------------------------------------------- FIN BINARIOS
-
 # -------------------------------------------------------------- PAGOS
 pagos_vista:
   url:   /informacion-pagos/*

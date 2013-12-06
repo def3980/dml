@@ -16,4 +16,9 @@ class BINARIOSTable extends Doctrine_Table
     {
         return Doctrine_Core::getTable('BINARIOS');
     }
+    
+    public static function EntidadBINARIOS() {
+        return BINARIOSTable::getInstance()
+                ->createQuery('bi');
+    }
 }

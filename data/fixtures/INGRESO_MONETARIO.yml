@@ -55,6 +55,12 @@ $im = array(
       'im_valor'      => 100,
       'persona_pe_id' => 1,
   ),
+  array(
+      'im_fecha'      => '2013-12-05',
+      'im_razon'      => 'Sueldo Noviembre 2013',
+      'im_valor'      => 724.27,
+      'persona_pe_id' => 1,
+  ),
 );
 ?>
 <?php foreach ($im as $k => $v): ?>

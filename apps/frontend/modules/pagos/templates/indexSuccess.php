@@ -522,7 +522,7 @@
                         <!-- PAGE CONTENT BEGINS -->
                         <div class="tabbable">
                             <ul class="nav nav-tabs padding-18 tab-size-bigger" id="myTab">
-                                <li>
+                                <li class="active">
                                     <a data-toggle="tab" href="#faq-tab-1">
                                         <i class="blue icon-question-sign bigger-120"></i>
                                         General
@@ -540,7 +540,7 @@
                                         Payments
                                     </a>
                                 </li><!-- Tab#Payments -->
-                                <li class="active">
+                                <li>
                                     <a data-toggle="tab" href="#faq-tab-4">
                                         <i class="purple icon-magic bigger-120"></i>
                                         Nuevo
@@ -548,7 +548,7 @@
                                 </li><!-- /.dropdown Miscellaneous Questions -->
                             </ul><!-- Tabs -->
                             <div class="tab-content no-border padding-24">
-                                <div id="faq-tab-1" class="tab-pane fade">
+                                <div id="faq-tab-1" class="tab-pane fade in active">
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-6">
                                             <div class="widget-box collapsed">
@@ -860,7 +860,7 @@
                                         </div><!-- Brunch 3 wolf -->
                                     </div>
                                 </div><!-- Payment Questions -->
-                                <div id="faq-tab-4" class="tab-pane fade in active">
+                                <div id="faq-tab-4" class="tab-pane fade">
 <!--                                    <h4 class="blue">
                                         <i class="purple icon-magic bigger-110"></i>
                                         Miscellaneous Questions

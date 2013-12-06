@@ -7,7 +7,7 @@
 <?php if (!$form->getObject()->isNew()): echo "\n"; ?><input type="hidden" name="sf_method" value="put" /><?php endif; ?>
     <h3 class="header smaller lighter blue" style="margin-top: 0">
         <i class="purple icon-magic bigger-110"></i>
-        Formulario de ingreso
+        Formulario de <span>ingreso</span>
     </h3>
     <div class="row" style="margin: 0 auto">
         <div class="col-xs-12 col-sm-3">
@@ -44,7 +44,7 @@
             </div>
         </div>
         <div class="col-xs-12 col-sm-3">
-            <div class="form-group" style="cursor: pointer">
+            <div class="form-group">
                 <?php echo $form['pa_iva']->renderLabel() ?>
                 <div class="input-group" id="iva">
                     <span class="input-group-addon">
@@ -152,7 +152,7 @@
     <div class="header smaller lighter blue" style="margin-top: 6px"></div>
     <?php echo $form->renderGlobalErrors() ?><?php echo $form->renderHiddenFields(false) ?>
 </form>
-<button id="submit-all">Countdown To Extinction</button>
+<button id="submit-all" style="display: none">Countdown To Extinction</button>
 <script type="text/javascript">
     jQuery(function($) {
         /* ------------------------------- PARA EL CASO DEL NUMERO DE FACTURA */
@@ -197,15 +197,20 @@
             +'#pa_comision, '
                 +'#pa_ice, '
                     +'#pa_iva').autoNumeric('init',{ aPad : false });
-        $('#iva,#iva input,#ice,#ice input[type="text"]').css('cursor', 'pointer');
-        $('#iva').css('cursor', 'pointer').bind('click',function(){
+        $('#iva span').css('cursor', 'pointer').bind('click',function(){
+            $('#iva input[type="text"]').val('');
+        });
+        $('#iva input[type="text"]').css('cursor', 'pointer').bind('click',function(){
             if ($('#pagos_pa_valor_total').val().length) {        
                 var vi = reemplazarComaXPunto(reemplazarPunto($('#pa_valor_total').val()));
                 $('#pa_iva').val(reemplazarPuntoXComa(round(vi - (vi / 1.12), 2)));
                 $('#pagos_pa_iva').val(round(vi - (vi / 1.12), 2));
             }
         });
-        $('#ice').bind('click',function(){
+        $('#ice span').css('cursor', 'pointer').bind('click',function(){
+            $('#ice input[type="text"]').val('');
+        });
+        $('#ice input[type="text"]').css('cursor', 'pointer').bind('click',function(){
             if ($('#pagos_pa_valor_total').val().length) {
                 var vi = reemplazarComaXPunto(reemplazarPunto($('#pa_valor_total').val()));
                 $('#pa_ice').val(reemplazarPuntoXComa(round(vi - (vi / 1.15), 2)));
@@ -282,6 +287,7 @@
         function showResponse(responseText, statusText, xhr, $form) {
             $("#submit-all").text(responseText.pa_id);
             $("#submit-all").click();
+            if (!$('#previews').is(':parent')) { window.location.reload(); }
             var_dump(responseText);
         }
     });

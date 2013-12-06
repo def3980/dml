@@ -14,9 +14,12 @@ foreach ($pagos as $k => $pa): if (MyHelpers::opcion()->verSoloFecha($pa['pa_fec
                         <div class="row">
                             <div class="col-xs-12 col-sm-11">
                                 <ul class="list-unstyled">
-                                    <li><i class="icon-caret-right blue"></i>Nested List Item</li>
-                                    <li><i class="icon-caret-right blue"></i>Nested List Item</li>
-                                    <li><i class="icon-caret-right blue"></i>Nested List Item</li>
+                                    <?php 
+                                        $binarios = BINARIOSTable::EntidadBINARIOS()->where('bi.pagos_pa_id = ?', array($pa['pa_id']));
+                                        foreach ($binarios as $bi): 
+                                    ?>
+                                    <li><i class="icon-caret-right red"></i><?php echo count($bi->getBiBin()) ? : '' ?></li>
+                                    <?php endforeach; ?>
                                 </ul>
                             </div>
                             <div class="col-xs-12 col-sm-1" style="padding-right: 1px">

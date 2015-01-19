@@ -1,4 +1,0 @@
-dml
-===
-
-Detail My Life

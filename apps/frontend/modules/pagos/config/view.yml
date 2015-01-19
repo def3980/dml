@@ -1,0 +1,11 @@
+## CONTROL DE LIBRERIAS QUE SE PUEDEN USAR O NO
+#all:
+#    javascripts: [-bootstrap-transition, -bootstrap-dropdown, -bootstrap-scrollspy, -bootstrap-tab, -bootstrap-typeahead, -bootstrap-affix]
+
+newSuccess:
+    stylesheets: [dropzone]
+    javascripts: [dropzone, jquery.form.js, js-personal/validators, js-personal/dump, jquery.maskedinput.js]
+
+editSuccess:
+    stylesheets: [dropzone]
+    javascripts: [dropzone, jquery.form.js, js-personal/validators, jquery.maskedinput.js]

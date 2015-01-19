@@ -1,0 +1,4 @@
+## LISTA DE SEURIDADES Y USUARIOS
+all:
+    is_secure: true
+    credentials: [admin]

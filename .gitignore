@@ -3,14 +3,14 @@
 # ------------------------------------------------------------- Symfony 1.4.20
 /cache/*
 /log/*
-/config/app.yml
-/config/app.yml~
-/config/databases.yml
-/config/databases.yml~
-/apps/backend/config/factories.yml
-/apps/backend/config/factories.yml~
-/apps/frontend/config/factories.yml
-/apps/frontend/config/factories.yml~
+#/config/app.yml
+#/config/app.yml~
+#/config/databases.yml
+#/config/databases.yml~
+#/apps/backend/config/factories.yml
+#/apps/backend/config/factories.yml~
+#/apps/frontend/config/factories.yml
+#/apps/frontend/config/factories.yml~
 # ----------------------------------------------------------------------------
 
 # ------------------------------------------------------------------- Editores

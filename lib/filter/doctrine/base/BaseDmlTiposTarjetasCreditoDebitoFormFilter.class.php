@@ -4,8 +4,8 @@
  * Fecha creacion : "Viernes, 5 Diciembre 2014 12:47:53"
  * 
  * Acciones realizadas:
- * - Veces ejecutado doctrine:build-forms            : "000081"
- * - Ultima vez que se actualizo la clase formulario : "2015-01-05 09:08:24"
+ * - Veces ejecutado doctrine:build-forms            : "000082"
+ * - Ultima vez que se actualizo la clase formulario : "2015-01-19 09:46:28"
  */
 
 /**

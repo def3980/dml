@@ -29,6 +29,9 @@ class pagosActions extends sfActions {
     public function executeCreate(sfWebRequest $request) {
         $this->forward404Unless($request->isMethod(sfRequest::POST));
         $this->form = new DmlPagosForm(null, array('id' => $this->getUser()->getAttribute('id')));
+        $dml_pagos = $request->getParameter('dml_pagos');
+        $dml_pagos['pa_beneficiarios_json'] = json_encode($dml_pagos['pa_beneficiarios_json']);
+        $request->setParameter('dml_pagos', $dml_pagos);
         $this->redirect($this->generateUrl(
             'json', 
             array('id' => $this->processForm($request, $this->form))
@@ -45,6 +48,7 @@ class pagosActions extends sfActions {
             sprintf('El objeto pa con el parametro (%s), no existe.', $request->getParameter('id'))
         );
         $this->form = new DmlPagosForm($pa);
+        $this->form->setDefault('pa_beneficiarios_json', json_decode($pa->getPaBeneficiariosJson()));
         $bi_count = DmlBinariosTable::getCountNonLogicalDeleteByIdPago($request->getParameter('id'));
         $this->bi_count = 0 !== $bi_count
                             ? sfConfig::get('app_max_files_per_paid') - $bi_count
@@ -61,6 +65,9 @@ class pagosActions extends sfActions {
             sprintf('El objecto pa con el parametro (%s), no existe.', $request->getParameter('id'))
         );
         $this->form = new DmlPagosForm($pa, array('id' => $this->getUser()->getAttribute('id')));
+        $dml_pagos = $request->getParameter('dml_pagos');
+        $dml_pagos['pa_beneficiarios_json'] = json_encode($dml_pagos['pa_beneficiarios_json']);
+        $request->setParameter('dml_pagos', $dml_pagos);
         $this->redirect($this->generateUrl(
             'json', 
             array('id' => $this->processForm($request, $this->form))

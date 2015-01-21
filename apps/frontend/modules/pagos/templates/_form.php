@@ -25,8 +25,8 @@
                                             <?php echo $form['tipos_gastos']->render(array('placeholder' => 'tipos_gastos', 'class' => 'show-menu-arrow span3')).PHP_EOL ?>
                                         </fieldset>
                                         <fieldset>
-                                            <?php echo $form['pa_beneficiario']->renderLabel().PHP_EOL ?>
-                                            <?php echo $form['pa_beneficiario']->render(array('class' => 'show-menu-arrow span3')).PHP_EOL ?>
+                                            <?php echo $form['pa_beneficiarios_json']->renderLabel().PHP_EOL ?>
+                                            <?php echo $form['pa_beneficiarios_json']->render(array('class' => 'chosen-select span3', 'data-placeholder' => 'pa_beneficiario')).PHP_EOL ?>
                                         </fieldset>
                                         <fieldset>
                                             <?php echo $form['pa_detalle']->renderLabel().PHP_EOL ?>
@@ -173,8 +173,6 @@
                 $(inputNumeroFactura).mask("999-999-999999999", { placeholder : "x" });
                 // activando bootstrap-select en los campos que son claves foreaneas
                 $(inputForeinKey).selectpicker({ size : 5 });
-//                $('#dml_pagos_pa_beneficiario').selectpicker({ size : 5 });
-//                alert($('.btn-group button').find('active'));
                 
                 $('#frm_pa').ajaxForm({
                     dataType : 'json',
@@ -199,7 +197,7 @@
                 
                 /* ------------------------------------------------------------ DROPZONE */
                 Dropzone.autoDiscover = false;
-                new Dropzone(document.body, {               // Make the whole body a dropzone
+                new Dropzone(document.body, {                // Make the whole body a dropzone
                     url                  : "<?php echo url_for('pagos/dropzone') ?>",// Set the url
                     previewsContainer    : "#previews",      // Define the container to display the previews
                     clickable            : "#clickable",     // Define the element that should be used as click trigger to select files.
@@ -218,7 +216,7 @@
                         var submitButton = document.querySelector("#btnDropzone"),
                             myDropzone = this; // closure
                         submitButton.addEventListener("click", function() {
-                            if (myDropzone.files.length > 0) { // valido par cuando no envio archivos
+                            if (myDropzone.files.length > 0) { // valido para cuando no envio archivos
                                 myDropzone.processQueue(); // Tell Dropzone to process all queued files.
                             } else {
                                 setTimeout(function(){
@@ -239,6 +237,11 @@
                         });
                     }
                 });
+                /* --------------------------------------------------------------------- */
+                
+                /* -------------------------------------------------------------- CHOSEN */
+                var config = { '.chosen-select' : {} }
+                for (var selector in config) $(selector).chosen(config[selector]);
                 /* --------------------------------------------------------------------- */
             });
         </script>

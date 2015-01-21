@@ -28,23 +28,25 @@ class DmlPagosForm extends BaseDmlPagosForm {
                 DmlPagosTable::getCountNonInvoice() + 1
             )
         );
-        $this->widgetSchema['pa_iva']             = new sfWidgetFormInputHidden();
-        $this->widgetSchema['pa_ice']             = new sfWidgetFormInputHidden();
-        $this->widgetSchema['pa_beneficiario']    = new sfWidgetFormDoctrineChoice(array(
+        $this->widgetSchema['pa_iva']                = new sfWidgetFormInputHidden();
+        $this->widgetSchema['pa_ice']                = new sfWidgetFormInputHidden();
+        $this->widgetSchema['pa_beneficiarios_json'] = new sfWidgetFormDoctrineChoice(array(
             'model' => 'DmlBeneficiarios',
             'method' => 'getBeneficiarios',
+//            'choices' => !$this->isNew ? json_decode($this->getValue('pa_beneficiarios_json'), true) : NULL,
+//            'choices' => array(1,2,3,4),
             'multiple' => true
         ));
-        $this->widgetSchema['pa_fecha']           = new sfWidgetFormInputText();
-        $this->widgetSchema['pa_fecha_crea']      = new sfWidgetFormInputText();
-        $this->widgetSchema['pa_fecha_modifica']  = new sfWidgetFormInputText();
-        $this->widgetSchema['pa_fecha_borra']     = new sfWidgetFormInputText();
+        $this->widgetSchema['pa_fecha']              = new sfWidgetFormInputText();
+        $this->widgetSchema['pa_fecha_crea']         = new sfWidgetFormInputText();
+        $this->widgetSchema['pa_fecha_modifica']     = new sfWidgetFormInputText();
+        $this->widgetSchema['pa_fecha_borra']        = new sfWidgetFormInputText();
         $this->widgetSchema['personas']->setOption('subtext', true);
         $this->widgetSchema['personas']->setOption('spaces', 40);
         $this->widgetSchema['tipos_gastos']->setOption('subtext', true);
         $this->widgetSchema['tipos_gastos']->setOption('spaces', 40);
-        $this->widgetSchema['pa_beneficiario']->setOption('subtext', true);
-        $this->widgetSchema['pa_beneficiario']->setOption('spaces', 40);
+        $this->widgetSchema['pa_beneficiarios_json']->setOption('subtext', true);
+        $this->widgetSchema['pa_beneficiarios_json']->setOption('spaces', 40);
         unset(
             $this['personas'], 
             $this['pa_fecha_crea'], 
@@ -56,16 +58,16 @@ class DmlPagosForm extends BaseDmlPagosForm {
             $this['pa_borrado_logico']
         ); 
         $this->widgetSchema->setLabels(array(
-            'personas'          => 'Personas:',
-            'tipos_gastos'      => 'Opciones gastos:',
-            'pa_numero_factura' => '# Factura:',
-            'pa_fecha'          => 'Fecha:',
-            'pa_detalle'        => 'Detalle:',
-            'pa_iva'            => 'I.V.A.:',
-            'pa_ice'            => 'I.C.E.:',
-            'pa_comision'       => 'Comision:',
-            'pa_valor_total'    => 'Valor total:',
-            'pa_beneficiario'   => 'Beneficiario(s):',
+            'personas'              => 'Personas:',
+            'tipos_gastos'          => 'Opciones gastos:',
+            'pa_numero_factura'     => '# Factura:',
+            'pa_fecha'              => 'Fecha:',
+            'pa_detalle'            => 'Detalle:',
+            'pa_iva'                => 'I.V.A.:',
+            'pa_ice'                => 'I.C.E.:',
+            'pa_comision'           => 'Comision:',
+            'pa_valor_total'        => 'Valor total:',
+            'pa_beneficiarios_json' => 'Beneficiario(s):',
         ));
     }
     

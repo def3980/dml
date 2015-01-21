@@ -42,11 +42,11 @@ all:
     use_database:        true
     
     # activando modulo login ---
-#    login_module:        login
-#    login_action:        index
-#    secure_module:       login
-#    secure_action:       index
-  .actions:
     login_module:        login
     login_action:        index
+    secure_module:       login
+    secure_action:       index
+#  .actions:
+#    login_module:        login
+#    login_action:        index
     # --------------------------

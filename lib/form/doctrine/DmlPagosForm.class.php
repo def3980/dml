@@ -33,8 +33,6 @@ class DmlPagosForm extends BaseDmlPagosForm {
         $this->widgetSchema['pa_beneficiarios_json'] = new sfWidgetFormDoctrineChoice(array(
             'model' => 'DmlBeneficiarios',
             'method' => 'getBeneficiarios',
-//            'choices' => !$this->isNew ? json_decode($this->getValue('pa_beneficiarios_json'), true) : NULL,
-//            'choices' => array(1,2,3,4),
             'multiple' => true
         ));
         $this->widgetSchema['pa_fecha']              = new sfWidgetFormInputText();

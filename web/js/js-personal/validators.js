@@ -1,4 +1,18 @@
 /**
+ * obtenerStringEntreParentesisCuadrado
+ * 
+ * @param {string} str Cadena con contenido de []
+ * @returns {obtenerStringEntreParentesisCuadrado.strSinPrentesisCuadrado}
+ */
+function obtenerStringEntreParentesisCuadrado(str) {
+    words = [];
+    str.replace(/\[(.+?)\]/g, function($0, $1) { words.push($1) })
+    return words;
+}
+
+
+
+/**
  * UTILIZADO PARA MENSAJES DE VALIDACIÓN DE FORMULARIOS
  */
 function validador(obj, msj) {

@@ -24,6 +24,7 @@ class pagosActions extends sfActions {
     public function executeNew(sfWebRequest $request) {
         $this->form = new DmlPagosForm();
         $this->bi_count = sfConfig::get('app_max_files_per_paid');
+        $this->pa_numero_factura = '000-000-'.Singleton::getInstance()->numeroDeOrden(DmlPagosTable::getCountNonInvoice() + 1);
     }
 
     public function executeCreate(sfWebRequest $request) {
@@ -107,11 +108,29 @@ class pagosActions extends sfActions {
         $this->processForm($request, null, true);
         return sfView::NONE;
     }
+    
+    public function executeIntermediate(sfWebRequest $request) {
+        $this->redirect($this->generateUrl(
+            'json', 
+            array(
+                'pa_numero_factura' => '000-000-'
+                    .Singleton::getInstance()
+                    ->numeroDeOrden(DmlPagosTable::getCountNonInvoice() + 1)
+            )
+        ));
+    }
 
     protected function processForm(sfWebRequest $request, sfForm $form = null, $dropzone = false) {
         if (!$dropzone) {
             $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
             if ($form->isValid()) {
+            echo "<pre>";
+            print_r($request->getParameterHolder()->getAll());
+            echo "</pre>";
+            echo "<pre>";
+            print_r($form->getValue('pa_beneficiarios_json'));
+            echo "</pre>";
+            die();
                 $pa = $form->save();
                 return $pa->getId();
             } 

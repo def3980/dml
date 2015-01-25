@@ -13,52 +13,65 @@
                         <input type="hidden" name="sf_method" value="put" />
 <?php endif; ?>
                         <div class="row">
-                            <div class="span9" style="float: none; margin: 0 auto;">
+                            <div class="span12" style="float: none; margin: 0 auto;">
                                 <div class="row">
-                                    <div class="span3 offset1">
+                                    <div class="span3 offset2">
+                                        <fieldset style="margin-bottom: 10px">
+                                            <label>Opciones adicionales:</label>
+                                            <div class="btn-group" data-toggle="buttons-checkbox">
+                                                <button type="button" class="btn fac<?php echo $form['pa_con_sin_factura']->getValue() ? ' active' : '' ?>">Factura</button>
+                                                <button type="button" class="btn iva">I.V.A.</button>
+                                                <button type="button" class="btn ice">I.C.E.</button>
+                                            </div>
+                                        </fieldset>
                                         <fieldset>
                                             <?php echo $form['pa_numero_factura']->renderLabel().PHP_EOL ?>
-                                            <?php echo $form['pa_numero_factura']->render(array('placeholder' => 'pa_numero_factura', 'class' => 'span3')).PHP_EOL ?>
+                                            <?php echo $form['pa_numero_factura']->render(array('placeholder' => 'pa_numero_factura', 'class' => 'span3', 'readonly' => $form->getObject()->isNew() ? 'false' : '')).PHP_EOL ?>
                                         </fieldset>
                                         <fieldset>                                    
                                             <?php echo $form['tipos_gastos']->renderLabel().PHP_EOL ?>
                                             <?php echo $form['tipos_gastos']->render(array('placeholder' => 'tipos_gastos', 'class' => 'show-menu-arrow span3')).PHP_EOL ?>
                                         </fieldset>
-                                        <fieldset>
+                                        <fieldset style="margin-bottom: 10px;">
                                             <?php echo $form['pa_beneficiarios_json']->renderLabel().PHP_EOL ?>
                                             <?php echo $form['pa_beneficiarios_json']->render(array('class' => 'chosen-select span3', 'data-placeholder' => 'pa_beneficiario')).PHP_EOL ?>
                                         </fieldset>
                                         <fieldset>
                                             <?php echo $form['pa_detalle']->renderLabel().PHP_EOL ?>
-                                            <?php echo $form['pa_detalle']->render(array('placeholder' => 'pa_detalle', 'class' => 'span3')).PHP_EOL ?>
-                                        </fieldset>
-                                        <fieldset>
-                                            <label>Opciones adicionales:</label>
-                                            <div class="btn-group" data-toggle="buttons-checkbox">
-                                                <button type="button" class="btn btn-small active">Factura</button>
-                                                <button type="button" class="btn btn-small">I.V.A.</button>
-                                                <button type="button" class="btn btn-small">I.C.E.</button>
-                                            </div>
+                                            <?php echo $form['pa_detalle']->render(array('placeholder' => 'pa_detalle', 'class' => 'span3', 'style' => 'resize: none; height: 50px;')).PHP_EOL ?>
                                         </fieldset>
                                     </div>
-                                    <div class="span3 offset1">
-                                        <fieldset>
-                                            <?php echo $form['pa_fecha']->renderLabel().PHP_EOL ?>
-                                            <div class="input-append date" id="dtp_dml_pagos_pa_fecha">
-                                                <?php echo $form['pa_fecha']->render(array('placeholder' => 'pa_fecha', 'style' => 'width: 228px', 'readonly' => 'true')).PHP_EOL ?>
-                                                <span class='add-on'>
-                                                    <i data-date-icon='icon-calendar' data-time-icon='icon-time'></i>
-                                                </span>
+                                    <div class="span4 offset1">
+                                        <div class="row">
+                                            <div class="span2">
+                                                <fieldset>
+                                                    <?php echo $form['pa_fecha']->renderLabel().PHP_EOL ?>
+                                                    <div class="input-append date" id="dtp_dml_pagos_pa_fecha">
+                                                        <?php echo $form['pa_fecha']->render(array('placeholder' => 'pa_fecha', 'style' => 'width: 330px', 'readonly' => 'true')).PHP_EOL ?>
+                                                        <span class='add-on'>
+                                                            <i data-date-icon='icon-calendar' data-time-icon='icon-time'></i>
+                                                        </span>
+                                                    </div>
+                                                </fieldset>
                                             </div>
-                                        </fieldset>
-                                        <fieldset>
-                                            <?php echo $form['pa_valor_total']->renderLabel().PHP_EOL ?>
-                                            <?php echo $form['pa_valor_total']->render(array('placeholder' => 'pa_valor_total', 'class' => 'span3')).PHP_EOL ?>
-                                        </fieldset>
-                                        <fieldset>
-                                            <?php echo $form['pa_comision']->renderLabel().PHP_EOL ?>
-                                            <?php echo $form['pa_comision']->render(array('placeholder' => 'pa_comision', 'class' => 'span3')).PHP_EOL ?>
-                                        </fieldset>
+                                            <div class="span2">
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="span2">
+                                                <fieldset>
+                                                    <?php echo $form['pa_valor_total']->renderLabel().PHP_EOL ?>
+                                                    <?php echo $form['pa_valor_total']->render(array('placeholder' => 'pa_valor_total', 'class' => 'span2')).PHP_EOL ?>
+                                                </fieldset>
+                                            </div>
+                                            <div class="span2">
+                                                <fieldset>
+                                                    <?php echo $form['pa_comision']->renderLabel().PHP_EOL ?>
+                                                    <?php echo $form['pa_comision']->render(array('placeholder' => 'pa_comision', 'class' => 'span2')).PHP_EOL ?>
+                                                </fieldset>
+                                            </div>
+                                        </div>
                                         <fieldset>
                                             <label>Dropzone:</label>
                                             <div id="dropzone">
@@ -190,6 +203,11 @@
                         validador($('#dml_pagos_pa_valor_total'), "Agregar un valor");
                         return false;
                     }
+                    for ( var i = 0 ; i < formData.length ; i++ ) { 
+                        if (obtenerStringEntreParentesisCuadrado(formData[i].name.toString()) != "")
+                            if (obtenerStringEntreParentesisCuadrado(formData[i].name.toString()) == "pa_con_sin_factura")
+                                formData[i].value = $('.fac').hasClass('active') ? true : false;
+                    }
                 }
                 function showResponse(responseText, statusText, xhr, $form) {
                     $("#btnDropzone").text(responseText.id).click();
@@ -243,6 +261,25 @@
                 var config = { '.chosen-select' : {} }
                 for (var selector in config) $(selector).chosen(config[selector]);
                 /* --------------------------------------------------------------------- */
+<?php //if ($form->getObject()->isNew()): ?>
+                var com = '#dml_pagos_',
+                    fac = $('.fac'),
+                    iva = $('.iva'),
+                    ice = $('.ice');
+                fac.bind('click', function() {
+                    if (fac.hasClass('active')) {
+                        $(com + 'pa_numero_factura').attr('readonly', true);
+                        $.getJSON('<?php echo url_for('pagos/intermediate') ?>', function(data) {
+                            $(com + 'pa_numero_factura').val(data.pa_numero_factura);
+                        });
+                    } else {
+                        $.getJSON('<?php echo url_for('pagos/intermediate') ?>', function(data) {
+                            $(com + 'pa_numero_factura').val(data.pa_numero_factura);
+                        });
+                        $(com + 'pa_numero_factura').attr('readonly', false);
+                    }
+                });
+<?php //endif; ?>
             });
         </script>
 <?php end_slot() ?>

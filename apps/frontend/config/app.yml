@@ -5,3 +5,5 @@
 all:
     max_per_page: 7
     max_files_per_paid: 3
+    iva: 12
+    ice: 15

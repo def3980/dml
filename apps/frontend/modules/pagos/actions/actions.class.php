@@ -25,14 +25,15 @@ class pagosActions extends sfActions {
         $this->form = new DmlPagosForm();
         $this->bi_count = sfConfig::get('app_max_files_per_paid');
         $this->pa_numero_factura = '000-000-'.Singleton::getInstance()->numeroDeOrden(DmlPagosTable::getCountNonInvoice() + 1);
+        $this->iva = sfConfig::get('app_iva');
+        $this->ice = sfConfig::get('app_ice');
+        $this->comision = sfConfig::get('app_comision');
     }
 
     public function executeCreate(sfWebRequest $request) {
         $this->forward404Unless($request->isMethod(sfRequest::POST));
         $this->form = new DmlPagosForm(null, array('id' => $this->getUser()->getAttribute('id')));
-        $dml_pagos = $request->getParameter('dml_pagos');
-        $dml_pagos['pa_beneficiarios_json'] = json_encode($dml_pagos['pa_beneficiarios_json']);
-        $request->setParameter('dml_pagos', $dml_pagos);
+        $request->setParameter('dml_pagos', $this->preDmlPagosProccessForm($request));
         $this->redirect($this->generateUrl(
             'json', 
             array('id' => $this->processForm($request, $this->form))
@@ -54,6 +55,9 @@ class pagosActions extends sfActions {
         $this->bi_count = 0 !== $bi_count
                             ? sfConfig::get('app_max_files_per_paid') - $bi_count
                             : sfConfig::get('app_max_files_per_paid');
+        $this->iva = sfConfig::get('app_iva');
+        $this->ice = sfConfig::get('app_ice');
+        $this->comision = sfConfig::get('app_comision');
     }
 
     public function executeUpdate(sfWebRequest $request) {
@@ -66,9 +70,7 @@ class pagosActions extends sfActions {
             sprintf('El objecto pa con el parametro (%s), no existe.', $request->getParameter('id'))
         );
         $this->form = new DmlPagosForm($pa, array('id' => $this->getUser()->getAttribute('id')));
-        $dml_pagos = $request->getParameter('dml_pagos');
-        $dml_pagos['pa_beneficiarios_json'] = json_encode($dml_pagos['pa_beneficiarios_json']);
-        $request->setParameter('dml_pagos', $dml_pagos);
+        $request->setParameter('dml_pagos', $this->preDmlPagosProccessForm($request));
         $this->redirect($this->generateUrl(
             'json', 
             array('id' => $this->processForm($request, $this->form))
@@ -119,18 +121,30 @@ class pagosActions extends sfActions {
             )
         ));
     }
+    
+    private function preDmlPagosProccessForm(sfWebRequest $request) {
+        foreach ($dml_pagos = $request->getParameter('dml_pagos') as $k => $v):
+            switch ($k):
+                case 'pa_beneficiarios_json':
+                    $dml_pagos['pa_beneficiarios_json'] = json_encode($v);
+                break;
+                case 'pa_valor_total':
+                    $dml_pagos['pa_valor_total'] = trim(str_replace('$ ', '', 
+                        Singleton::getInstance()->reemplazarComaXPunto(
+                            str_replace('.', '', $v)
+                        )
+                    ));
+                break;
+            endswitch;
+        endforeach;
+        
+        return $dml_pagos;
+    }
 
     protected function processForm(sfWebRequest $request, sfForm $form = null, $dropzone = false) {
         if (!$dropzone) {
             $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
             if ($form->isValid()) {
-            echo "<pre>";
-            print_r($request->getParameterHolder()->getAll());
-            echo "</pre>";
-            echo "<pre>";
-            print_r($form->getValue('pa_beneficiarios_json'));
-            echo "</pre>";
-            die();
                 $pa = $form->save();
                 return $pa->getId();
             } 

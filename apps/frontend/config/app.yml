@@ -7,3 +7,4 @@ all:
     max_files_per_paid: 3
     iva: 12
     ice: 15
+    comision: 999.99

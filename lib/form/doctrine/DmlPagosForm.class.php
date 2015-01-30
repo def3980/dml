@@ -28,8 +28,6 @@ class DmlPagosForm extends BaseDmlPagosForm {
                 DmlPagosTable::getCountNonInvoice() + 1
             )
         );
-        $this->widgetSchema['pa_iva']                = new sfWidgetFormInputHidden();
-        $this->widgetSchema['pa_ice']                = new sfWidgetFormInputHidden();
         $this->widgetSchema['pa_beneficiarios_json'] = new sfWidgetFormDoctrineChoice(array(
             'model' => 'DmlBeneficiarios',
             'method' => 'getBeneficiarios',

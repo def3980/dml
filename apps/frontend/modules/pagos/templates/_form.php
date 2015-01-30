@@ -16,17 +16,14 @@
                             <div class="span12" style="float: none; margin: 0 auto;">
                                 <div class="row">
                                     <div class="span3 offset2">
-                                        <fieldset style="margin-bottom: 10px">
-                                            <label>Opciones adicionales:</label>
-                                            <div class="btn-group" data-toggle="buttons-checkbox">
-                                                <button type="button" class="btn fac<?php echo $form['pa_con_sin_factura']->getValue() ? ' active' : '' ?>">Factura</button>
-                                                <button type="button" class="btn iva">I.V.A.</button>
-                                                <button type="button" class="btn ice">I.C.E.</button>
-                                            </div>
-                                        </fieldset>
                                         <fieldset>
-                                            <?php echo $form['pa_numero_factura']->renderLabel().PHP_EOL ?>
-                                            <?php echo $form['pa_numero_factura']->render(array('placeholder' => 'pa_numero_factura', 'class' => 'span3', 'readonly' => $form->getObject()->isNew() ? 'false' : '')).PHP_EOL ?>
+                                            <?php echo $form['pa_fecha']->renderLabel().PHP_EOL ?>
+                                            <div class="input-append date" id="dtp_dml_pagos_pa_fecha">
+                                                <?php echo $form['pa_fecha']->render(array('placeholder' => 'pa_fecha', 'style' => 'width: 230px', 'readonly' => 'true')).PHP_EOL ?>
+                                                <span class='add-on'>
+                                                    <i data-date-icon='icon-calendar' data-time-icon='icon-time'></i>
+                                                </span>
+                                            </div>
                                         </fieldset>
                                         <fieldset>                                    
                                             <?php echo $form['tipos_gastos']->renderLabel().PHP_EOL ?>
@@ -44,34 +41,73 @@
                                     <div class="span4 offset1">
                                         <div class="row">
                                             <div class="span2">
-                                                <fieldset>
-                                                    <?php echo $form['pa_fecha']->renderLabel().PHP_EOL ?>
-                                                    <div class="input-append date" id="dtp_dml_pagos_pa_fecha">
-                                                        <?php echo $form['pa_fecha']->render(array('placeholder' => 'pa_fecha', 'style' => 'width: 330px', 'readonly' => 'true')).PHP_EOL ?>
-                                                        <span class='add-on'>
-                                                            <i data-date-icon='icon-calendar' data-time-icon='icon-time'></i>
-                                                        </span>
-                                                    </div>
-                                                </fieldset>
+                                                <label>&nbsp;</label>
+                                                <div class="btn-group" data-toggle="buttons-checkbox">
+                                                    <button type="button" class="btn span2 fac<?php echo $form['pa_con_sin_factura']->getValue() ? ' active' : '' ?>">Activar</button>
+                                                </div>
                                             </div>
                                             <div class="span2">
-                                                
+                                                <fieldset>
+                                                    <?php echo $form['pa_numero_factura']->renderLabel().PHP_EOL ?>
+                                                    <?php echo $form['pa_numero_factura']->render(array('placeholder' => 'pa_numero_factura', 'class' => 'span2', 'readonly' => $form->getObject()->isNew() ? 'false' : '')).PHP_EOL ?>
+                                                </fieldset>
                                             </div>
                                         </div>
                                         <div class="row">
+                                            <div class="span2">
+                                                <label>&nbsp;</label>
+                                                <div class="btn-group" data-toggle="buttons-checkbox">
+                                                    <button type="button" class="btn span2 iva">Activar</button>
+                                                </div>
+                                            </div>
+                                            <div class="span2">
+                                                <fieldset>
+                                                    <?php echo $form['pa_iva']->renderLabel().PHP_EOL ?>
+                                                    <?php echo $form['pa_iva']->render(array('placeholder' => 'pa_iva', 'class' => 'span2', 'readonly' => true)).PHP_EOL ?>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="span2">
+                                                <label>&nbsp;</label>
+                                                <div class="btn-group" data-toggle="buttons-checkbox">
+                                                    <button type="button" class="btn span2 ice">Activar</button>
+                                                </div>
+                                            </div>
+                                            <div class="span2">
+                                                <fieldset>
+                                                    <?php echo $form['pa_ice']->renderLabel().PHP_EOL ?>
+                                                    <?php echo $form['pa_ice']->render(array('placeholder' => 'pa_ice', 'class' => 'span2', 'readonly' => true)).PHP_EOL ?>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="span2">
+                                                <label>&nbsp;</label>
+                                                <div class="btn-group" data-toggle="buttons-checkbox">
+                                                    <button type="button" class="btn span2 comision">Activar</button>
+                                                </div>
+                                            </div>
+                                            <div class="span2">
+                                                <fieldset>
+                                                    <?php echo $form['pa_comision']->renderLabel().PHP_EOL ?>
+                                                    <?php echo $form['pa_comision']->render(array('placeholder' => 'pa_comision', 'class' => 'span2', 'readonly' => true)).PHP_EOL ?>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="span2">&nbsp;</div>
                                             <div class="span2">
                                                 <fieldset>
                                                     <?php echo $form['pa_valor_total']->renderLabel().PHP_EOL ?>
                                                     <?php echo $form['pa_valor_total']->render(array('placeholder' => 'pa_valor_total', 'class' => 'span2')).PHP_EOL ?>
                                                 </fieldset>
                                             </div>
-                                            <div class="span2">
-                                                <fieldset>
-                                                    <?php echo $form['pa_comision']->renderLabel().PHP_EOL ?>
-                                                    <?php echo $form['pa_comision']->render(array('placeholder' => 'pa_comision', 'class' => 'span2')).PHP_EOL ?>
-                                                </fieldset>
-                                            </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="span8 offset2"
                                         <fieldset>
                                             <label>Dropzone:</label>
                                             <div id="dropzone">
@@ -141,6 +177,13 @@
             form label {
                 padding-top: 7px; 
             }
+            #dml_pagos_pa_numero_factura,
+            #dml_pagos_pa_iva,
+            #dml_pagos_pa_ice,
+            #dml_pagos_pa_comision,
+            #dml_pagos_pa_valor_total {
+                text-align: right;
+            }
         </style>
 <?php end_slot() ?>
 <?php slot('porcion_js') ?>
@@ -182,11 +225,14 @@
                 });
 <?php endif; ?>
                 var inputForeinKey = "#dml_pagos_tipos_gastos",
-                    inputNumeroFactura = "#dml_pagos_pa_numero_factura";
+                    inputNumeroFactura = "#dml_pagos_pa_numero_factura",
+                    inputValorTotal = "#dml_pagos_pa_valor_total";
                 $(inputNumeroFactura).mask("999-999-999999999", { placeholder : "x" });
                 // activando bootstrap-select en los campos que son claves foreaneas
                 $(inputForeinKey).selectpicker({ size : 5 });
                 
+                
+                /* ----------------------------------------------------------- AJAX FORM */
                 $('#frm_pa').ajaxForm({
                     dataType : 'json',
                     beforeSubmit : validate,
@@ -206,12 +252,13 @@
                     for ( var i = 0 ; i < formData.length ; i++ ) { 
                         if (obtenerStringEntreParentesisCuadrado(formData[i].name.toString()) != "")
                             if (obtenerStringEntreParentesisCuadrado(formData[i].name.toString()) == "pa_con_sin_factura")
-                                formData[i].value = $('.fac').hasClass('active') ? true : false;
+                                formData[i].value = $('.fac').hasClass('active') ? '1' : '0';
                     }
                 }
                 function showResponse(responseText, statusText, xhr, $form) {
                     $("#btnDropzone").text(responseText.id).click();
                 }
+                /* --------------------------------------------------------------------- */
                 
                 /* ------------------------------------------------------------ DROPZONE */
                 Dropzone.autoDiscover = false;
@@ -261,7 +308,226 @@
                 var config = { '.chosen-select' : {} }
                 for (var selector in config) $(selector).chosen(config[selector]);
                 /* --------------------------------------------------------------------- */
-<?php //if ($form->getObject()->isNew()): ?>
+                
+                /* --------------------------------------------------------- AUTONUMERIC */
+                $('#dml_pagos_pa_numero_factura,' +
+                  '#dml_pagos_pa_iva,' +
+                  '#dml_pagos_pa_ice,' +
+                  '#dml_pagos_pa_valor_total').autoNumeric('init', {
+                    aSep: '.', 
+                    aDec: ',', 
+                    aSign: '$ '
+                });
+                $('#dml_pagos_pa_comision').autoNumeric('init', {
+                    aSep: '.', 
+                    aDec: ',', 
+                    aSign: '$ ',
+                    vMin: '0.00',
+                    vMax: '<?=$comision?>'
+                });
+                /* --------------------------------------------------------------------- */
+                
+                /* ----------------------------------- CALCULO DE IMPUESTOS Y COMISIONES */
+                $('.iva').bind('click', function() {
+                    if ($(this).hasClass('active')) {
+                        var pa_vt = $('#dml_pagos_pa_valor_total');
+                        if (!$('.ice').hasClass('active') && !$('.comision').hasClass('active')) {
+                            var pa_iva = $('#dml_pagos_pa_iva'),
+                                lim = limpiarValor(pa_vt.val()),
+                                sin_iva = quitarIva(lim);
+                            pa_iva.val('');
+                            pa_vt.autoNumeric('set', sin_iva);
+                            pa_vt.attr('readonly', false);
+                        } else if ($('.ice').hasClass('active') && !$('.comision').hasClass('active')) {
+                            var pa_iva = $('#dml_pagos_pa_iva'),
+                                lim_con_iva_ice = limpiarValor(pa_vt.val()),
+                                lim = quitarIvaIce(lim_con_iva_ice),
+                                ice = obtenerIce(lim);
+                            pa_iva.val('');
+                            pa_vt.autoNumeric('set', (lim + ice));
+                        } else if (!$('.ice').hasClass('active') && $('.comision').hasClass('active')) {
+                            var pa_iva = $('#dml_pagos_pa_iva'),
+                                lim_con_iva_com = limpiarValor(pa_vt.val()),
+                                lim_con_iva = quitarComision(lim_con_iva_com, limpiarValor($('#dml_pagos_pa_comision').val())),
+                                lim = quitarIva(lim_con_iva),
+                                com = obtenerComision(limpiarValor($('#dml_pagos_pa_comision').val()));
+                            pa_iva.val('');
+                            pa_vt.autoNumeric('set', (lim + com));
+                        } else if ($('.ice').hasClass('active') && $('.comision').hasClass('active')) {
+                            var pa_iva = $('#dml_pagos_pa_iva'),
+                                lim_con_iva_ice_com = limpiarValor(pa_vt.val()),
+                                lim_con_iva_ice = quitarComision(lim_con_iva_ice_com, limpiarValor($('#dml_pagos_pa_comision').val())),
+                                lim = quitarIvaIce(lim_con_iva_ice),
+                                ice = obtenerIce(lim),
+                                com = obtenerComision(limpiarValor($('#dml_pagos_pa_comision').val()));
+                            pa_iva.val('');
+                            pa_vt.autoNumeric('set', (lim + ice + com));                            
+                        }
+                    } else {
+                        var pa_vt = $('#dml_pagos_pa_valor_total');
+                        if (limpiarValor(pa_vt.val()) > 0.001) {
+                            if (!$('.ice').hasClass('active') && !$('.comision').hasClass('active')) {
+                                var pa_iva = $('#dml_pagos_pa_iva'),
+                                    lim = limpiarValor(pa_vt.val()),
+                                    iva = obtenerIva(lim);
+                                pa_iva.autoNumeric('set', iva);
+                                pa_vt.autoNumeric('set', (lim + iva));
+                            } else if ($('.ice').hasClass('active') && !$('.comision').hasClass('active')) {
+                                var pa_iva = $('#dml_pagos_pa_iva'),
+                                    lim_con_ice = limpiarValor(pa_vt.val()),
+                                    lim = quitarIce(lim_con_ice),
+                                    iva = obtenerIva(lim),
+                                    ice = obtenerIce(lim);
+                                pa_iva.autoNumeric('set', iva);
+                                pa_vt.autoNumeric('set', (lim + iva + ice));
+                            } else if (!$('.ice').hasClass('active') && $('.comision').hasClass('active')) {
+                                var pa_iva = $('#dml_pagos_pa_iva'),
+                                    lim_con_com = limpiarValor(pa_vt.val()),
+                                    lim = quitarComision(lim_con_com, limpiarValor($('#dml_pagos_pa_comision').val())),
+                                    iva = obtenerIva(lim),
+                                    com = obtenerComision(limpiarValor($('#dml_pagos_pa_comision').val()));
+                                pa_iva.autoNumeric('set', iva);
+                                pa_vt.autoNumeric('set', (lim + iva + com));
+                            } else if ($('.ice').hasClass('active') && $('.comision').hasClass('active')) {
+                                var pa_iva = $('#dml_pagos_pa_iva'),
+                                    lim_con_ice_com = limpiarValor(pa_vt.val()),
+                                    lim_ice = quitarComision(lim_con_ice_com, limpiarValor($('#dml_pagos_pa_comision').val())),
+                                    lim = quitarIce(lim_ice),
+                                    iva = obtenerIva(lim),
+                                    ice = obtenerIce(lim),
+                                    com = obtenerComision(limpiarValor($('#dml_pagos_pa_comision').val()));
+                                pa_iva.autoNumeric('set', iva);
+                                pa_vt.autoNumeric('set', (lim + iva + ice + com));
+                            }
+                            pa_vt.attr('readonly', true);
+                        }
+                    }
+                });
+                $('.ice').bind('click', function() {
+                    if ($(this).hasClass('active')) {
+                        var pa_vt = $('#dml_pagos_pa_valor_total');
+                        if (!$('.iva').hasClass('active') && !$('.comision').hasClass('active')) {
+                            var pa_ice = $('#dml_pagos_pa_ice'),
+                                lim = limpiarValor(pa_vt.val()),
+                                sin_ice = quitarIce(lim);
+                            pa_ice.val('');
+                            pa_vt.autoNumeric('set', sin_ice);
+                            pa_vt.attr('readonly', false);
+                        } else if ($('.iva').hasClass('active') && !$('.comision').hasClass('active')) {
+                            var pa_ice = $('#dml_pagos_pa_ice'),
+                                lim_con_iva_ice = limpiarValor(pa_vt.val()),
+                                lim = quitarIvaIce(lim_con_iva_ice),
+                                iva = obtenerIva(lim);
+                            pa_ice.val('');
+                            pa_vt.autoNumeric('set', (lim + iva));
+                        } else if (!$('.iva').hasClass('active') && $('.comision').hasClass('active')) {
+                            var pa_ice = $('#dml_pagos_pa_ice'),
+                                lim_con_ice_com = limpiarValor(pa_vt.val()),
+                                lim_con_ice = quitarComision(lim_con_ice_com, limpiarValor($('#dml_pagos_pa_comision').val())),
+                                lim = quitarIce(lim_con_ice),
+                                com = obtenerComision(limpiarValor($('#dml_pagos_pa_comision').val()));
+                            pa_ice.val('');
+                            pa_vt.autoNumeric('set', (lim + com));
+                        } else if ($('.iva').hasClass('active') && $('.comision').hasClass('active')) {
+                            var pa_ice = $('#dml_pagos_pa_ice'),
+                                lim_con_iva_ice_com = limpiarValor(pa_vt.val()),
+                                lim_con_iva_ice = quitarComision(lim_con_iva_ice_com, limpiarValor($('#dml_pagos_pa_comision').val())),
+                                lim = quitarIvaIce(lim_con_iva_ice),
+                                iva = obtenerIva(lim),
+                                com = obtenerComision(limpiarValor($('#dml_pagos_pa_comision').val()));
+                            pa_ice.val('');
+                            pa_vt.autoNumeric('set', (lim + iva + com));                            
+                        }
+                    } else {
+                        var pa_vt = $('#dml_pagos_pa_valor_total');
+                        if (limpiarValor(pa_vt.val()) > 0.001) {
+                            if (!$('.iva').hasClass('active') && !$('.comision').hasClass('active')) {
+                                var pa_ice = $('#dml_pagos_pa_ice'),
+                                    lim = limpiarValor(pa_vt.val()),
+                                    ice = obtenerIce(lim);
+                                pa_ice.autoNumeric('set', ice);
+                                pa_vt.autoNumeric('set', (lim + ice));
+                            } else if ($('.iva').hasClass('active') && !$('.comision').hasClass('active')) {
+                                var pa_ice = $('#dml_pagos_pa_ice'),
+                                    lim_con_iva = limpiarValor(pa_vt.val()),
+                                    lim = quitarIva(lim_con_iva),
+                                    iva = obtenerIva(lim),
+                                    ice = obtenerIce(lim);
+                                pa_ice.autoNumeric('set', ice);
+                                pa_vt.autoNumeric('set', (lim + iva + ice));
+                            } else if (!$('.iva').hasClass('active') && $('.comision').hasClass('active')) {
+                                var pa_ice = $('#dml_pagos_pa_ice'),
+                                    lim_con_com = limpiarValor(pa_vt.val()),
+                                    lim = quitarComision(lim_con_com, limpiarValor($('#dml_pagos_pa_comision').val())),
+                                    ice = obtenerIce(lim),
+                                    com = obtenerComision(limpiarValor($('#dml_pagos_pa_comision').val()));
+                                    pa_ice.autoNumeric('set', ice);
+                                    pa_vt.autoNumeric('set', (lim + ice + com));
+                            } else if ($('.iva').hasClass('active') && $('.comision').hasClass('active')) {
+                                var pa_ice = $('#dml_pagos_pa_ice'),
+                                    lim_con_iva_com = limpiarValor(pa_vt.val()),
+                                    lim_iva = quitarComision(lim_con_iva_com, limpiarValor($('#dml_pagos_pa_comision').val())),
+                                    lim = quitarIva(lim_iva),
+                                    iva = obtenerIva(lim),
+                                    ice = obtenerIce(lim),
+                                    com = obtenerComision(limpiarValor($('#dml_pagos_pa_comision').val()));
+                                pa_ice.autoNumeric('set', ice);
+                                pa_vt.autoNumeric('set', (lim + iva + ice + com));
+                            }
+                            pa_vt.attr('readonly', true);
+                        }
+                    }
+                });
+                $('.comision').bind('click', function() {
+                    if ($(this).hasClass('active')) {
+                        var pa_vt = $('#dml_pagos_pa_valor_total'),
+                            pa_com = $('#dml_pagos_pa_comision'),
+                            lim_con_com = limpiarValor(pa_vt.val()),
+                            lim_sin_com = quitarComision(lim_con_com, limpiarValor(pa_com.val()));
+                        pa_com.val('');
+                        pa_vt.autoNumeric('set', (lim_sin_com));
+                        pa_com.attr('readonly', true);
+                    } else {
+                        var pa_vt = $('#dml_pagos_pa_valor_total');
+                        if (limpiarValor(pa_vt.val()) > 0.001) {
+                            $('#dml_pagos_pa_comision').attr('readonly', false).focus();
+                            pa_vt.attr('readonly', true);
+                        }
+                    }
+                });
+                $('#dml_pagos_pa_comision').focusout(function() {
+                    var pa_vt = $('#dml_pagos_pa_valor_total');
+                    if (limpiarValor(pa_vt.val()) > 0.001)
+                        pa_vt.autoNumeric('set', (limpiarValor(pa_vt.val()) + limpiarValor($(this).val())));
+                });
+                function limpiarValor(cadena) {
+                    return parseFloat(cadena.replace('.', '').replace(',', '.').replace('$ ', ''));
+                }
+                function obtenerIva(valor) {
+                    return parseFloat(valor * <?=$iva?> / 100);
+                }
+                function quitarIva(valor) {
+                    return Math.ceil(parseFloat(valor / 1.<?=$iva?>));
+                }
+                function obtenerIce(valor) {
+                    return parseFloat(valor * <?=$ice?> / 100);
+                }
+                function quitarIce(valor) {
+                    return Math.ceil(parseFloat(valor / 1.<?=$ice?>));
+                }
+                function quitarIvaIce(valor) {
+                    return Math.ceil(parseFloat(valor / 1.<?php echo $iva + $ice?>));
+                }
+                function obtenerComision(com) {
+                    return parseFloat(com);
+                }
+                function quitarComision(lim_con_com, com) {
+                    return parseFloat(lim_con_com - parseFloat(com));
+                }
+                /* --------------------------------------------------------------------- */
+
+<?php if ($form->getObject()->isNew()): ?>
+                /* --------------------------------------------- VALIDANDO BOTON FACTURA */
                 var com = '#dml_pagos_',
                     fac = $('.fac'),
                     iva = $('.iva'),
@@ -279,7 +545,41 @@
                         $(com + 'pa_numero_factura').attr('readonly', false);
                     }
                 });
-<?php //endif; ?>
+                /* --------------------------------------------------------------------- */
+                
+<?php else: ?>
+                /* --------------------------------------------- VALIDANDO BOTON FACTURA */
+                var com = '#dml_pagos_',
+                    fac = $('.fac'),
+                    iva = $('.iva'),
+                    ice = $('.ice'),
+                    val = $(com + 'pa_numero_factura').val();
+                if ($(com + 'pa_con_sin_factura').val() == '0') {
+                    $(com + 'pa_numero_factura').attr('readonly', true);
+                } else {
+                    $(com + 'pa_numero_factura').attr('readonly', false);
+                }
+                fac.bind('click', function() {
+                    if (fac.hasClass('active')) {
+                        $(com + 'pa_numero_factura').attr('readonly', true);
+//                        $.getJSON('<?php echo url_for('pagos/intermediate') ?>', function(data) {
+//                            $(com + 'pa_numero_factura').val(data.pa_numero_factura);
+//                            $(com + 'pa_con_sin_factura').val('0');
+//                        });
+                        $(com + 'pa_numero_factura').val(val);
+                        $(com + 'pa_con_sin_factura').val('1');
+                    } else {
+//                        $.getJSON('<?php echo url_for('pagos/intermediate') ?>', function(data) {
+//                            $(com + 'pa_numero_factura').val(data.pa_numero_factura);
+//                            $(com + 'pa_con_sin_factura').val('1');
+//                        });
+                        $(com + 'pa_numero_factura').val(val);
+                        $(com + 'pa_con_sin_factura').val('1');
+                        $(com + 'pa_numero_factura').attr('readonly', false);
+                    }
+                });
+                /* --------------------------------------------------------------------- */
+<?php endif; ?>
             });
         </script>
 <?php end_slot() ?>

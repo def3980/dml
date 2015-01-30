@@ -163,5 +163,17 @@ class Singleton {
         endswitch;
         return $no;
     }
+    
+    /**
+     * reemplazarComaXPunto, permite reemplazar la coma por el punto. Ideal para guadar
+     * valores en BDD para cuando se utiliza algun plugin de jquery en los formularios
+     * y estos tiene un formato establecido 
+     * 
+     * @param type $cadena
+     * @return type string Sin contener coma, sólo punto
+     */
+    public function reemplazarComaXPunto($cadena) {
+        return str_replace(',', '.', $cadena);
+    }
 
 }

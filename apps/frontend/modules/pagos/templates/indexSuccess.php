@@ -19,6 +19,7 @@
             .table tbody td:nth-child(4) {
                 text-align: right;
                 padding-right: 1.5%;
+                color: #d33;
             }
             .alert p {
                 margin: 0;

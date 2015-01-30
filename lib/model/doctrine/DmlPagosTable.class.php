@@ -41,6 +41,7 @@ class DmlPagosTable extends Doctrine_Table {
         return DmlPagosTable::getAlias()
                 ->addSelect($select)
                 ->where('MONTH(pa.pa_fecha) = MONTH(CURDATE())')
+                ->andWhere('pa.personas = ?', array(sfContext::getInstance()->getUser()->getAttribute('id')))
 //                ->where('MONTH(pa.pa_fecha) = MONTH(DATE_ADD(NOW(),INTERVAL -1 MONTH))')
                 ->orderBy('pa.id DESC, pa.pa_fecha DESC');
     }

@@ -12,7 +12,13 @@
                         </div>
                     </div>
                     <hr style="margin: 20px 0 9px 0" />
-<?php include_partial('form', array('form' => $form, 'bi_count' => $bi_count)) ?>
+<?php include_partial('form', array(
+        'form' => $form, 
+        'bi_count' => $bi_count, 
+        'iva' => $iva,
+        'ice' => $ice,
+        'comision' => $comision,
+    )) ?>
                 </div>
             </div>
         </div><!-- /container -->

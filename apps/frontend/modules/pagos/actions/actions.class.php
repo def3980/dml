@@ -128,6 +128,27 @@ class pagosActions extends sfActions {
                 case 'pa_beneficiarios_json':
                     $dml_pagos['pa_beneficiarios_json'] = json_encode($v);
                 break;
+                case 'pa_iva':
+                    $dml_pagos['pa_iva'] = trim(str_replace('$ ', '', 
+                        Singleton::getInstance()->reemplazarComaXPunto(
+                            str_replace('.', '', $v)
+                        )
+                    ));
+                break;
+                case 'pa_ice':
+                    $dml_pagos['pa_ice'] = trim(str_replace('$ ', '', 
+                        Singleton::getInstance()->reemplazarComaXPunto(
+                            str_replace('.', '', $v)
+                        )
+                    ));
+                break;
+                case 'pa_comision':
+                    $dml_pagos['pa_comision'] = trim(str_replace('$ ', '', 
+                        Singleton::getInstance()->reemplazarComaXPunto(
+                            str_replace('.', '', $v)
+                        )
+                    ));
+                break;
                 case 'pa_valor_total':
                     $dml_pagos['pa_valor_total'] = trim(str_replace('$ ', '', 
                         Singleton::getInstance()->reemplazarComaXPunto(

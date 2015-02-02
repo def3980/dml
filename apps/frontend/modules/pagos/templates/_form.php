@@ -57,7 +57,7 @@
                                             <div class="span2">
                                                 <label>&nbsp;</label>
                                                 <div class="btn-group" data-toggle="buttons-checkbox">
-                                                    <button type="button" class="btn span2 iva">Activar</button>
+                                                    <button type="button" class="btn span2 iva<?php echo $form['pa_iva']->getValue() ? ' active' : '' ?>">Activar</button>
                                                 </div>
                                             </div>
                                             <div class="span2">
@@ -71,7 +71,7 @@
                                             <div class="span2">
                                                 <label>&nbsp;</label>
                                                 <div class="btn-group" data-toggle="buttons-checkbox">
-                                                    <button type="button" class="btn span2 ice">Activar</button>
+                                                    <button type="button" class="btn span2 ice<?php echo $form['pa_ice']->getValue() ? ' active' : '' ?>">Activar</button>
                                                 </div>
                                             </div>
                                             <div class="span2">
@@ -85,7 +85,7 @@
                                             <div class="span2">
                                                 <label>&nbsp;</label>
                                                 <div class="btn-group" data-toggle="buttons-checkbox">
-                                                    <button type="button" class="btn span2 comision">Activar</button>
+                                                    <button type="button" class="btn span2 comision<?php echo $form['pa_comision']->getValue() ? ' active' : '' ?>">Activar</button>
                                                 </div>
                                             </div>
                                             <div class="span2">
@@ -100,7 +100,9 @@
                                             <div class="span2">
                                                 <fieldset>
                                                     <?php echo $form['pa_valor_total']->renderLabel().PHP_EOL ?>
-                                                    <?php echo $form['pa_valor_total']->render(array('placeholder' => 'pa_valor_total', 'class' => 'span2')).PHP_EOL ?>
+                                                    <?php echo $form['pa_valor_total']->render(array('placeholder' => 'pa_valor_total', 'class' => 'span2', 'readonly' => ($form['pa_iva']->getValue()
+                                                                                                                                                                            || $form['pa_ice']->getValue()
+                                                                                                                                                                            || $form['pa_comision']->getValue()) ? 'false' : '')).PHP_EOL ?>
                                                 </fieldset>
                                             </div>
                                         </div>
@@ -310,8 +312,7 @@
                 /* --------------------------------------------------------------------- */
                 
                 /* --------------------------------------------------------- AUTONUMERIC */
-                $('#dml_pagos_pa_numero_factura,' +
-                  '#dml_pagos_pa_iva,' +
+                $('#dml_pagos_pa_iva,' +
                   '#dml_pagos_pa_ice,' +
                   '#dml_pagos_pa_valor_total').autoNumeric('init', {
                     aSep: '.', 
@@ -507,16 +508,16 @@
                     return parseFloat(valor * <?=$iva?> / 100);
                 }
                 function quitarIva(valor) {
-                    return Math.ceil(parseFloat(valor / 1.<?=$iva?>));
+                    return parseFloat(valor / 1.<?=$iva?>);
                 }
                 function obtenerIce(valor) {
                     return parseFloat(valor * <?=$ice?> / 100);
                 }
                 function quitarIce(valor) {
-                    return Math.ceil(parseFloat(valor / 1.<?=$ice?>));
+                    return parseFloat(valor / 1.<?=$ice?>);
                 }
                 function quitarIvaIce(valor) {
-                    return Math.ceil(parseFloat(valor / 1.<?php echo $iva + $ice?>));
+                    return parseFloat(valor / 1.<?php echo $iva + $ice?>);
                 }
                 function obtenerComision(com) {
                     return parseFloat(com);

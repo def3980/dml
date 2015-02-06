@@ -20,7 +20,7 @@ class DmlTiposGastos extends BaseDmlTiposGastos {
     // como clase padre hacia cualquier clase que herede 
     // de ella. Descomenta dicha funcion cuando sea necesario
     public function __toString() {
-        return $this->getTgAlias();
+        return $this->getTgNombre();
     }
 
 }

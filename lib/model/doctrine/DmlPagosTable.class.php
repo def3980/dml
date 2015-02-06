@@ -40,9 +40,9 @@ class DmlPagosTable extends Doctrine_Table {
         $select = 'pa.id, pa.pa_fecha, pa.pa_numero_factura, pa.pa_detalle, pa.pa_valor_total';
         return DmlPagosTable::getAlias()
                 ->addSelect($select)
-                ->where('MONTH(pa.pa_fecha) = MONTH(CURDATE())')
+//                ->where('MONTH(pa.pa_fecha) = MONTH(CURDATE())')
                 ->andWhere('pa.personas = ?', array(sfContext::getInstance()->getUser()->getAttribute('id')))
-//                ->where('MONTH(pa.pa_fecha) = MONTH(DATE_ADD(NOW(),INTERVAL -1 MONTH))')
+                ->where('MONTH(pa.pa_fecha) = MONTH(DATE_ADD(NOW(), INTERVAL -1 MONTH))')
                 ->orderBy('pa.id DESC, pa.pa_fecha DESC');
     }
     

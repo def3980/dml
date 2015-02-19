@@ -8,3 +8,5 @@ all:
     iva: 12
     ice: 15
     comision: 999.99
+    numero_documento: 15
+    movimientos_bancarios: 7

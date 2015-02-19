@@ -86,6 +86,11 @@ json:
 pdf:
     url: /archivo/:id/*
     param: { module: binarios, action: bin }
+
+movimientos:
+    url: /movimientos
+    param: { module: movimientos, action: index }
+    
 #pdf:
 #    url: /pdf/:id/:filename.pdf
 #    param: { module: pagos, action: pdf }

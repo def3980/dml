@@ -99,7 +99,7 @@ class Singleton {
         $month = (string)(int)$dia[1];
         $day   = (string)(int)$dia[2];
         $hms   = explode(" ", $dia[2], 2);
-        $time  = (string)$hms[1];
+        $time  = $timeOption ? (string)$hms[1] : null;
 
         $dias = array("domingo","lunes","martes","mi&eacute;rcoles","jueves","viernes","s&aacute;bado");
         $diasAbrev = array("dom","lun","mar","mi&eacute;","jue","vie","s&aacute;b");
@@ -174,6 +174,40 @@ class Singleton {
      */
     public function reemplazarComaXPunto($cadena) {
         return str_replace(',', '.', $cadena);
+    }
+    
+    /**
+     * convertirEnFormatoFechaDml, convertira la fecha dada en string a un formato
+     * compatible con la aplicacion Dml y el motor de base de datos MySQL
+     * 
+     * @param type $fecha (99/99/9999)
+     * @return type string en format de fecha (9999-99-99)
+     */
+    public function convertirEnFormatoFechaDml($fecha) {
+        $corte = explode('/', $fecha, 3);
+        if (count($corte) == 3) {
+            //validando que nunca falte el cero por delante, en mes y dia
+            return trim(
+                        $corte[2]
+                        .'-'
+                        .str_pad(($corte[1] * 1), 2, '0', STR_PAD_LEFT)
+                        .'-'
+                        .str_pad(($corte[0] * 1), 2, '0', STR_PAD_LEFT)
+                    );
+        } else {
+            return $fecha;
+        }
+    }
+    
+    /**
+     * quitarComa, elimina cuanquier coma que exista en la cade de caracteres. Ideal
+     * para manejo de cantidades numericas de tipo string
+     * 
+     * @param type $cadena
+     * @return type string Sin contener coma
+     */
+    public function quitarComa($cadena) {
+        return str_replace(',', '', $cadena);
     }
 
 }

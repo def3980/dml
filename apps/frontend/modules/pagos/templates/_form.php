@@ -25,7 +25,7 @@
                                                 </span>
                                             </div>
                                         </fieldset>
-                                        <fieldset>                                    
+                                        <fieldset>
                                             <?php echo $form['tipos_gastos']->renderLabel().PHP_EOL ?>
                                             <?php echo $form['tipos_gastos']->render(array('placeholder' => 'tipos_gastos', 'class' => 'show-menu-arrow span3')).PHP_EOL ?>
                                         </fieldset>

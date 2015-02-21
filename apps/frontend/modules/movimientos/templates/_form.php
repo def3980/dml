@@ -15,144 +15,58 @@
                         <input type="hidden" name="sf_method" value="put" />
 <?php endif; ?>
                         <div class="row">
-                            <div class="span6">
-                                <div class="control-group">
-                                    <?php echo $form['ahorros']->renderLabel('', array('class' => 'control-label')).PHP_EOL ?>
-                                    <div class="controls">
-<?php echo $form['ahorros']->renderError() ?>
-                                        <?php echo $form['ahorros']->render(array('placeholder' => 'ahorros', 'class' => 'show-menu-arrow')).PHP_EOL ?>
+                            <div class="span12" style="float: none; margin: 0 auto;">
+                                <div class="row">
+                                    <div class="span3 offset2">
+                                        <fieldset>
+                                            <?php echo $form['ahorros']->renderLabel().PHP_EOL ?>
+                                            <?php echo $form['ahorros']->render(array('placeholder' => 'ahorros', 'class' => 'show-menu-arrow span3')).PHP_EOL ?>
+                                        </fieldset>
+                                        <fieldset>
+                                            <?php echo $form['mo_mini_detalle_json']->renderLabel().PHP_EOL ?>
+                                            <?php echo $form['mo_mini_detalle_json']->render(array('placeholder' => 'mo_mini_detalle_json', 'class' => 'span3', 'style' => 'resize: none; height: 50px;')).PHP_EOL ?>
+                                            <button class="btn btn-small" style="margin: 7px 0">Indicar transferencia</button>
+                                        </fieldset>
+                                        <fieldset>
+                                            <?php echo $form['mo_concepto']->renderLabel().PHP_EOL ?>
+                                            <?php echo $form['mo_concepto']->render(array('placeholder' => 'mo_concepto', 'class' => 'span3')).PHP_EOL ?>
+                                        </fieldset>
+                                        <fieldset>
+                                            <?php echo $form['mo_tipo']->renderLabel().PHP_EOL ?>
+                                            <?php echo $form['mo_tipo']->render(array('placeholder' => 'mo_tipo', 'class' => 'span3')).PHP_EOL ?>
+                                        </fieldset>
                                     </div>
-                                </div>
-                                <div class="control-group">
-                                    <?php echo $form['mo_fecha']->renderLabel('', array('class' => 'control-label')).PHP_EOL ?>
-                                    <div class="controls">
-                                        <div class="input-append date" id="dtp_dml_movimientos_mo_fecha">
-<?php echo $form['mo_fecha']->renderError() ?>
-                                            <?php echo $form['mo_fecha']->render(array('placeholder' => 'mo_fecha', 'style' => 'width: 180px', 'readonly' => 'true')).PHP_EOL ?>
-                                            <span class='add-on'>
-                                                <i data-date-icon='icon-calendar' data-time-icon='icon-time'></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <?php echo $form['mo_concepto']->renderLabel('', array('class' => 'control-label')).PHP_EOL ?>
-                                    <div class="controls">
-<?php echo $form['mo_concepto']->renderError() ?>
-                                        <?php echo $form['mo_concepto']->render(array('placeholder' => 'mo_concepto')).PHP_EOL ?>
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <?php echo $form['mo_tipo']->renderLabel('', array('class' => 'control-label')).PHP_EOL ?>
-                                    <div class="controls">
-<?php echo $form['mo_tipo']->renderError() ?>
-                                        <?php echo $form['mo_tipo']->render(array('placeholder' => 'mo_tipo')).PHP_EOL ?>
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <?php echo $form['mo_documento']->renderLabel('', array('class' => 'control-label')).PHP_EOL ?>
-                                    <div class="controls">
-<?php echo $form['mo_documento']->renderError() ?>
-                                        <?php echo $form['mo_documento']->render(array('placeholder' => 'mo_documento')).PHP_EOL ?>
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <?php echo $form['mo_oficina']->renderLabel('', array('class' => 'control-label')).PHP_EOL ?>
-                                    <div class="controls">
-<?php echo $form['mo_oficina']->renderError() ?>
-                                        <?php echo $form['mo_oficina']->render(array('placeholder' => 'mo_oficina')).PHP_EOL ?>
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <?php echo $form['mo_monto']->renderLabel('', array('class' => 'control-label')).PHP_EOL ?>
-                                    <div class="controls">
-<?php echo $form['mo_monto']->renderError() ?>
-                                        <?php echo $form['mo_monto']->render(array('placeholder' => 'mo_monto')).PHP_EOL ?>
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <?php echo $form['mo_saldo']->renderLabel('', array('class' => 'control-label')).PHP_EOL ?>
-                                    <div class="controls">
-<?php echo $form['mo_saldo']->renderError() ?>
-                                        <?php echo $form['mo_saldo']->render(array('placeholder' => 'mo_saldo')).PHP_EOL ?>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="span6">                            
-                                <div class="control-group">
-                                    <?php echo $form['mo_mini_detalle_json']->renderLabel('', array('class' => 'control-label')).PHP_EOL ?>
-                                    <div class="controls">
-<?php echo $form['mo_mini_detalle_json']->renderError() ?>
-                                        <?php echo $form['mo_mini_detalle_json']->render(array('placeholder' => 'mo_mini_detalle_json')).PHP_EOL ?>
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <?php echo $form['mo_fecha_crea']->renderLabel('', array('class' => 'control-label')).PHP_EOL ?>
-                                    <div class="controls">
-                                        <div class="input-append date" id="dtp_dml_movimientos_mo_fecha_crea">
-<?php echo $form['mo_fecha_crea']->renderError() ?>
-                                            <?php echo $form['mo_fecha_crea']->render(array('placeholder' => 'mo_fecha_crea', 'style' => 'width: 180px', 'readonly' => 'true')).PHP_EOL ?>
-                                            <span class='add-on'>
-                                                <i data-date-icon='icon-calendar' data-time-icon='icon-time'></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <?php echo $form['mo_quien_crea']->renderLabel('', array('class' => 'control-label')).PHP_EOL ?>
-                                    <div class="controls">
-<?php echo $form['mo_quien_crea']->renderError() ?>
-                                        <?php echo $form['mo_quien_crea']->render(array('placeholder' => 'mo_quien_crea')).PHP_EOL ?>
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <?php echo $form['mo_fecha_modifica']->renderLabel('', array('class' => 'control-label')).PHP_EOL ?>
-                                    <div class="controls">
-                                        <div class="input-append date" id="dtp_dml_movimientos_mo_fecha_modifica">
-<?php echo $form['mo_fecha_modifica']->renderError() ?>
-                                            <?php echo $form['mo_fecha_modifica']->render(array('placeholder' => 'mo_fecha_modifica', 'style' => 'width: 180px', 'readonly' => 'true')).PHP_EOL ?>
-                                            <span class='add-on'>
-                                                <i data-date-icon='icon-calendar' data-time-icon='icon-time'></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <?php echo $form['mo_quien_modifica']->renderLabel('', array('class' => 'control-label')).PHP_EOL ?>
-                                    <div class="controls">
-<?php echo $form['mo_quien_modifica']->renderError() ?>
-                                        <?php echo $form['mo_quien_modifica']->render(array('placeholder' => 'mo_quien_modifica')).PHP_EOL ?>
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <?php echo $form['mo_fecha_borra']->renderLabel('', array('class' => 'control-label')).PHP_EOL ?>
-                                    <div class="controls">
-                                        <div class="input-append date" id="dtp_dml_movimientos_mo_fecha_borra">
-<?php echo $form['mo_fecha_borra']->renderError() ?>
-                                            <?php echo $form['mo_fecha_borra']->render(array('placeholder' => 'mo_fecha_borra', 'style' => 'width: 180px', 'readonly' => 'true')).PHP_EOL ?>
-                                            <span class='add-on'>
-                                                <i data-date-icon='icon-calendar' data-time-icon='icon-time'></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <?php echo $form['mo_quien_borra']->renderLabel('', array('class' => 'control-label')).PHP_EOL ?>
-                                    <div class="controls">
-<?php echo $form['mo_quien_borra']->renderError() ?>
-                                        <?php echo $form['mo_quien_borra']->render(array('placeholder' => 'mo_quien_borra')).PHP_EOL ?>
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <?php echo $form['mo_borrado_logico']->renderLabel('', array('class' => 'control-label')).PHP_EOL ?>
-                                    <div class="controls">
-<?php echo $form['mo_borrado_logico']->renderError() ?>
-                                        <?php echo $form['mo_borrado_logico']->render(array('placeholder' => 'mo_borrado_logico')).PHP_EOL ?>
+                                    <div class="span4 offset1" style="text-align: right">
+                                        <fieldset>
+                                            <?php echo $form['mo_fecha']->renderLabel().PHP_EOL ?>
+                                            <div class="input-append date" id="dtp_dml_movimientos_mo_fecha">
+                                                <?php echo $form['mo_fecha']->render(array('placeholder' => 'mo_fecha', 'style' => 'width: 230px', 'readonly' => 'true')).PHP_EOL ?>
+                                                <span class='add-on'>
+                                                    <i data-date-icon='icon-calendar' data-time-icon='icon-time'></i>
+                                                </span>
+                                            </div>
+                                        </fieldset>
+                                        <fieldset>
+                                            <?php echo $form['mo_documento']->renderLabel().PHP_EOL ?>
+                                            <?php echo $form['mo_documento']->render(array('placeholder' => 'mo_documento', 'class' => 'span3')).PHP_EOL ?>
+                                        </fieldset>
+                                        <fieldset>
+                                            <?php echo $form['mo_oficina']->renderLabel().PHP_EOL ?>
+                                            <?php echo $form['mo_oficina']->render(array('placeholder' => 'mo_oficina', 'class' => 'span3')).PHP_EOL ?>
+                                        </fieldset>
+                                        <fieldset>
+                                            <?php echo $form['mo_monto']->renderLabel().PHP_EOL ?>
+                                            <?php echo $form['mo_monto']->render(array('placeholder' => 'mo_monto', 'class' => 'span3')).PHP_EOL ?>
+                                        </fieldset>
+                                        <fieldset>
+                                            <?php echo $form['mo_saldo']->renderLabel().PHP_EOL ?>
+                                            <?php echo $form['mo_saldo']->render(array('placeholder' => 'mo_saldo', 'class' => 'span3')).PHP_EOL ?>
+                                        </fieldset>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <hr style="margin: 0 0 20px 0" />
+                        <hr style="margin: 20px 0" />
                         <div style="text-align: center">
                             <a class="btn btn-small" href="<?php echo url_for('movimientos/index') ?>">Regresar</a>
                              |&nbsp;<button type="submit" class="btn btn-small btn-success" style="margin: 0 auto">Guardar</button>
@@ -206,18 +120,20 @@
                    -moz-border-radius: 5px;
                         border-radius: 5px;
             }
+            form label {
+                padding-top: 7px; 
+            }
+            form fieldset {
+                padding-bottom: 8px;
+            }
         </style>
 <?php end_slot() ?>
 <?php slot('porcion_js') ?>
         <script>
             $(function() {
-                var inputDate = "#dtp_dml_movimientos_mo_fecha",
-                    inputDateTime = "#dtp_dml_movimientos_mo_fecha_crea, #dtp_dml_movimientos_mo_fecha_modifica, #dtp_dml_movimientos_mo_fecha_borra";
+                var inputDate = "#dtp_dml_movimientos_mo_fecha";
                 $(inputDate).datetimepicker({
                     format : 'yyyy-MM-dd', language: 'es', pickTime: false
-                });
-                $(inputDateTime).datetimepicker({ 
-                    format : 'yyyy-MM-dd hh:mm:ss', language: 'es' 
                 });
 <?php if (!$form->getObject()->isNew()): $token = new BaseForm(); ?>
                 // para abrir el modal

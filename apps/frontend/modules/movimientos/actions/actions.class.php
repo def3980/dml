@@ -27,10 +27,10 @@ class movimientosActions extends sfActions {
 
     public function executeIndex(sfWebRequest $request) {
         $this->movimientos = new sfDoctrinePager('DmlMovimientos', sfConfig::get('app_max_per_page'));
-        $this->movimientos->setQuery(DmlMovimientosTable::getListaDeMovimientos());
+        $this->movimientos->setQuery(DmlMovimientosTable::getListaDeMovimientos($request->getParameter('cuenta')));
         $this->movimientos->setPage($request->getParameter('pagina', 1));
         $this->movimientos->init();
-        $this->cuentas_ahorros = DmlAhorrosTable::getCuentasDeAhorros();
+        $this->cuentas_ahorros = DmlAhorrosTable::getCuentasDeAhorros()->execute(array(), Doctrine_Core::HYDRATE_SCALAR);
     }
 
     public function executeNew(sfWebRequest $request) {

@@ -57,6 +57,9 @@
             .table tbody td:nth-child(2) a {
                 cursor: default;
             }
+            .dropdown-menu {
+                text-align: left;
+            }
         </style>
 <?php end_slot() ?>
 <div class="container">
@@ -73,6 +76,26 @@
                         </div>
                     </div>
                     <hr style="margin: 0 0 20px">
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <fieldset>
+                                        <label>B&uacute;squeda de movimientos:</label>
+                                        <input type="text" placeholder="Ingrese su b&uacute;squeda" />
+                                    </fieldset>
+                                </div>
+                                <div class="span6">
+                                    <fieldset style="text-align: right">
+                                        <label>Cuentas bancarias:</label>
+                                        <select id="cuentas" class="show-menu-arrow span5"><?php foreach ($cuentas_ahorros as $k => $ah): echo "\n"; ?>
+                                            <option value="<?=$ah['ah_id']?>" data-subtext="<?=$ah['en_en_alias']?>"><?php echo str_replace("_", "&nbsp;&nbsp;", str_pad($ah['ah_ah_numero_cuenta'], 11, "_", STR_PAD_LEFT)) ?></option><?php endforeach; echo PHP_EOL; ?>
+                                        </select>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <table class="table table-bordered table-striped table-hover responsive-utilities">
                         <thead>
                             <tr>
@@ -179,7 +202,7 @@
                             <div class="span6">
                                 <fieldset>
                                     <label>Cuentas bancarias a asociar:</label>
-                                    <select id="ctas" class="show-menu-arrow span12"><?php foreach ($cuentas_ahorros->execute(array(), Doctrine_Core::HYDRATE_SCALAR) as $k => $ah): echo "\n"; ?>
+                                    <select id="ctas" class="show-menu-arrow span12"><?php foreach ($cuentas_ahorros as $k => $ah): echo "\n"; ?>
                                         <option value="<?=$ah['ah_id']?>" data-subtext="<?=$ah['en_en_alias']?>"><?php echo str_replace("_", "&nbsp;&nbsp;", str_pad($ah['ah_ah_numero_cuenta'], 11, "_", STR_PAD_LEFT)) ?></option><?php endforeach; echo PHP_EOL; ?>
                                     </select>
                                 </fieldset>
@@ -216,7 +239,14 @@
                     });
                 });
                 
-                $('#ctas').selectpicker({ size : 5 });
+                $('#cuentas, #ctas').selectpicker({ size : 5 });
+                
+                // + ----------------------------------------------------------- +
+                $('#cuentas').on('change', function(e) {
+                    var option = $(this).find("option:selected");
+                    location.href = '<?php echo url_for('@movimientos?cuenta=') ?>' + $.trim(option.text());
+                });
+                // + ----------------------------------------------------------- +
                 
                 var node = document.getElementById('txta'), global = null;
                 node.onpaste = function(e) {

@@ -19,6 +19,9 @@ class DmlAhorros extends BaseDmlAhorros {
     // Metodo __toString() que ayuda a visualizar datos 
     // como clase padre hacia cualquier clase que herede 
     // de ella. Descomenta dicha funcion cuando sea necesario
-    //public function __toString() {}
+    public function __toString() {
+        $numCta = str_replace("_", "&nbsp;&nbsp;", str_pad($this->getAhNumeroCuenta(), 11, "_", STR_PAD_LEFT));
+        return $numCta;
+    }
 
 }

@@ -36,7 +36,7 @@ class DmlMovimientosTable extends Doctrine_Table {
      * 
      * @return type dql
      */
-    public static function getListaDeMovimientos() {
+    public static function getListaDeMovimientos($cuenta = null) {
         $select = 'mo.id, mo.mo_fecha, mo.mo_concepto, mo.mo_tipo, mo.mo_documento, '
                 . 'mo.mo_oficina, mo.mo_monto, mo.mo_saldo, mo.mo_mini_detalle_json,'
                 . 'ah.id, tc.id, cb.id, en.id, pe.id';
@@ -49,10 +49,12 @@ class DmlMovimientosTable extends Doctrine_Table {
                 ->innerJoin('cb.DmlPersonas pe')
                 ->where('MONTH(mo.mo_fecha) = MONTH(CURDATE())')
                 ->andWhere('YEAR(mo.mo_fecha) = YEAR(CURDATE())');
-        $sq1 = $sql->createSubquery()
-                    ->select('sqah.id')
-                    ->from('DmlAhorros sqah')
-                    ->limit(1);
+        if (strlen($cuenta) == 0) {
+            $sq1 = $sql->createSubquery()
+                        ->select('sqah.id')
+                        ->from('DmlAhorros sqah')
+                        ->limit(1);
+        }
         $sq2 = $sql->createSubquery()
                     ->select('sqtc.id')
                     ->from('DmlTiposCuentas sqtc')
@@ -61,12 +63,17 @@ class DmlMovimientosTable extends Doctrine_Table {
                     ->select('sqcb.id')
                     ->from('DmlContratosBancarios sqcb')
                     ->limit(1);
-        return $sql->andWhere('mo.ahorros = ('.$sq1->getDql().')')
-                    ->andWhere('ah.tipos_cuentas = ('.$sq2->getDql().')')
+        if ($cuenta == 0) {
+            $sql = $sql->andWhere('mo.ahorros = ('.$sq1->getDql().')');
+        } else {
+            $sql = $sql->andWhere('ah.ah_numero_cuenta LIKE ?', array('%'.$cuenta.'%'));
+        }
+        $sql = $sql->andWhere('ah.tipos_cuentas = ('.$sq2->getDql().')')
                     ->andWhere('ah.contratos_bancarios = ('.$sq3->getDql().')')
-                    ->andWhere('mo.mo_borrado_logico = 0')
+                    ->andWhere('mo.mo_borrado_logico = ?', array(0))
                     ->andWhere('cb.entidades = 7')// <<--- OJO aqui
                     ->orderBy('mo.id DESC');
+        return $sql;
     }
     
     public static function getSiExisteElMovimientoBancario($arrMov, $cta) {

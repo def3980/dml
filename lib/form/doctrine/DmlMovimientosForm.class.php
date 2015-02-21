@@ -25,6 +25,33 @@ class DmlMovimientosForm extends BaseDmlMovimientosForm {
         $this->widgetSchema['mo_fecha_crea']     = new sfWidgetFormInputText();
         $this->widgetSchema['mo_fecha_modifica'] = new sfWidgetFormInputText();
         $this->widgetSchema['mo_fecha_borra']    = new sfWidgetFormInputText();
+        $this->widgetSchema['ahorros']->setOption('subtext', true);
+        $this->widgetSchema['ahorros']->setOption('spaces', 44);
+        $this->widgetSchema['ahorros']->setOption(
+            'models', 
+            'DmlAhorros, DmlContratosBancarios, DmlEntidades'
+        );
+        $this->widgetSchema['ahorros']->setOption('field_to_show', 'en_alias');
+        unset(
+            $this['mo_fecha_crea'], 
+            $this['mo_quien_crea'], 
+            $this['mo_fecha_modifica'], 
+            $this['mo_quien_modifica'], 
+            $this['mo_fecha_borra'], 
+            $this['mo_quien_borra'], 
+            $this['mo_borrado_logico']
+        );
+        $this->widgetSchema->setLabels(array(
+            'ahorros'              => 'Cuentas ahorros:',
+            'mo_fecha'             => 'Fecha:',
+            'mo_concepto'          => 'Concepto:',
+            'mo_tipo'              => 'Tipo:',
+            'mo_documento'         => '# Documento:',
+            'mo_oficina'           => 'Oficina:',
+            'mo_monto'             => 'Monto:',
+            'mo_saldo'             => 'Saldo:',
+            'mo_mini_detalle_json' => 'Detalle Transferencias:',
+        ));
     }
 
 }

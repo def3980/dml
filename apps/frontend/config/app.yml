@@ -3,10 +3,11 @@
 
 # default values
 all:
-    max_per_page: 7
-    max_files_per_paid: 3
+    max_per_page: 8
+    max_files_per_paid: 5
     iva: 12
     ice: 15
     comision: 999.99
     numero_documento: 15
     movimientos_bancarios: 7
+    sharefile_per_file: 3

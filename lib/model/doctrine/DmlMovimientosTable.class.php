@@ -47,7 +47,9 @@ class DmlMovimientosTable extends Doctrine_Table {
                 ->innerJoin('ah.DmlContratosBancarios cb')
                 ->innerJoin('cb.DmlEntidades en')
                 ->innerJoin('cb.DmlPersonas pe')
-                ->where('MONTH(mo.mo_fecha) = MONTH(CURDATE())')
+//                ->where('MONTH(mo.mo_fecha) = MONTH(CURDATE())')
+//                ->where('MONTH(mo.mo_fecha) >= MONTH(DATE_ADD(NOW(), INTERVAL -6 MONTH))');
+                ->where('MONTH(mo.mo_fecha) >= MONTH(DATE_ADD(NOW(), INTERVAL -3 MONTH))')
                 ->andWhere('YEAR(mo.mo_fecha) = YEAR(CURDATE())');
         if (strlen($cuenta) == 0) {
             $sq1 = $sql->createSubquery()
@@ -55,25 +57,48 @@ class DmlMovimientosTable extends Doctrine_Table {
                         ->from('DmlAhorros sqah')
                         ->limit(1);
         }
-        $sq2 = $sql->createSubquery()
-                    ->select('sqtc.id')
-                    ->from('DmlTiposCuentas sqtc')
-                    ->limit(1);
-        $sq3 = $sql->createSubquery()
-                    ->select('sqcb.id')
-                    ->from('DmlContratosBancarios sqcb')
-                    ->limit(1);
         if ($cuenta == 0) {
             $sql = $sql->andWhere('mo.ahorros = ('.$sq1->getDql().')');
         } else {
             $sql = $sql->andWhere('ah.ah_numero_cuenta LIKE ?', array('%'.$cuenta.'%'));
         }
-        $sql = $sql->andWhere('ah.tipos_cuentas = ('.$sq2->getDql().')')
-                    ->andWhere('ah.contratos_bancarios = ('.$sq3->getDql().')')
-                    ->andWhere('mo.mo_borrado_logico = ?', array(0))
-                    ->andWhere('cb.entidades = 7')// <<--- OJO aqui
-                    ->orderBy('mo.id DESC');
-        return $sql;
+        return $sql->andWhere('mo.mo_borrado_logico = ?', array(0))
+                   ->andWhere('pe.id = ?', array(sfContext::getInstance()->getUser()->getAttribute('id')))
+                   ->orderBy('mo.id DESC');
+//        $sql = DmlMovimientosTable::getAlias()
+//                ->addSelect($select)
+//                ->innerJoin('mo.DmlAhorros ah')
+//                ->innerJoin('ah.DmlTiposCuentas tc')
+//                ->innerJoin('ah.DmlContratosBancarios cb')
+//                ->innerJoin('cb.DmlEntidades en')
+//                ->innerJoin('cb.DmlPersonas pe')
+//                ->where('MONTH(mo.mo_fecha) = MONTH(CURDATE())')
+////                ->where('MONTH(mo.mo_fecha) = MONTH(DATE_ADD(NOW(), INTERVAL -1 MONTH))')
+//                ->andWhere('YEAR(mo.mo_fecha) = YEAR(CURDATE())');
+//        if (strlen($cuenta) == 0) {
+//            $sq1 = $sql->createSubquery()
+//                        ->select('sqah.id')
+//                        ->from('DmlAhorros sqah')
+//                        ->limit(1);
+//        }
+//        $sq2 = $sql->createSubquery()
+//                    ->select('sqtc.id')
+//                    ->from('DmlTiposCuentas sqtc')
+//                    ->limit(1);
+//        $sq3 = $sql->createSubquery()
+//                    ->select('sqcb.id')
+//                    ->from('DmlContratosBancarios sqcb')
+//                    ->limit(1);
+//        if ($cuenta == 0) {
+//            $sql = $sql->andWhere('mo.ahorros = ('.$sq1->getDql().')');
+//        } else {
+//            $sql = $sql->andWhere('ah.ah_numero_cuenta LIKE ?', array('%'.$cuenta.'%'));
+//        }
+//        $sql = $sql->andWhere('ah.tipos_cuentas = ('.$sq2->getDql().')')
+//                    ->andWhere('ah.contratos_bancarios = ('.$sq3->getDql().')')
+//                    ->andWhere('mo.mo_borrado_logico = ?', array(0))
+//                    ->andWhere('cb.entidades = 10')// <<--- OJO aqui
+//                    ->orderBy('mo.id DESC');
     }
     
     public static function getSiExisteElMovimientoBancario($arrMov, $cta) {

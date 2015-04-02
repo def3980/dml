@@ -46,6 +46,11 @@ print
 ?>
     </head>
     <body data-spy="scroll" data-target=".bs-docs-sidebar">
+<?php if ($sf_user->isAuthenticated()): ?>
+<?php if (has_slot('menu_bar')): ?>
+<?php include_slot('menu_bar') ?>
+<?php endif; ?>
+<?php endif; ?>
         <?php echo $sf_content."\n" ?>
 <?php if (has_slot('timeout_html')): ?>
         <!-- Modal timeout ============================== -->

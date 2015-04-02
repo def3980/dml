@@ -4,8 +4,8 @@
  * Fecha creacion : "Viernes, 5 Diciembre 2014 12:47:53"
  * 
  * Acciones realizadas:
- * - Veces ejecutado doctrine:build-forms            : "000084"
- * - Ultima vez que se actualizo la clase formulario : "2015-02-02 17:15:13"
+ * - Veces ejecutado doctrine:build-forms            : "000090"
+ * - Ultima vez que se actualizo la clase formulario : "2015-03-25 10:37:03"
  */
 
 /**
@@ -23,7 +23,7 @@ abstract class BaseDmlBinariosFormFilter extends BaseFormFilterDoctrine {
             'personas'                => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DmlPersonas'), 'add_empty' => true)),
             'hijos'                   => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DmlHijos'), 'add_empty' => true)),
             'tarjetas_credito_debito' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DmlTarjetasCreditoDebito'), 'add_empty' => true)),
-            'pagos'                   => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DmlPagos'), 'add_empty' => true)),
+            'facturas'                => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DmlFacturas'), 'add_empty' => true)),
             'bi_nombre_original'      => new sfWidgetFormFilterInput(),
             'bi_tamanio_bytes'        => new sfWidgetFormFilterInput(),
             'bi_binario'              => new sfWidgetFormFilterInput(),
@@ -41,7 +41,7 @@ abstract class BaseDmlBinariosFormFilter extends BaseFormFilterDoctrine {
             'personas'                => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('DmlPersonas'), 'column' => 'id')),
             'hijos'                   => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('DmlHijos'), 'column' => 'id')),
             'tarjetas_credito_debito' => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('DmlTarjetasCreditoDebito'), 'column' => 'id')),
-            'pagos'                   => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('DmlPagos'), 'column' => 'id')),
+            'facturas'                => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('DmlFacturas'), 'column' => 'id')),
             'bi_nombre_original'      => new sfValidatorPass(array('required' => false)),
             'bi_tamanio_bytes'        => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
             'bi_binario'              => new sfValidatorPass(array('required' => false)),
@@ -72,7 +72,7 @@ abstract class BaseDmlBinariosFormFilter extends BaseFormFilterDoctrine {
                 'personas'                => 'ForeignKey',
                 'hijos'                   => 'ForeignKey',
                 'tarjetas_credito_debito' => 'ForeignKey',
-                'pagos'                   => 'ForeignKey',
+                'facturas'                => 'ForeignKey',
                 'bi_nombre_original'      => 'Text',
                 'bi_tamanio_bytes'        => 'Number',
                 'bi_binario'              => 'Text',

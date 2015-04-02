@@ -4,8 +4,8 @@
  * Fecha creacion : "Viernes, 5 Diciembre 2014 12:44:41"
  * 
  * Acciones realizadas:
- * - Veces ejecutado doctrine:build-forms            : "000006"
- * - Ultima vez que se actualizo la clase formulario : "2015-02-02 17:15:07"
+ * - Veces ejecutado doctrine:build-forms            : "000012"
+ * - Ultima vez que se actualizo la clase formulario : "2015-03-25 10:36:50"
  */
 
 /**
@@ -23,6 +23,7 @@ abstract class BaseDmlBeneficiariosForm extends BaseFormDoctrine {
     public function setup() {
         $this->setWidgets(array(
             'id'                         => new sfWidgetFormInputHidden(),
+            'be_orden'                   => new sfWidgetFormInputText(),
             'be_nombres_identificativos' => new sfWidgetFormInputText(),
             'be_fecha_crea'              => new sfWidgetFormDateTime(),
             'be_quien_crea'              => new sfWidgetFormInputText(),
@@ -35,6 +36,7 @@ abstract class BaseDmlBeneficiariosForm extends BaseFormDoctrine {
 
         $this->setValidators(array(
             'id'                         => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
+            'be_orden'                   => new sfValidatorInteger(array('required' => false)),
             'be_nombres_identificativos' => new sfValidatorString(array('max_length' => 100, 'required' => false)),
             'be_fecha_crea'              => new sfValidatorDateTime(array('required' => false)),
             'be_quien_crea'              => new sfValidatorInteger(array('required' => false)),

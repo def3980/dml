@@ -4,8 +4,8 @@
  * Fecha creacion : "Viernes, 5 Diciembre 2014 12:47:53"
  * 
  * Acciones realizadas:
- * - Veces ejecutado doctrine:build-forms            : "000084"
- * - Ultima vez que se actualizo la clase formulario : "2015-02-02 17:15:14"
+ * - Veces ejecutado doctrine:build-forms            : "000090"
+ * - Ultima vez que se actualizo la clase formulario : "2015-03-25 10:37:04"
  */
 
 /**
@@ -20,9 +20,9 @@ abstract class BaseDmlContratosLaboralesFormFilter extends BaseFormFilterDoctrin
 
     public function setup() {
         $this->setWidgets(array(
-            'dml_personas'              => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DmlPersonas'), 'add_empty' => true)),
-            'dml_entidades'             => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DmlEntidades'), 'add_empty' => true)),
-            'dml_remuneraciones'        => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DmlRemuneraciones'), 'add_empty' => true)),
+            'personas'                  => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DmlPersonas'), 'add_empty' => true)),
+            'entidades'                 => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DmlEntidades'), 'add_empty' => true)),
+            'remuneraciones'            => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DmlRemuneraciones'), 'add_empty' => true)),
             'cl_fecha_ingreso'          => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
             'cl_fecha_salida'           => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
             'cl_motivo_salida'          => new sfWidgetFormFilterInput(),
@@ -38,9 +38,9 @@ abstract class BaseDmlContratosLaboralesFormFilter extends BaseFormFilterDoctrin
         ));
 
         $this->setValidators(array(
-            'dml_personas'              => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('DmlPersonas'), 'column' => 'id')),
-            'dml_entidades'             => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('DmlEntidades'), 'column' => 'id')),
-            'dml_remuneraciones'        => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('DmlRemuneraciones'), 'column' => 'id')),
+            'personas'                  => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('DmlPersonas'), 'column' => 'id')),
+            'entidades'                 => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('DmlEntidades'), 'column' => 'id')),
+            'remuneraciones'            => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('DmlRemuneraciones'), 'column' => 'id')),
             'cl_fecha_ingreso'          => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDateTime(array('required' => false)))),
             'cl_fecha_salida'           => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDateTime(array('required' => false)))),
             'cl_motivo_salida'          => new sfValidatorPass(array('required' => false)),
@@ -69,9 +69,9 @@ abstract class BaseDmlContratosLaboralesFormFilter extends BaseFormFilterDoctrin
     public function getFields() {
         return array(
                 'id'                        => 'Number',
-                'dml_personas'              => 'ForeignKey',
-                'dml_entidades'             => 'ForeignKey',
-                'dml_remuneraciones'        => 'ForeignKey',
+                'personas'                  => 'ForeignKey',
+                'entidades'                 => 'ForeignKey',
+                'remuneraciones'            => 'ForeignKey',
                 'cl_fecha_ingreso'          => 'Date',
                 'cl_fecha_salida'           => 'Date',
                 'cl_motivo_salida'          => 'Text',

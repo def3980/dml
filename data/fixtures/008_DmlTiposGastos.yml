@@ -1,6 +1,7 @@
 DmlTiposGastos:
 <?php foreach (Singleton::getInstance()->csv_to_array('C:\Users\Oswaldo\Downloads\DmlTiposGastos.csv') as $k => $v): ?>
   id_<?=$k?>:
+    tg_orden:          <?php echo "" == $v['tg_orden'] ? NULL : $v['tg_orden']; echo PHP_EOL; ?>
     tg_nombre:         <?php echo "" == $v['tg_nombre'] ? NULL : $v['tg_nombre']; echo PHP_EOL; ?>
     tg_alias:          <?php echo "" == $v['tg_alias'] ? NULL : $v['tg_alias']; echo PHP_EOL; ?>
     tg_fecha_crea:     <?php echo "" == $v['tg_fecha_crea'] ? NULL : "|".PHP_EOL.str_repeat(' ', 25).$v['tg_fecha_crea']; echo PHP_EOL; ?>

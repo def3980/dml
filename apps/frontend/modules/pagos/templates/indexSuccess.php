@@ -1,3 +1,7 @@
+<?php slot('titulo', 'Pagos &middot; dml') ?>
+<?php slot('menu_bar') ?>
+<?php include_partial('global/menu_bar', array('barra_activa' => 'pagos')) ?>
+<?php end_slot() ?>
 <?php slot('porcion_css') ?>
         <style type="text/css">
             .table thead th,
@@ -18,7 +22,6 @@
             }
             .table tbody td:nth-child(4) {
                 text-align: right;
-                padding-right: 1.5%;
                 color: #d33;
             }
             .alert p {
@@ -47,7 +50,8 @@
             }
         </style>
 <?php end_slot() ?>
-<div class="container">
+<br />
+        <div class="container">
             <div class="row">
                 <div class="span12">
                     <div class="row">
@@ -61,45 +65,67 @@
                         </div>
                     </div>
                     <hr style="margin: 0 0 20px">
+                    
+                    <div class="navbar" style="position: static;">
+                        <div class="navbar-inner">
+                            <div class="container">
+                                <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </a>
+                                <a class="brand" href="#">Title</a>
+                                <div class="nav-collapse collapse navbar-inverse-collapse">
+                                    <ul class="nav">
+                                        <li class="active"><a href="#">Home</a></li>
+                                        <li><a href="#">Link</a></li>
+                                        <li><a href="#">Link</a></li>
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#">Action</a></li>
+                                                <li><a href="#">Another action</a></li>
+                                                <li><a href="#">Something else here</a></li>
+                                                <li class="divider"></li>
+                                                <li class="nav-header">Nav header</li>
+                                                <li><a href="#">Separated link</a></li>
+                                                <li><a href="#">One more separated link</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <div class="navbar-form pull-left">
+                                        <input type="text" class="span3 txtSrch" placeholder="Buscar..." />
+                                        <button type="button" class="btn btnSrch">Buscar</button>
+                                    </div>
+                                    <ul class="nav pull-right">
+                                        <li><a href="#">Link</a></li>
+                                        <li class="divider-vertical"></li>
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#">Action</a></li>
+                                                <li><a href="#">Another action</a></li>
+                                                <li><a href="#">Something else here</a></li>
+                                                <li class="divider"></li>
+                                                <li><?php echo link_to('Salir', '@logout') ?></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div><!-- /.nav-collapse -->
+                            </div>
+                        </div><!-- /navbar-inner -->
+                    </div><!-- /navbar -->
+                    
                     <table class="table table-bordered table-striped table-hover responsive-utilities">
                         <thead>
                             <tr>
                                 <th>Fecha<small>hora</small></th>
-                                <th># factura<small>edicion</small></th>
+                                <th># Factura<small>edici&oacute;n</small></th>
                                 <th>Detalle<small>pdf's</small></th>
-                                <th>Valor total<small>&nbsp;</small></th>
+                                <th>Valor parcial<small>total</small></th>
                             </tr>
                         </thead>
-                        <tbody><?php if ($pagos->count()): foreach ($res = $pagos->getResults() as $pa): echo PHP_EOL; $time = explode(" ", $pa->getPaFecha()); ?>
-                            <tr>
-                                <td>
-                                    <a href="#" title="<?php echo end($time) ?>"><?php echo Singleton::getInstance()->dateTimeESN($pa->getPaFecha(), false) ?></a>
-                                </td>
-                                <td><?php echo strlen($pa->getPaNumeroFactura()) > 0
-                                                ? link_to($pa->getPaNumeroFactura(), 'pagos/edit?id='.$pa->getId()) 
-                                                : link_to("---", 'pagos/edit?id='.$pa->getId()) ?></td>
-                                <td>
-<?php
-    $bi_count = DmlBinariosTable::getBinariosPorIdPago($pa->getId())
-                ->execute()
-                ->count();
-    if ($bi_count > 0) {
-?>
-                                    <a href="#modal<?php echo $pa->getId() ?>" role="button" data-toggle="modal"><?php echo $pa->getPaDetalle() ?></a>
-                                    <?php include_partial('modal', array('id' => $pa->getId())) ?>
-<?php } else { ?>
-                                    <?php echo $pa->getPaDetalle().PHP_EOL ?>
-<?php } ?>
-                                </td>
-                                <td><?php echo '$ '.number_format($pa->getPaValorTotal(), 2, ',', '.') ?></td>
-                            </tr><?php endforeach; ?>
-<?php else: echo PHP_EOL; ?>
-                            <tr>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr><?php endif; echo PHP_EOL; ?>
+                        <tbody><?php include_partial('pagos', array('pagos' => $pagos, 'first' => true)) ?>
                         </tbody>
                     </table>
                     <div class="row">
@@ -108,40 +134,8 @@
                             <?php echo link_to('Nuevo', 'pagos/new', array('class' => 'btn btn-link')).PHP_EOL ?>
                         </div>
                     </div>
-<?php if ($pagos->count()): if ($pagos->haveToPaginate()): ?>
-                    <hr>
-                    <div class="pagination pagination-centered">
-                        <ul>
-                            <li<?php echo 1 == $pagos->getPage() ? ' class="active"' : '' ?>>
-                                <a<?php echo 1 == $pagos->getPage() ? ' href="javascript:void(0)"' : ' href="'.url_for('pagos/index?pagina=1').'"' ?>>&laquo;</a>
-                            </li><?php foreach ($pagos->getLinks() as $pag): echo PHP_EOL; ?>
-                            <li<?php echo $pag == $pagos->getPage() ? ' class="active"' : '' ?>>
-                                <a<?php echo $pag == $pagos->getPage() ? ' href="javascript:void(0)"' : ' href="'.url_for('pagos/index?pagina='.$pag).'"' ?>><?php echo$pag?></a>
-                            </li><?php endforeach; echo PHP_EOL; ?>
-                            <li<?php echo $pagos->getLastPage() == $pagos->getPage() ? ' class="active"' : '' ?>>
-                                <a<?php echo $pagos->getLastPage() == $pagos->getPage() ? ' href="javascript:void(0)"' : ' href="'.url_for('pagos/index?pagina='.$pagos->getNextPage()).'"' ?>>&raquo;</a>
-                            </li>
-                        </ul>
+                    <div class="paginador"><?php include_partial('paginador', array('pagos' => $pagos, 'first' => true)) ?>
                     </div>
-<?php else: ?>
-                    <hr>
-                    <div class="pagination pagination-centered">
-                        <ul>
-                            <li class="active"><a href="javascript:void(0)">&laquo;</a></li>
-                            <li class="active"><a href="javascript:void(0)">1</a></li>
-                            <li class="active"><a href="javascript:void(0)">&raquo;</a></li>
-                        </ul>
-                    </div>
-<?php endif; else: echo PHP_EOL; ?>
-                    <hr>
-                    <div class="pagination pagination-centered">
-                        <ul>
-                            <li class="active"><a href="javascript:void(0)">&laquo;</a></li>
-                            <li class="active"><a href="javascript:void(0)">1</a></li>
-                            <li class="active"><a href="javascript:void(0)">&raquo;</a></li>
-                        </ul>
-                    </div>
-<?php endif; ?>
                 </div>
             </div>
         </div><!-- /container -->
@@ -155,27 +149,35 @@
 <?php slot('porcion_js') ?>
         <script>
             $(function() {
-                $('.table tbody td:nth-child(1) a').tooltip({
-                    'placement' : 'right'
+                $('body').tooltip({
+                    selector  : '[data-toggle=tooltip]'
                 });
-                $('.modal-body').delegate('tr a', 'click', function() {
-                    var param = {   
-                                    biId : $(this).attr('bi-id'),
-                                    paId : $(this).attr('pa-id')
-                                };
-                    $.post('<?=url_for('pagos/binLogicalDelete')?>', param, function(data) {
-                        if (data.logical_delete && data.pdfs_left > 0) {
-                            $.post('<?=url_for('pagos/modalBody')?>', param, function(data) {
-                                $('#modal' + param.paId + ' .modal-body').html(data);
-                            });
-                        } else {
-                            $('#modal' + param.paId).modal('hide');
-                            $('#modal' + param.paId).on('hidden', function() {
-                                location.reload();
-                            });
-                        }
-                    }, 'json');
+                /* --------------------------------------------------- buscar */
+                $('.btnSrch').bind('click', function() {
+                    var params = { faDet : $(this).prev().val() };
+                    $.post('<?=url_for('pagos/searchPaid')?>', params, function(data) {
+                        $('.table tbody').html(data);
+                    });
+                    $.post('<?=url_for('pagos/searchPager')?>', params, function(data) {
+                        $('.paginador').html(data);
+                    });
                 });
+                /* ----------------------------------------------- fin buscar */
+                
+                /* ------------------------------------------ paginador pagos */
+                $('.pagination ul li a').bind('click', function() {
+                    if (!$(this).parent().hasClass('active')) {
+                        var params = { pagina : $(this).attr('id'), faDet : $(this).prev().val() };
+                        console.log(params);
+                        $.post('<?php echo url_for('pagos/searchPaid') ?>', params, function(data) {
+                            $('.table tbody').html(data);
+                        });
+                        $.post('<?php echo url_for('pagos/searchPager') ?>', params, function(data) {
+                            $('.paginador').html(data);
+                        });
+                    }
+                });
+                /* -------------------------------------- fin paginador pagos */
             });
         </script>
 <?php end_slot() ?>

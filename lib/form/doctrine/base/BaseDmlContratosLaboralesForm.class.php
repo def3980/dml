@@ -4,8 +4,8 @@
  * Fecha creacion : "Viernes, 5 Diciembre 2014 12:44:41"
  * 
  * Acciones realizadas:
- * - Veces ejecutado doctrine:build-forms            : "000084"
- * - Ultima vez que se actualizo la clase formulario : "2015-02-02 17:15:08"
+ * - Veces ejecutado doctrine:build-forms            : "000090"
+ * - Ultima vez que se actualizo la clase formulario : "2015-03-25 10:36:50"
  */
 
 /**
@@ -23,9 +23,9 @@ abstract class BaseDmlContratosLaboralesForm extends BaseFormDoctrine {
     public function setup() {
         $this->setWidgets(array(
             'id'                        => new sfWidgetFormInputHidden(),
-            'dml_personas'              => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DmlPersonas'), 'add_empty' => false)),
-            'dml_entidades'             => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DmlEntidades'), 'add_empty' => false)),
-            'dml_remuneraciones'        => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DmlRemuneraciones'), 'add_empty' => false)),
+            'personas'                  => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DmlPersonas'), 'add_empty' => false)),
+            'entidades'                 => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DmlEntidades'), 'add_empty' => false)),
+            'remuneraciones'            => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DmlRemuneraciones'), 'add_empty' => false)),
             'cl_fecha_ingreso'          => new sfWidgetFormDate(),
             'cl_fecha_salida'           => new sfWidgetFormDate(),
             'cl_motivo_salida'          => new sfWidgetFormTextarea(),
@@ -42,9 +42,9 @@ abstract class BaseDmlContratosLaboralesForm extends BaseFormDoctrine {
 
         $this->setValidators(array(
             'id'                        => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
-            'dml_personas'              => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('DmlPersonas'))),
-            'dml_entidades'             => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('DmlEntidades'))),
-            'dml_remuneraciones'        => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('DmlRemuneraciones'))),
+            'personas'                  => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('DmlPersonas'))),
+            'entidades'                 => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('DmlEntidades'))),
+            'remuneraciones'            => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('DmlRemuneraciones'))),
             'cl_fecha_ingreso'          => new sfValidatorDate(array('required' => false)),
             'cl_fecha_salida'           => new sfValidatorDate(array('required' => false)),
             'cl_motivo_salida'          => new sfValidatorString(array('required' => false)),

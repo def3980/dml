@@ -3,8 +3,8 @@
 # Fecha: Viernes, 5 Diciembre 2014 12:20:18
 #
 # Acciones realizadas:
-#  - Veces ejecutado doctrine:build-schema  : "000009"
-#  - Ultima vez que se actualizo el esquema : "2015-01-05 09:07:00"
+#  - Veces ejecutado doctrine:build-schema  : "000016"
+#  - Ultima vez que se actualizo el esquema : "2015-03-25 10:35:53"
 # + -------------------------------------------------------------------------- +
 
 DmlAhorros:
@@ -131,6 +131,13 @@ DmlBeneficiarios:
       unsigned: false
       primary: true
       autoincrement: true
+    be_orden:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
     be_nombres_identificativos:
       type: string(100)
       fixed: false
@@ -218,7 +225,7 @@ DmlBinarios:
       primary: false
       notnull: false
       autoincrement: false
-    pagos:
+    facturas:
       type: integer(4)
       fixed: false
       unsigned: false
@@ -303,6 +310,14 @@ DmlBinarios:
       notnull: false
       autoincrement: false
   relations:
+    DmlFacturas:
+      local: facturas
+      foreign: id
+      type: one
+    DmlHijos:
+      local: hijos
+      foreign: id
+      type: one
     DmlPersonas:
       local: personas
       foreign: id
@@ -311,16 +326,10 @@ DmlBinarios:
       local: tarjetas_credito_debito
       foreign: id
       type: one
-    DmlHijos:
-      local: hijos
-      foreign: id
-      type: one
-    DmlPagos:
-      local: pagos
-      foreign: id
-      type: one
-      onUpdate: cascade
-      onDelete: cascade
+    DmlRespaldos:
+      local: id
+      foreign: binarios
+      type: many
 DmlConsumoTarjetas:
   connection: doctrine
   tableName: dml_consumo_tarjetas
@@ -494,12 +503,12 @@ DmlContratosBancarios:
       notnull: false
       autoincrement: false
   relations:
-    DmlPersonas:
-      local: personas
-      foreign: id
-      type: one
     DmlEntidades:
       local: entidades
+      foreign: id
+      type: one
+    DmlPersonas:
+      local: personas
       foreign: id
       type: one
     DmlAhorros:
@@ -524,21 +533,21 @@ DmlContratosLaborales:
       unsigned: false
       primary: true
       autoincrement: true
-    dml_personas:
+    personas:
       type: integer(4)
       fixed: false
       unsigned: false
       primary: false
       notnull: true
       autoincrement: false
-    dml_entidades:
+    entidades:
       type: integer(4)
       fixed: false
       unsigned: false
       primary: false
       notnull: true
       autoincrement: false
-    dml_remuneraciones:
+    remuneraciones:
       type: integer(4)
       fixed: false
       unsigned: false
@@ -630,16 +639,16 @@ DmlContratosLaborales:
       notnull: false
       autoincrement: false
   relations:
-    DmlPersonas:
-      local: dml_personas
+    DmlEntidades:
+      local: entidades
       foreign: id
       type: one
-    DmlEntidades:
-      local: dml_entidades
+    DmlPersonas:
+      local: personas
       foreign: id
       type: one
     DmlRemuneraciones:
-      local: dml_remuneraciones
+      local: remuneraciones
       foreign: id
       type: one
 DmlDetallePagos:
@@ -906,7 +915,128 @@ DmlEntidades:
       type: many
     DmlContratosLaborales:
       local: id
-      foreign: dml_entidades
+      foreign: entidades
+      type: many
+DmlFacturas:
+  connection: doctrine
+  tableName: dml_facturas
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    tipos_gastos:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    fa_con_sin_factura:
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    fa_numero_factura:
+      type: string(17)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    fa_fecha:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    fa_detalle:
+      type: string()
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    fa_beneficiarios_json:
+      type: string()
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    fa_valor_total:
+      type: 'decimal(10, 2)'
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    fa_fecha_crea:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    fa_quien_crea:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    fa_fecha_modifica:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    fa_quien_modifica:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    fa_fecha_borra:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    fa_quien_borra:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    fa_borrado_logico:
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+  relations:
+    DmlTiposGastos:
+      local: tipos_gastos
+      foreign: id
+      type: one
+    DmlBinarios:
+      local: id
+      foreign: facturas
+      type: many
+    DmlPagos:
+      local: id
+      foreign: facturas
       type: many
 DmlHijos:
   connection: doctrine
@@ -1244,40 +1374,12 @@ DmlPagos:
       primary: false
       notnull: true
       autoincrement: false
-    tipos_gastos:
+    facturas:
       type: integer(4)
       fixed: false
       unsigned: false
       primary: false
       notnull: true
-      autoincrement: false
-    pa_con_sin_factura:
-      type: integer(1)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: false
-      autoincrement: false
-    pa_numero_factura:
-      type: string(17)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: false
-      autoincrement: false
-    pa_fecha:
-      type: timestamp(25)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: false
-      autoincrement: false
-    pa_detalle:
-      type: string()
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: false
       autoincrement: false
     pa_iva:
       type: 'decimal(10, 2)'
@@ -1300,15 +1402,8 @@ DmlPagos:
       primary: false
       notnull: false
       autoincrement: false
-    pa_valor_total:
+    pa_valor_parcial:
       type: 'decimal(10, 2)'
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: false
-      autoincrement: false
-    pa_beneficiarios_json:
-      type: string()
       fixed: false
       unsigned: false
       primary: false
@@ -1364,15 +1459,15 @@ DmlPagos:
       notnull: false
       autoincrement: false
   relations:
+    DmlFacturas:
+      local: facturas
+      foreign: id
+      type: one
     DmlPersonas:
       local: personas
       foreign: id
       type: one
-    DmlTiposGastos:
-      local: tipos_gastos
-      foreign: id
-      type: one
-    DmlBinarios:
+    DmlRespaldos:
       local: id
       foreign: pagos
       type: many
@@ -1523,7 +1618,7 @@ DmlPersonas:
       type: many
     DmlContratosLaborales:
       local: id
-      foreign: dml_personas
+      foreign: personas
       type: many
     DmlHijos:
       local: id
@@ -1716,8 +1811,94 @@ DmlRemuneraciones:
   relations:
     DmlContratosLaborales:
       local: id
-      foreign: dml_remuneraciones
+      foreign: remuneraciones
       type: many
+DmlRespaldos:
+  connection: doctrine
+  tableName: dml_respaldos
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    pagos:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    binarios:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    rs_fecha_crea:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    rs_quien_crea:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    rs_fecha_modifica:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    rs_quien_modifica:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    rs_fecha_borra:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    rs_quien_borra:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    rs_borrado_logico:
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+  relations:
+    DmlBinarios:
+      local: binarios
+      foreign: id
+      type: one
+      onUpdate: cascade
+      onDelete: cascade
+    DmlPagos:
+      local: pagos
+      foreign: id
+      type: one
+      onUpdate: cascade
+      onDelete: cascade
 DmlTarjetasCreditoDebito:
   connection: doctrine
   tableName: dml_tarjetas_credito_debito
@@ -1924,6 +2105,13 @@ DmlTiposGastos:
       unsigned: false
       primary: true
       autoincrement: true
+    tg_orden:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
     tg_nombre:
       type: string(100)
       fixed: false
@@ -1988,7 +2176,7 @@ DmlTiposGastos:
       notnull: false
       autoincrement: false
   relations:
-    DmlPagos:
+    DmlFacturas:
       local: id
       foreign: tipos_gastos
       type: many

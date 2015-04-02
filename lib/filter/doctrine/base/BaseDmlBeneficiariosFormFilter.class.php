@@ -4,8 +4,8 @@
  * Fecha creacion : "Viernes, 5 Diciembre 2014 12:47:53"
  * 
  * Acciones realizadas:
- * - Veces ejecutado doctrine:build-forms            : "000006"
- * - Ultima vez que se actualizo la clase formulario : "2015-02-02 17:15:12"
+ * - Veces ejecutado doctrine:build-forms            : "000012"
+ * - Ultima vez que se actualizo la clase formulario : "2015-03-25 10:37:03"
  */
 
 /**
@@ -20,6 +20,7 @@ abstract class BaseDmlBeneficiariosFormFilter extends BaseFormFilterDoctrine {
 
     public function setup() {
         $this->setWidgets(array(
+            'be_orden'                   => new sfWidgetFormFilterInput(),
             'be_nombres_identificativos' => new sfWidgetFormFilterInput(),
             'be_fecha_crea'              => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
             'be_quien_crea'              => new sfWidgetFormFilterInput(),
@@ -31,6 +32,7 @@ abstract class BaseDmlBeneficiariosFormFilter extends BaseFormFilterDoctrine {
         ));
 
         $this->setValidators(array(
+            'be_orden'                   => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
             'be_nombres_identificativos' => new sfValidatorPass(array('required' => false)),
             'be_fecha_crea'              => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
             'be_quien_crea'              => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
@@ -55,6 +57,7 @@ abstract class BaseDmlBeneficiariosFormFilter extends BaseFormFilterDoctrine {
     public function getFields() {
         return array(
                 'id'                         => 'Number',
+                'be_orden'                   => 'Number',
                 'be_nombres_identificativos' => 'Text',
                 'be_fecha_crea'              => 'Date',
                 'be_quien_crea'              => 'Number',

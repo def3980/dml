@@ -4,8 +4,8 @@
  * Fecha creacion : "Viernes, 5 Diciembre 2014 12:41:57"
  * 
  * Acciones realizadas:
- * - Veces ejecutado doctrine:build-model  : "000084"
- * - Ultima vez que se actualizo el modelo : "2015-02-02 17:14:58"
+ * - Veces ejecutado doctrine:build-model  : "000090"
+ * - Ultima vez que se actualizo el modelo : "2015-03-25 10:36:31"
  */
 
 // Connection Component Binding
@@ -80,7 +80,7 @@ abstract class BaseDmlRemuneraciones extends sfDoctrineRecord {
         parent::setUp();
         $this->hasMany('DmlContratosLaborales', array(
             'local'   => 'id',
-            'foreign' => 'dml_remuneraciones'
+            'foreign' => 'remuneraciones'
         ));
     }
 

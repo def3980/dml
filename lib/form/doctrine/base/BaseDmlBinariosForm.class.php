@@ -4,8 +4,8 @@
  * Fecha creacion : "Viernes, 5 Diciembre 2014 12:44:41"
  * 
  * Acciones realizadas:
- * - Veces ejecutado doctrine:build-forms            : "000084"
- * - Ultima vez que se actualizo la clase formulario : "2015-02-02 17:15:07"
+ * - Veces ejecutado doctrine:build-forms            : "000090"
+ * - Ultima vez que se actualizo la clase formulario : "2015-03-25 10:36:50"
  */
 
 /**
@@ -26,7 +26,7 @@ abstract class BaseDmlBinariosForm extends BaseFormDoctrine {
             'personas'                => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DmlPersonas'), 'add_empty' => true)),
             'hijos'                   => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DmlHijos'), 'add_empty' => true)),
             'tarjetas_credito_debito' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DmlTarjetasCreditoDebito'), 'add_empty' => true)),
-            'pagos'                   => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DmlPagos'), 'add_empty' => true)),
+            'facturas'                => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DmlFacturas'), 'add_empty' => true)),
             'bi_nombre_original'      => new sfWidgetFormInputText(),
             'bi_tamanio_bytes'        => new sfWidgetFormInputText(),
             'bi_binario'              => new sfWidgetFormTextarea(),
@@ -45,7 +45,7 @@ abstract class BaseDmlBinariosForm extends BaseFormDoctrine {
             'personas'                => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('DmlPersonas'), 'required' => false)),
             'hijos'                   => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('DmlHijos'), 'required' => false)),
             'tarjetas_credito_debito' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('DmlTarjetasCreditoDebito'), 'required' => false)),
-            'pagos'                   => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('DmlPagos'), 'required' => false)),
+            'facturas'                => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('DmlFacturas'), 'required' => false)),
             'bi_nombre_original'      => new sfValidatorString(array('max_length' => 100, 'required' => false)),
             'bi_tamanio_bytes'        => new sfValidatorNumber(array('required' => false)),
             'bi_binario'              => new sfValidatorString(array('required' => false)),

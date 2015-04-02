@@ -4,8 +4,8 @@
  * Fecha creacion : "Viernes, 5 Diciembre 2014 12:41:57"
  * 
  * Acciones realizadas:
- * - Veces ejecutado doctrine:build-model  : "000084"
- * - Ultima vez que se actualizo el modelo : "2015-02-02 17:14:58"
+ * - Veces ejecutado doctrine:build-model  : "000090"
+ * - Ultima vez que se actualizo el modelo : "2015-03-25 10:36:31"
  */
 
 // Connection Component Binding
@@ -17,6 +17,7 @@ Doctrine_Manager::getInstance()->bindComponent('DmlTiposGastos', 'doctrine');
  * Esta clase ha sido auto-generada por el Framework ORM de Doctrine
  * 
  * @property integer $id
+ * @property integer $tg_orden
  * @property string $tg_nombre
  * @property string $tg_alias
  * @property timestamp $tg_fecha_crea
@@ -26,9 +27,10 @@ Doctrine_Manager::getInstance()->bindComponent('DmlTiposGastos', 'doctrine');
  * @property timestamp $tg_fecha_borra
  * @property integer $tg_quien_borra
  * @property integer $tg_borrado_logico
- * @property Doctrine_Collection $DmlPagos
+ * @property Doctrine_Collection $DmlFacturas
  * 
  * @method integer             getId()              Retorna el registro (valor) actual del campo [id]
+ * @method integer             getTgOrden()         Retorna el registro (valor) actual del campo [tg_orden]
  * @method string              getTgNombre()        Retorna el registro (valor) actual del campo [tg_nombre]
  * @method string              getTgAlias()         Retorna el registro (valor) actual del campo [tg_alias]
  * @method timestamp           getTgFechaCrea()     Retorna el registro (valor) actual del campo [tg_fecha_crea]
@@ -38,8 +40,9 @@ Doctrine_Manager::getInstance()->bindComponent('DmlTiposGastos', 'doctrine');
  * @method timestamp           getTgFechaBorra()    Retorna el registro (valor) actual del campo [tg_fecha_borra]
  * @method integer             getTgQuienBorra()    Retorna el registro (valor) actual del campo [tg_quien_borra]
  * @method integer             getTgBorradoLogico() Retorna el registro (valor) actual del campo [tg_borrado_logico]
- * @method Doctrine_Collection getDmlPagos()        Retorna el registro (coleccion de datos) actual del campo [DmlPagos]
+ * @method Doctrine_Collection getDmlFacturas()     Retorna el registro (coleccion de datos) actual del campo [DmlFacturas]
  * @method DmlTiposGastos      setId()              Guarda un registro (valor) al campo [id]
+ * @method DmlTiposGastos      setTgOrden()         Guarda un registro (valor) al campo [tg_orden]
  * @method DmlTiposGastos      setTgNombre()        Guarda un registro (valor) al campo [tg_nombre]
  * @method DmlTiposGastos      setTgAlias()         Guarda un registro (valor) al campo [tg_alias]
  * @method DmlTiposGastos      setTgFechaCrea()     Guarda un registro (valor) al campo [tg_fecha_crea]
@@ -49,7 +52,7 @@ Doctrine_Manager::getInstance()->bindComponent('DmlTiposGastos', 'doctrine');
  * @method DmlTiposGastos      setTgFechaBorra()    Guarda un registro (valor) al campo [tg_fecha_borra]
  * @method DmlTiposGastos      setTgQuienBorra()    Guarda un registro (valor) al campo [tg_quien_borra]
  * @method DmlTiposGastos      setTgBorradoLogico() Guarda un registro (valor) al campo [tg_borrado_logico]
- * @method DmlTiposGastos      setDmlPagos()        Guarda un registro (coleccion de datos) al campo [DmlPagos]
+ * @method DmlTiposGastos      setDmlFacturas()     Guarda un registro (coleccion de datos) al campo [DmlFacturas]
  * 
  * @package    dml
  * @subpackage model
@@ -61,6 +64,7 @@ abstract class BaseDmlTiposGastos extends sfDoctrineRecord {
     public function setTableDefinition() {
         $this->setTableName('dml_tipos_gastos');
         $this->hasColumn('id', 'integer', 4, array(            'type'          => 'integer',            'fixed'         => 0,            'unsigned'      => false,            'primary'       => true,            'autoincrement' => true,            'length'        => 4,        ));
+        $this->hasColumn('tg_orden', 'integer', 4, array(            'type'          => 'integer',            'fixed'         => 0,            'unsigned'      => false,            'primary'       => false,            'notnull'       => false,            'autoincrement' => false,            'length'        => 4,        ));
         $this->hasColumn('tg_nombre', 'string', 100, array(            'type'          => 'string',            'fixed'         => 0,            'unsigned'      => false,            'primary'       => false,            'notnull'       => false,            'autoincrement' => false,            'length'        => 100,        ));
         $this->hasColumn('tg_alias', 'string', 5, array(            'type'          => 'string',            'fixed'         => 1,            'unsigned'      => false,            'primary'       => false,            'notnull'       => false,            'autoincrement' => false,            'length'        => 5,        ));
         $this->hasColumn('tg_fecha_crea', 'timestamp', 25, array(            'type'          => 'timestamp',            'fixed'         => 0,            'unsigned'      => false,            'primary'       => false,            'notnull'       => false,            'autoincrement' => false,            'length'        => 25,        ));
@@ -74,7 +78,7 @@ abstract class BaseDmlTiposGastos extends sfDoctrineRecord {
 
     public function setUp() {
         parent::setUp();
-        $this->hasMany('DmlPagos', array(
+        $this->hasMany('DmlFacturas', array(
             'local'   => 'id',
             'foreign' => 'tipos_gastos'
         ));

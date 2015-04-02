@@ -31,33 +31,30 @@ class DmlPagosTable extends Doctrine_Table {
     }
     
     /**
-     * getListaDePagos obtiene todos los registros de pagos ordenados por id y por
-     * fecha de manera descendente.
+     * getListaDePagos obtiene todos los registros de pagos asociados a la o las
+     * factura(s) correspondientes, ordenados por id y por fecha de manera 
+     * descendente.
      * 
      * @return type dql
      */
     public static function getListaDePagos() {
-        $select = 'pa.id, pa.pa_fecha, pa.pa_numero_factura, pa.pa_detalle, pa.pa_valor_total';
-        return DmlPagosTable::getAlias()
+        $select = 'pa.id, pa.pa_iva, pa.pa_ice, pa.pa_comision, pa.pa_valor_parcial, '
+                . 'fa.id, fa.fa_numero_factura, fa.fa_fecha, fa.fa_detalle, fa.fa_beneficiarios_json, '
+                . 'fa.fa_valor_total';
+        $dql = DmlPagosTable::getAlias()
                 ->addSelect($select)
-//                ->where('MONTH(pa.pa_fecha) = MONTH(CURDATE())')
+                ->innerJoin('pa.DmlFacturas fa')
+                ->where('MONTH(fa.fa_fecha) = MONTH(CURDATE())')
+//                ->where('MONTH(fa.fa_fecha) >= MONTH(DATE_ADD(NOW(), INTERVAL -2 MONTH))')
                 ->andWhere('pa.personas = ?', array(sfContext::getInstance()->getUser()->getAttribute('id')))
-                ->where('MONTH(pa.pa_fecha) = MONTH(DATE_ADD(NOW(), INTERVAL -1 MONTH))')
-                ->orderBy('pa.id DESC, pa.pa_fecha DESC');
-    }
-    
-    /**
-     * getCountNonInvoice, retorna el total de registros que no son facturas, es decir
-     * recibos de consumo o pago que no tienen numero de facrura registrado
-     * 
-     * @return type integer
-     */
-    public static function getCountNonInvoice() {
-        return DmlPagosTable::getAlias()
-                ->addSelect('pa.id')
-                ->where('pa.pa_con_sin_factura = ?', array(!true))
-                ->execute()
-                ->count();
+                ->orderBy('fa.fa_fecha DESC');
+
+        return $dql;
     }
 
+    public static function getListaDePagosPorTexto($txt) {
+        return DmlPagosTable::getListaDePagos()
+                ->where('fa.fa_detalle LIKE ?', array('%'.$txt.'%'))
+                ->andWhere('pa.personas = ?', array(sfContext::getInstance()->getUser()->getAttribute('id')));
+    }
 }

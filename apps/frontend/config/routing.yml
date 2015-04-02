@@ -1,6 +1,33 @@
 # You can find more information about this file on the symfony website:
 # http://www.symfony-project.org/reference/1_4/en/10-Routing
 
+movimientos:
+    url: /movimientos
+    param: { module: movimientos, action: index }
+
+pdf:
+    url: /archivo/:id/*
+    param: { module: binarios, action: bin }
+
+json:
+    url: /json
+    param: { module: json, action: json }
+
+pagos:
+  url:   /pagos
+  param: { module: pagos, action: index }
+
+# login
+login:
+  url:   /login
+  param: { module: login, action: index }
+
+logout:
+  url:   /logout
+  param:
+    module: login
+    action: logout
+
 # + ----------------------------------------------------------- rutas bootstrap2
 bootstrap2_index:
   url:   /bootstrap2/index.html
@@ -59,37 +86,11 @@ bootstrap2_customize:
   param: { module: bootstrap2, action: customize }
 # + -------------------------------------------------------------------------- +
 
-# login
-login:
-  url:   /login
-  param: { module: login, action: index }
-
-logout:
-  url:   /logout
-  param:
-    module: login
-    action: logout
-
 # Reglas por defecto
 homepage:
   url:   /
-  param: { module: pagos, action: index }
+  param: { module: movimientos, action: index }
 
-pagos:
-  url:   /pagos
-  param: { module: pagos, action: index }
-
-json:
-    url: /json
-    param: { module: json, action: json }
-
-pdf:
-    url: /archivo/:id/*
-    param: { module: binarios, action: bin }
-
-movimientos:
-    url: /movimientos
-    param: { module: movimientos, action: index }
     
 #pdf:
 #    url: /pdf/:id/:filename.pdf

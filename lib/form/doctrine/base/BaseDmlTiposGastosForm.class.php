@@ -4,8 +4,8 @@
  * Fecha creacion : "Viernes, 5 Diciembre 2014 12:44:41"
  * 
  * Acciones realizadas:
- * - Veces ejecutado doctrine:build-forms            : "000084"
- * - Ultima vez que se actualizo la clase formulario : "2015-02-02 17:15:11"
+ * - Veces ejecutado doctrine:build-forms            : "000090"
+ * - Ultima vez que se actualizo la clase formulario : "2015-03-25 10:36:54"
  */
 
 /**
@@ -23,6 +23,7 @@ abstract class BaseDmlTiposGastosForm extends BaseFormDoctrine {
     public function setup() {
         $this->setWidgets(array(
             'id'                => new sfWidgetFormInputHidden(),
+            'tg_orden'          => new sfWidgetFormInputText(),
             'tg_nombre'         => new sfWidgetFormInputText(),
             'tg_alias'          => new sfWidgetFormInputText(),
             'tg_fecha_crea'     => new sfWidgetFormDateTime(),
@@ -36,6 +37,7 @@ abstract class BaseDmlTiposGastosForm extends BaseFormDoctrine {
 
         $this->setValidators(array(
             'id'                => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
+            'tg_orden'          => new sfValidatorInteger(array('required' => false)),
             'tg_nombre'         => new sfValidatorString(array('max_length' => 100, 'required' => false)),
             'tg_alias'          => new sfValidatorString(array('max_length' => 5, 'required' => false)),
             'tg_fecha_crea'     => new sfValidatorDateTime(array('required' => false)),

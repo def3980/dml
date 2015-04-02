@@ -78,6 +78,10 @@ class binariosActions extends sfActions {
         $bin = Doctrine_Core::getTable('DmlBinarios')->findOneBy('id', $request->getParameter('id'));
 
         $this->setLayout(false);
+        //si fuera el caso
+        //$this->getResponse()->setSlot('myPartialSlot', $this->getPartial('myPartial'));
+//        $this->getResponse()->setSlot('titulo', 'PDF &middot; dml');
+        $this->getResponse()->setTitle('PDF &middot; dml');
         $this->getResponse()->setHttpHeader('Pragma: public', true);
         $this->getResponse()->setHttpHeader('Content-Type', $bin->getBiMimeType());
         $this->getResponse()->setHttpHeader('Content-Transfer-Encoding', 'binary');

@@ -39,9 +39,12 @@ class movimientosActions extends sfActions {
 
     public function executeCreate(sfWebRequest $request) {
         $this->forward404Unless($request->isMethod(sfRequest::POST));
-        $this->form = new DmlMovimientosForm();
-        $this->processForm($request, $this->form);
-        $this->setTemplate('new');
+        $this->form = new DmlMovimientosForm(null, array('id' => $this->getUser()->getAttribute('id')));
+        $request->setParameter('dml_movimientos', $this->preDmlMovimientosProccessForm($request));
+        $this->redirect($this->generateUrl(
+            'json', 
+            array('id' => $this->processForm($request, $this->form))
+        ));
     }
 
     public function executeEdit(sfWebRequest $request) {
@@ -64,9 +67,12 @@ class movimientosActions extends sfActions {
             $mo,
             sprintf('El objeto mo con el parametro (%s), no existe.', $request->getParameter('id'))
         );
-        $this->form = new DmlMovimientosForm($mo);
-        $this->processForm($request, $this->form);
-        $this->setTemplate('edit');
+        $this->form = new DmlMovimientosForm($mo, array('id' => $this->getUser()->getAttribute('id')));
+        $request->setParameter('dml_movimientos', $this->preDmlMovimientosProccessForm($request));
+        $this->redirect($this->generateUrl(
+            'json', 
+            array('id' => $this->processForm($request, $this->form))
+        ));
     }
 
     public function executeDelete(sfWebRequest $request) {
@@ -84,6 +90,34 @@ class movimientosActions extends sfActions {
     
     public function executeMassInsertion(sfWebRequest $request) {
         $this->redirect($this->generateUrl('json', array('movimientos' => $this->proccessFields($request))));
+    }
+    
+    public function executeTransactions(sfWebRequest $request) {
+        $movimientos = new sfDoctrinePager('DmlMovimientos', sfConfig::get('app_max_per_page'));
+        $movimientos->setQuery(DmlMovimientosTable::getListaDeMovimientos($request->getParameter('cuenta')));
+        $movimientos->setPage(
+            $request->getParameter(
+                'pagina', 
+                array_key_exists('pagina', $request->getParameterHolder()->getAll())
+                    ? $request->getParameter('pagina') : 1
+            )
+        );
+        $movimientos->init();
+        return $this->renderPartial('movimientos', array('movimientos' => $movimientos));
+    }
+    
+    public function executeTransactionsPager(sfWebRequest $request) {
+        $movimientos = new sfDoctrinePager('DmlMovimientos', sfConfig::get('app_max_per_page'));
+        $movimientos->setQuery(DmlMovimientosTable::getListaDeMovimientos($request->getParameter('cuenta')));
+        $movimientos->setPage(
+            $request->getParameter(
+                'pagina', 
+                array_key_exists('pagina', $request->getParameterHolder()->getAll())
+                    ? $request->getParameter('pagina') : 1
+            )
+        );
+        $movimientos->init();
+        return $this->renderPartial('paginador', array('movimientos' => $movimientos));
     }
 
     private function validateFields(sfWebRequest $request) {
@@ -171,12 +205,47 @@ class movimientosActions extends sfActions {
         }
         return $contenedor;
     }
+    
+    private function preDmlMovimientosProccessForm(sfWebRequest $request) {
+        foreach ($dml_movimientos = $request->getParameter('dml_movimientos') as $k => $v):
+            switch ($k):
+                case 'mo_concepto':
+                    $dml_movimientos['mo_concepto'] = trim($v);
+                break;
+                case 'mo_documento':
+                    $dml_movimientos['mo_documento'] = trim($v);
+                break;
+                case 'mo_oficina':
+                    $dml_movimientos['mo_oficina'] = trim($v);
+                break;
+                case 'mo_monto':
+                    $dml_movimientos['mo_monto'] = trim(str_replace('$ ', '', 
+                        Singleton::getInstance()->reemplazarComaXPunto(
+                            str_replace('.', '', $v)
+                        )
+                    ));
+                break;
+                case 'mo_saldo':
+                    $dml_movimientos['mo_saldo'] = trim(str_replace('$ ', '', 
+                        Singleton::getInstance()->reemplazarComaXPunto(
+                            str_replace('.', '', $v)
+                        )
+                    ));
+                break;
+                case 'mo_tipo':
+                    $dml_movimientos['mo_tipo'] = trim($v);
+                break;
+            endswitch;
+        endforeach;
+        
+        return $dml_movimientos;
+    }
 
     protected function processForm(sfWebRequest $request, sfForm $form) {
         $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
         if ($form->isValid()) {
             $mo = $form->save();
-            $this->redirect('movimientos/edit?id='.$mo->getId());
+            return $mo->getId();
         }
     }
 

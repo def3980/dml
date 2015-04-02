@@ -11,15 +11,16 @@
                             </ul>
                         </div>
                     </div>
-                    <hr style="margin: 20px 0 9px 0" />
+                    <hr>
 <?php include_partial('form', array(
-        'form' => $form, 
-        'bi_count' => $bi_count, 
-        'pa_numero_factura' => $pa_numero_factura,
-        'iva' => $iva,
-        'ice' => $ice,
-        'comision' => $comision,
-    )) ?>
+    'form' => $form, 
+    'frmFacturas' => $frmFacturas,
+    'iva' => $iva,
+    'ice' => $ice,
+    'comision' => $comision,
+    'bi_count' => $bi_count,
+    'facturas' => $facturas
+)) ?>
                 </div>
             </div>
         </div><!-- /container -->

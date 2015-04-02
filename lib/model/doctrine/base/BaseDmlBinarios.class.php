@@ -4,8 +4,8 @@
  * Fecha creacion : "Viernes, 5 Diciembre 2014 12:41:57"
  * 
  * Acciones realizadas:
- * - Veces ejecutado doctrine:build-model  : "000084"
- * - Ultima vez que se actualizo el modelo : "2015-02-02 17:14:57"
+ * - Veces ejecutado doctrine:build-model  : "000090"
+ * - Ultima vez que se actualizo el modelo : "2015-03-25 10:36:30"
  */
 
 // Connection Component Binding
@@ -20,7 +20,7 @@ Doctrine_Manager::getInstance()->bindComponent('DmlBinarios', 'doctrine');
  * @property integer $personas
  * @property integer $hijos
  * @property integer $tarjetas_credito_debito
- * @property integer $pagos
+ * @property integer $facturas
  * @property string $bi_nombre_original
  * @property decimal $bi_tamanio_bytes
  * @property blob $bi_binario
@@ -32,16 +32,17 @@ Doctrine_Manager::getInstance()->bindComponent('DmlBinarios', 'doctrine');
  * @property timestamp $bi_fecha_borra
  * @property integer $bi_quien_borra
  * @property integer $bi_borrado_logico
+ * @property DmlFacturas $DmlFacturas
+ * @property DmlHijos $DmlHijos
  * @property DmlPersonas $DmlPersonas
  * @property DmlTarjetasCreditoDebito $DmlTarjetasCreditoDebito
- * @property DmlHijos $DmlHijos
- * @property DmlPagos $DmlPagos
+ * @property Doctrine_Collection $DmlRespaldos
  * 
  * @method integer                  getId()                       Retorna el registro (valor) actual del campo [id]
  * @method integer                  getPersonas()                 Retorna el registro (valor) actual del campo [personas]
  * @method integer                  getHijos()                    Retorna el registro (valor) actual del campo [hijos]
  * @method integer                  getTarjetasCreditoDebito()    Retorna el registro (valor) actual del campo [tarjetas_credito_debito]
- * @method integer                  getPagos()                    Retorna el registro (valor) actual del campo [pagos]
+ * @method integer                  getFacturas()                 Retorna el registro (valor) actual del campo [facturas]
  * @method string                   getBiNombreOriginal()         Retorna el registro (valor) actual del campo [bi_nombre_original]
  * @method decimal                  getBiTamanioBytes()           Retorna el registro (valor) actual del campo [bi_tamanio_bytes]
  * @method blob                     getBiBinario()                Retorna el registro (valor) actual del campo [bi_binario]
@@ -53,15 +54,16 @@ Doctrine_Manager::getInstance()->bindComponent('DmlBinarios', 'doctrine');
  * @method timestamp                getBiFechaBorra()             Retorna el registro (valor) actual del campo [bi_fecha_borra]
  * @method integer                  getBiQuienBorra()             Retorna el registro (valor) actual del campo [bi_quien_borra]
  * @method integer                  getBiBorradoLogico()          Retorna el registro (valor) actual del campo [bi_borrado_logico]
+ * @method DmlFacturas              getDmlFacturas()              Retorna el registro (valor) actual del campo [DmlFacturas]
+ * @method DmlHijos                 getDmlHijos()                 Retorna el registro (valor) actual del campo [DmlHijos]
  * @method DmlPersonas              getDmlPersonas()              Retorna el registro (valor) actual del campo [DmlPersonas]
  * @method DmlTarjetasCreditoDebito getDmlTarjetasCreditoDebito() Retorna el registro (valor) actual del campo [DmlTarjetasCreditoDebito]
- * @method DmlHijos                 getDmlHijos()                 Retorna el registro (valor) actual del campo [DmlHijos]
- * @method DmlPagos                 getDmlPagos()                 Retorna el registro (valor) actual del campo [DmlPagos]
+ * @method Doctrine_Collection      getDmlRespaldos()             Retorna el registro (coleccion de datos) actual del campo [DmlRespaldos]
  * @method DmlBinarios              setId()                       Guarda un registro (valor) al campo [id]
  * @method DmlBinarios              setPersonas()                 Guarda un registro (valor) al campo [personas]
  * @method DmlBinarios              setHijos()                    Guarda un registro (valor) al campo [hijos]
  * @method DmlBinarios              setTarjetasCreditoDebito()    Guarda un registro (valor) al campo [tarjetas_credito_debito]
- * @method DmlBinarios              setPagos()                    Guarda un registro (valor) al campo [pagos]
+ * @method DmlBinarios              setFacturas()                 Guarda un registro (valor) al campo [facturas]
  * @method DmlBinarios              setBiNombreOriginal()         Guarda un registro (valor) al campo [bi_nombre_original]
  * @method DmlBinarios              setBiTamanioBytes()           Guarda un registro (valor) al campo [bi_tamanio_bytes]
  * @method DmlBinarios              setBiBinario()                Guarda un registro (valor) al campo [bi_binario]
@@ -73,10 +75,11 @@ Doctrine_Manager::getInstance()->bindComponent('DmlBinarios', 'doctrine');
  * @method DmlBinarios              setBiFechaBorra()             Guarda un registro (valor) al campo [bi_fecha_borra]
  * @method DmlBinarios              setBiQuienBorra()             Guarda un registro (valor) al campo [bi_quien_borra]
  * @method DmlBinarios              setBiBorradoLogico()          Guarda un registro (valor) al campo [bi_borrado_logico]
+ * @method DmlBinarios              setDmlFacturas()              Guarda un registro (valor) al campo [DmlFacturas]
+ * @method DmlBinarios              setDmlHijos()                 Guarda un registro (valor) al campo [DmlHijos]
  * @method DmlBinarios              setDmlPersonas()              Guarda un registro (valor) al campo [DmlPersonas]
  * @method DmlBinarios              setDmlTarjetasCreditoDebito() Guarda un registro (valor) al campo [DmlTarjetasCreditoDebito]
- * @method DmlBinarios              setDmlHijos()                 Guarda un registro (valor) al campo [DmlHijos]
- * @method DmlBinarios              setDmlPagos()                 Guarda un registro (valor) al campo [DmlPagos]
+ * @method DmlBinarios              setDmlRespaldos()             Guarda un registro (coleccion de datos) al campo [DmlRespaldos]
  * 
  * @package    dml
  * @subpackage model
@@ -91,7 +94,7 @@ abstract class BaseDmlBinarios extends sfDoctrineRecord {
         $this->hasColumn('personas', 'integer', 4, array(            'type'          => 'integer',            'fixed'         => 0,            'unsigned'      => false,            'primary'       => false,            'notnull'       => false,            'autoincrement' => false,            'length'        => 4,        ));
         $this->hasColumn('hijos', 'integer', 4, array(            'type'          => 'integer',            'fixed'         => 0,            'unsigned'      => false,            'primary'       => false,            'notnull'       => false,            'autoincrement' => false,            'length'        => 4,        ));
         $this->hasColumn('tarjetas_credito_debito', 'integer', 4, array(            'type'          => 'integer',            'fixed'         => 0,            'unsigned'      => false,            'primary'       => false,            'notnull'       => false,            'autoincrement' => false,            'length'        => 4,        ));
-        $this->hasColumn('pagos', 'integer', 4, array(            'type'          => 'integer',            'fixed'         => 0,            'unsigned'      => false,            'primary'       => false,            'notnull'       => false,            'autoincrement' => false,            'length'        => 4,        ));
+        $this->hasColumn('facturas', 'integer', 4, array(            'type'          => 'integer',            'fixed'         => 0,            'unsigned'      => false,            'primary'       => false,            'notnull'       => false,            'autoincrement' => false,            'length'        => 4,        ));
         $this->hasColumn('bi_nombre_original', 'string', 100, array(            'type'          => 'string',            'fixed'         => 0,            'unsigned'      => false,            'primary'       => false,            'notnull'       => false,            'autoincrement' => false,            'length'        => 100,        ));
         $this->hasColumn('bi_tamanio_bytes', 'decimal', 10, array(            'type'          => 'decimal',            'fixed'         => 0,            'unsigned'      => false,            'primary'       => false,            'notnull'       => false,            'autoincrement' => false,            'length'        => 10,            'scale'         => '2',        ));
         $this->hasColumn('bi_binario', 'blob', null, array(            'type'          => 'blob',            'fixed'         => 0,            'unsigned'      => false,            'primary'       => false,            'notnull'       => false,            'autoincrement' => false,            'length'        => '',        ));
@@ -107,6 +110,14 @@ abstract class BaseDmlBinarios extends sfDoctrineRecord {
 
     public function setUp() {
         parent::setUp();
+        $this->hasOne('DmlFacturas', array(
+            'local'   => 'facturas',
+            'foreign' => 'id'
+        ));
+        $this->hasOne('DmlHijos', array(
+            'local'   => 'hijos',
+            'foreign' => 'id'
+        ));
         $this->hasOne('DmlPersonas', array(
             'local'   => 'personas',
             'foreign' => 'id'
@@ -115,15 +126,9 @@ abstract class BaseDmlBinarios extends sfDoctrineRecord {
             'local'   => 'tarjetas_credito_debito',
             'foreign' => 'id'
         ));
-        $this->hasOne('DmlHijos', array(
-            'local'   => 'hijos',
-            'foreign' => 'id'
-        ));
-        $this->hasOne('DmlPagos', array(
-            'local'    => 'pagos',
-            'foreign'  => 'id',
-            'onDelete' => 'cascade',
-            'onUpdate' => 'cascade'
+        $this->hasMany('DmlRespaldos', array(
+            'local'   => 'id',
+            'foreign' => 'binarios'
         ));
     }
 

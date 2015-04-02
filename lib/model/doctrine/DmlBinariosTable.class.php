@@ -39,21 +39,19 @@ class DmlBinariosTable extends Doctrine_Table {
     private static function sfCxt() {
         return sfContext::getInstance();
     }
-
+    
     /**
-     * getBinariosPorIdPago muestra todos los binarios de respaldo que se guaradaron
-     * con el pago
+     * getBinPorFactura, muestra los identificadores de los binarios asociados a
+     * una factura.
      * 
-     * @param type $idPago identificador del pago
-     * @return type dql
+     * @param type $idFa identificador de la factura
+     * @return type $dql
      */
-    public static function getBinariosPorIdPago($idPago) {
-        $select = "bi.id, bi.bi_nombre_original, bi.bi_tamanio_bytes, bi.bi_binario, bi.bi_mime_type, "
-                . "pa.id, pa.pa_numero_factura";
+    public static function getBinPorFactura($idFa) {
+        $select = "bi.id";
         return DmlBinariosTable::getAlias()
                 ->addSelect($select)
-                ->innerJoin('bi.DmlPagos pa')
-                ->where('pagos = ?', array($idPago))
+                ->where('bi.facturas = ?', array($idFa))
                 ->andWhere('bi.bi_borrado_logico = ?', array(!true));
     }
     
@@ -63,21 +61,40 @@ class DmlBinariosTable extends Doctrine_Table {
      * 
      * @param type $id
      */
-    public static function setBinLogicalDelete($id) {
-        $upd = Doctrine_Query::create()
-                ->update('DmlBinarios')
-                ->set(array(
-                    'bi_fecha_borra' => date('Y-m-d H:i:s'), 
-                    'bi_quien_borra' => DmlBinariosTable::sfCxt()->getUser()->getAttribute('id'),
-                    'bi_borrado_logico' => true
-                ))
-                ->where('id = ?', array($id))
-                ->execute();
-        return true;
+    public static function setBinLogicalDelete($idFa, $idBi) {
+        if (DmlRespaldosTable::setRsLogicalDelete($idFa, $idBi)) {
+            $upd = Doctrine_Query::create()
+                    ->update('DmlBinarios')
+                    ->set(array(
+                        'bi_fecha_borra' => date('Y-m-d H:i:s'), 
+                        'bi_quien_borra' => DmlBinariosTable::sfCxt()->getUser()->getAttribute('id'),
+                        'bi_borrado_logico' => true
+                    ))
+                    ->where('id = ?', array($idBi))
+                    ->execute();
+            return true;
+        } else {
+            return false;
+        }
     }
     
-    public static function getCountNonLogicalDeleteByIdPago($id) {
-        return DmlBinariosTable::getBinariosPorIdPago($id)->execute()->count();
+    /**
+     * getConteoBinNoEliminados, cuenta todos los binarios que no estan en estado
+     * lógico de borrado, es decir 1
+     * 
+     * @param type $idFa
+     * @return type int Numero de binarios no borrados
+     */
+    public static function getConteoBinNoEliminados($idFa) {
+        return DmlBinariosTable::getBinPorFactura($idFa)->execute()->count();
+    }
+    
+    public static function getBinYFactura($idFa) {
+        $select = "bi.id, bi.bi_nombre_original, bi.bi_tamanio_bytes, "
+                . "fa.id, fa.fa_numero_factura";
+        return DmlBinariosTable::getBinPorFactura($idFa)
+                ->addSelect($select)
+                ->innerJoin('bi.DmlFacturas fa');
     }
 
 }

@@ -4,8 +4,8 @@
  * Fecha creacion : "Viernes, 5 Diciembre 2014 12:41:57"
  * 
  * Acciones realizadas:
- * - Veces ejecutado doctrine:build-model  : "000084"
- * - Ultima vez que se actualizo el modelo : "2015-02-02 17:14:57"
+ * - Veces ejecutado doctrine:build-model  : "000090"
+ * - Ultima vez que se actualizo el modelo : "2015-03-25 10:36:30"
  */
 
 // Connection Component Binding
@@ -27,8 +27,8 @@ Doctrine_Manager::getInstance()->bindComponent('DmlContratosBancarios', 'doctrin
  * @property timestamp $cb_fecha_borra
  * @property integer $cb_quien_borra
  * @property integer $cb_borrado_logico
- * @property DmlPersonas $DmlPersonas
  * @property DmlEntidades $DmlEntidades
+ * @property DmlPersonas $DmlPersonas
  * @property Doctrine_Collection $DmlAhorros
  * @property Doctrine_Collection $DmlPrestamos
  * @property Doctrine_Collection $DmlTarjetasCreditoDebito
@@ -44,8 +44,8 @@ Doctrine_Manager::getInstance()->bindComponent('DmlContratosBancarios', 'doctrin
  * @method timestamp             getCbFechaBorra()             Retorna el registro (valor) actual del campo [cb_fecha_borra]
  * @method integer               getCbQuienBorra()             Retorna el registro (valor) actual del campo [cb_quien_borra]
  * @method integer               getCbBorradoLogico()          Retorna el registro (valor) actual del campo [cb_borrado_logico]
- * @method DmlPersonas           getDmlPersonas()              Retorna el registro (valor) actual del campo [DmlPersonas]
  * @method DmlEntidades          getDmlEntidades()             Retorna el registro (valor) actual del campo [DmlEntidades]
+ * @method DmlPersonas           getDmlPersonas()              Retorna el registro (valor) actual del campo [DmlPersonas]
  * @method Doctrine_Collection   getDmlAhorros()               Retorna el registro (coleccion de datos) actual del campo [DmlAhorros]
  * @method Doctrine_Collection   getDmlPrestamos()             Retorna el registro (coleccion de datos) actual del campo [DmlPrestamos]
  * @method Doctrine_Collection   getDmlTarjetasCreditoDebito() Retorna el registro (coleccion de datos) actual del campo [DmlTarjetasCreditoDebito]
@@ -60,8 +60,8 @@ Doctrine_Manager::getInstance()->bindComponent('DmlContratosBancarios', 'doctrin
  * @method DmlContratosBancarios setCbFechaBorra()             Guarda un registro (valor) al campo [cb_fecha_borra]
  * @method DmlContratosBancarios setCbQuienBorra()             Guarda un registro (valor) al campo [cb_quien_borra]
  * @method DmlContratosBancarios setCbBorradoLogico()          Guarda un registro (valor) al campo [cb_borrado_logico]
- * @method DmlContratosBancarios setDmlPersonas()              Guarda un registro (valor) al campo [DmlPersonas]
  * @method DmlContratosBancarios setDmlEntidades()             Guarda un registro (valor) al campo [DmlEntidades]
+ * @method DmlContratosBancarios setDmlPersonas()              Guarda un registro (valor) al campo [DmlPersonas]
  * @method DmlContratosBancarios setDmlAhorros()               Guarda un registro (coleccion de datos) al campo [DmlAhorros]
  * @method DmlContratosBancarios setDmlPrestamos()             Guarda un registro (coleccion de datos) al campo [DmlPrestamos]
  * @method DmlContratosBancarios setDmlTarjetasCreditoDebito() Guarda un registro (coleccion de datos) al campo [DmlTarjetasCreditoDebito]
@@ -90,12 +90,12 @@ abstract class BaseDmlContratosBancarios extends sfDoctrineRecord {
 
     public function setUp() {
         parent::setUp();
-        $this->hasOne('DmlPersonas', array(
-            'local'   => 'personas',
-            'foreign' => 'id'
-        ));
         $this->hasOne('DmlEntidades', array(
             'local'   => 'entidades',
+            'foreign' => 'id'
+        ));
+        $this->hasOne('DmlPersonas', array(
+            'local'   => 'personas',
             'foreign' => 'id'
         ));
         $this->hasMany('DmlAhorros', array(

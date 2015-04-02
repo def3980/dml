@@ -24,7 +24,7 @@ class DmlBeneficiarios extends BaseDmlBeneficiarios {
         
     /**
      * getBeneficiarios, devuelve una lista de beneficiarios que reciben beneficio
-     * del pago que el usario esta registrando. Esta funcion es usada en el 
+     * del pago que el usuario esta registrando. Esta funcion es usada en el 
      * sfWidgetFormDoctrineChoice de la clase BaseDmlPagosForm
      * 
      * @return type string be_nombres_identificativos

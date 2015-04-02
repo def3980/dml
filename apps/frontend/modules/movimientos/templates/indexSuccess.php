@@ -1,4 +1,7 @@
 <?php slot('titulo', 'Movimientos &middot; dml') ?>
+<?php slot('menu_bar') ?>
+<?php include_partial('global/menu_bar', array('barra_activa' => 'movimientos')) ?>
+<?php end_slot() ?>
 <?php use_stylesheet('bootstrap-select') ?>
 <?php use_javascript('bootstrap-select') ?>
 <?php slot('porcion_css') ?>
@@ -60,9 +63,14 @@
             .dropdown-menu {
                 text-align: left;
             }
+            .bootstrap-select.btn-group:not(.input-group-btn),
+            .bootstrap-select.btn-group[class*="span"] {
+                margin-bottom: 5px;
+            }
         </style>
 <?php end_slot() ?>
-<div class="container">
+<br />
+        <div class="container">
             <div class="row">
                 <div class="span12">
                     <div class="row">
@@ -76,15 +84,65 @@
                         </div>
                     </div>
                     <hr style="margin: 0 0 20px">
-                    <div class="row-fluid">
+                    <div class="navbar" style="position: static;">
+                        <div class="navbar-inner">
+                            <div class="container">
+                                <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </a>
+                                <a class="brand" href="#">Title</a>
+                                <div class="nav-collapse collapse navbar-inverse-collapse">
+                                    <ul class="nav">
+                                        <li class="active"><a href="#">Home</a></li>
+                                        <li><a href="#">Link</a></li>
+                                        <li><a href="#">Link</a></li>
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#">Action</a></li>
+                                                <li><a href="#">Another action</a></li>
+                                                <li><a href="#">Something else here</a></li>
+                                                <li class="divider"></li>
+                                                <li class="nav-header">Nav header</li>
+                                                <li><a href="#">Separated link</a></li>
+                                                <li><a href="#">One more separated link</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <div class="navbar-form pull-left">
+                                        <input type="text" class="span3 txtSrch" placeholder="Buscar..." />
+                                        <button type="button" class="btn btnSrch">Buscar</button>
+                                    </div>
+                                    <ul class="nav pull-right">
+                                        <li><a href="javascript:void(0)">Cuentas bancarias</a></li>
+                                        <li>
+                                            <select id="cuentas" class="show-menu-arrow span2"><?php foreach ($cuentas_ahorros as $k => $ah): echo "\n"; ?>
+                                                <option value="<?=$ah['ah_id']?>" data-subtext="<?=$ah['en_en_alias']?>"><?php echo str_replace("_", "&nbsp;&nbsp;", str_pad($ah['ah_ah_numero_cuenta'], 11, "_", STR_PAD_LEFT)) ?></option><?php endforeach; echo PHP_EOL; ?>
+                                            </select>
+                                        </li>
+<!--                                        <li><a href="#">Link</a></li>
+                                        <li class="divider-vertical"></li>
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#">Action</a></li>
+                                                <li><a href="#">Another action</a></li>
+                                                <li><a href="#">Something else here</a></li>
+                                                <li class="divider"></li>
+                                                <li><?php echo link_to('Salir', '@logout') ?></li>
+                                            </ul>
+                                        </li>-->
+                                    </ul>
+                                </div><!-- /.nav-collapse -->
+                            </div>
+                        </div><!-- /navbar-inner -->
+                    </div><!-- /navbar -->
+<!--                    <div class="row-fluid">
                         <div class="span12">
                             <div class="row-fluid">
-                                <div class="span6">
-                                    <fieldset>
-                                        <label>B&uacute;squeda de movimientos:</label>
-                                        <input type="text" placeholder="Ingrese su b&uacute;squeda" />
-                                    </fieldset>
-                                </div>
+                                <div class="span6">&nbsp;</div>
                                 <div class="span6">
                                     <fieldset style="text-align: right">
                                         <label>Cuentas bancarias:</label>
@@ -95,7 +153,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                     <table class="table table-bordered table-striped table-hover responsive-utilities">
                         <thead>
                             <tr>
@@ -107,36 +165,8 @@
                                 <th>Saldo<small>&nbsp;</small></th>
                             </tr>
                         </thead>
-                        <tbody><?php if ($movimientos->count()): foreach ($movimientos->getResults() as $mo): echo PHP_EOL; ?>
-                            <tr>
-                                <td><?php echo link_to(Singleton::getInstance()->dateTimeESN($mo->getMoFecha(), false, true, false), 'movimientos/edit?id='.$mo->getId()) ?></td>
-                                <td><a href="#" title="<?php echo $mo->getMoOficina() ?>"><?php echo $mo->getMoConcepto() ?></a></td>
-                                <td>
-<?php if ($mo->getMoTipo() == 'C'): ?>
-                                    <span style="color: #499249"><?php echo $mo->getMoTipo() ?></span>
-<?php elseif ($mo->getMoTipo() == 'D'): ?>
-                                    <span style="color: #d33"><?php echo $mo->getMoTipo() ?></span>
-<?php endif; ?>
-                                </td>
-                                <td><?php echo $mo->getMoDocumento() ?></td>
-                                <td>
-<?php if ($mo->getMoTipo() == 'C'): ?>
-                                    <span style="color: #499249">+ $ <?php echo number_format($mo->getMoMonto(), 2, ',', '.') ?></span>
-<?php elseif ($mo->getMoTipo() == 'D'): ?>
-                                    <span style="color: #d33">- $ <?php echo number_format($mo->getMoMonto(), 2, ',', '.') ?></span>
-<?php endif; ?>
-                                </td>
-                                <td><span style="color: <?php echo $mo->getMoSaldo() < 50 ? '#d33' : '#0088cc' ?>"><?php echo '$ '.number_format($mo->getMoSaldo(), 2, ',', '.') ?></span></td>
-                            </tr><?php endforeach; ?>
-<?php else: echo PHP_EOL; ?>
-                            <tr>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr><?php endif; echo PHP_EOL; ?>
+                        <tbody>
+<?php include_partial('movimientos', array('movimientos' => $movimientos)) ?>
                         </tbody>
                     </table>
                     <div class="row">
@@ -146,40 +176,9 @@
                             |&nbsp;<button class="btn btn-link" id="mass">Inserci&oacute;n masiva</button>
                         </div>
                     </div>
-<?php if ($movimientos->count()): if ($movimientos->haveToPaginate()): ?>
-                    <hr>
-                    <div class="pagination pagination-centered">
-                        <ul>
-                            <li<?php echo 1 == $movimientos->getPage() ? ' class="active"' : '' ?>>
-                                <a<?php echo 1 == $movimientos->getPage() ? ' href="javascript:void(0)"' : ' href="'.url_for('movimientos/index?pagina=1').'"' ?>>&laquo;</a>
-                            </li><?php foreach ($movimientos->getLinks() as $pag): echo PHP_EOL; ?>
-                            <li<?php echo $pag == $movimientos->getPage() ? ' class="active"' : '' ?>>
-                                <a<?php echo $pag == $movimientos->getPage() ? ' href="javascript:void(0)"' : ' href="'.url_for('movimientos/index?pagina='.$pag).'"' ?>><?php echo$pag?></a>
-                            </li><?php endforeach; echo PHP_EOL; ?>
-                            <li<?php echo $movimientos->getLastPage() == $movimientos->getPage() ? ' class="active"' : '' ?>>
-                                <a<?php echo $movimientos->getLastPage() == $movimientos->getPage() ? ' href="javascript:void(0)"' : ' href="'.url_for('movimientos/index?pagina='.$movimientos->getNextPage()).'"' ?>>&raquo;</a>
-                            </li>
-                        </ul>
+                    <div id="paginador">
+<?php include_partial('paginador', array('movimientos' => $movimientos, 'first' => true)) ?>
                     </div>
-<?php else: ?>
-                    <hr>
-                    <div class="pagination pagination-centered">
-                        <ul>
-                            <li class="active"><a href="javascript:void(0)">&laquo;</a></li>
-                            <li class="active"><a href="javascript:void(0)">1</a></li>
-                            <li class="active"><a href="javascript:void(0)">&raquo;</a></li>
-                        </ul>
-                    </div>
-<?php endif; else: echo PHP_EOL; ?>
-                    <hr>
-                    <div class="pagination pagination-centered">
-                        <ul>
-                            <li class="active"><a href="javascript:void(0)">&laquo;</a></li>
-                            <li class="active"><a href="javascript:void(0)">1</a></li>
-                            <li class="active"><a href="javascript:void(0)">&raquo;</a></li>
-                        </ul>
-                    </div>
-<?php endif; ?>
                 </div>
             </div>
         </div><!-- /container -->
@@ -244,7 +243,29 @@
                 // + ----------------------------------------------------------- +
                 $('#cuentas').on('change', function(e) {
                     var option = $(this).find("option:selected");
-                    location.href = '<?php echo url_for('@movimientos?cuenta=') ?>' + $.trim(option.text());
+                    $.post('<?php echo url_for('movimientos/transactions') ?>', { cuenta : $.trim(option.text()) }, function(data) {
+                        $('.table tbody').html(data);
+                        $('.table tbody td:nth-child(2) a').tooltip({
+                            'placement' : 'right'
+                        });
+                    });
+                    $.post('<?php echo url_for('movimientos/transactionsPager') ?>', { cuenta : $.trim(option.text()), pagina : 1 }, function(data) {
+                        $('#paginador').html(data);
+                    });
+                });
+                $('.pagination ul li a').bind('click', function() {
+                    if (!$(this).parent().hasClass('active')) {
+                        var option = $('#cuentas').find("option:selected");
+                        $.post('<?php echo url_for('movimientos/transactions') ?>', { cuenta : $.trim(option.text()), pagina : $(this).attr('id') }, function(data) {
+                            $('.table tbody').html(data);
+                            $('.table tbody td:nth-child(2) a').tooltip({
+                                'placement' : 'right'
+                            });
+                        });
+                        $.post('<?php echo url_for('movimientos/transactionsPager') ?>', { cuenta : $.trim(option.text()), pagina : $(this).attr('id') }, function(data) {
+                            $('#paginador').html(data);
+                        });
+                    }
                 });
                 // + ----------------------------------------------------------- +
                 

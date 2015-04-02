@@ -4,8 +4,8 @@
  * Fecha creacion : "Viernes, 5 Diciembre 2014 12:47:53"
  * 
  * Acciones realizadas:
- * - Veces ejecutado doctrine:build-forms            : "000084"
- * - Ultima vez que se actualizo la clase formulario : "2015-02-02 17:15:18"
+ * - Veces ejecutado doctrine:build-forms            : "000090"
+ * - Ultima vez que se actualizo la clase formulario : "2015-03-25 10:37:09"
  */
 
 /**
@@ -20,6 +20,7 @@ abstract class BaseDmlTiposGastosFormFilter extends BaseFormFilterDoctrine {
 
     public function setup() {
         $this->setWidgets(array(
+            'tg_orden'          => new sfWidgetFormFilterInput(),
             'tg_nombre'         => new sfWidgetFormFilterInput(),
             'tg_alias'          => new sfWidgetFormFilterInput(),
             'tg_fecha_crea'     => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
@@ -32,6 +33,7 @@ abstract class BaseDmlTiposGastosFormFilter extends BaseFormFilterDoctrine {
         ));
 
         $this->setValidators(array(
+            'tg_orden'          => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
             'tg_nombre'         => new sfValidatorPass(array('required' => false)),
             'tg_alias'          => new sfValidatorPass(array('required' => false)),
             'tg_fecha_crea'     => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
@@ -57,6 +59,7 @@ abstract class BaseDmlTiposGastosFormFilter extends BaseFormFilterDoctrine {
     public function getFields() {
         return array(
                 'id'                => 'Number',
+                'tg_orden'          => 'Number',
                 'tg_nombre'         => 'Text',
                 'tg_alias'          => 'Text',
                 'tg_fecha_crea'     => 'Date',

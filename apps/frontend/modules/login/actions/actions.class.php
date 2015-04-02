@@ -36,7 +36,7 @@ class loginActions extends sfActions {
                     $this->getUser()->setAttribute('id', $user->getId());
                     $this->getUser()->setAttribute('email', $user->getPeEmail());
                     $this->getUser()->addCredential('user', 'admin');
-                    $this->redirect('pagos/index');
+                    $this->redirect('movimientos/index');
                 }
                 $this->executeLogout();
             endif;

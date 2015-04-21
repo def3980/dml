@@ -119,6 +119,34 @@ class movimientosActions extends sfActions {
         $movimientos->init();
         return $this->renderPartial('paginador', array('movimientos' => $movimientos));
     }
+    
+    public function executeSearchMove(sfWebRequest $request) {
+        $movimientos = new sfDoctrinePager('DmlMovimientos', sfConfig::get('app_max_per_page'));
+        $movimientos->setQuery(DmlMovimientosTable::getListaDeMovimientosPorConcepto($request->getParameter('moCon')));
+        $movimientos->setPage(
+            $request->getParameter(
+                'pagina', 
+                array_key_exists('pagina', $request->getParameterHolder()->getAll())
+                    ? $request->getParameter('pagina') : 1
+            )
+        );
+        $movimientos->init();
+        return $this->renderPartial('movimientos', array('movimientos' => $movimientos));
+    }
+    
+    public function executeSearchPager(sfWebRequest $request) {
+        $movimientos = new sfDoctrinePager('DmlMovimientos', sfConfig::get('app_max_per_page'));
+        $movimientos->setQuery(DmlMovimientosTable::getListaDeMovimientosPorConcepto($request->getParameter('moCon')));
+        $movimientos->setPage(
+            $request->getParameter(
+                'pagina', 
+                array_key_exists('pagina', $request->getParameterHolder()->getAll())
+                    ? $request->getParameter('pagina') : 1
+            )
+        );
+        $movimientos->init();
+        return $this->renderPartial('paginador_buscador', array('movimientos' => $movimientos));
+    }
 
     private function validateFields(sfWebRequest $request) {
         $arrTable = array();

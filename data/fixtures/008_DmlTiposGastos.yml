@@ -1,5 +1,5 @@
 DmlTiposGastos:
-<?php foreach (Singleton::getInstance()->csv_to_array('C:\Users\Oswaldo\Downloads\DmlTiposGastos.csv') as $k => $v): ?>
+<?php foreach (Singleton::getInstance()->csv_to_array('C:\Users\oswaldo.rojas\Downloads\DmlTiposGastos.csv') as $k => $v): ?>
   id_<?=$k?>:
     tg_orden:          <?php echo "" == $v['tg_orden'] ? NULL : $v['tg_orden']; echo PHP_EOL; ?>
     tg_nombre:         <?php echo "" == $v['tg_nombre'] ? NULL : $v['tg_nombre']; echo PHP_EOL; ?>

@@ -115,5 +115,22 @@ class DmlMovimientosTable extends Doctrine_Table {
                 ->andWhere('mo.ahorros = ?', array($cta));
         return $sql->execute()->count();
     }
+    
+    public static function getListaDeMovimientosPorConcepto($txt) {
+        $select = 'mo.id, mo.mo_fecha, mo.mo_concepto, mo.mo_tipo, mo.mo_documento, '
+                . 'mo.mo_oficina, mo.mo_monto, mo.mo_saldo, mo.mo_mini_detalle_json,'
+                . 'ah.id, tc.id, cb.id, en.id, pe.id';
+        $sql = DmlMovimientosTable::getAlias()
+                ->addSelect($select)
+                ->innerJoin('mo.DmlAhorros ah')
+                ->innerJoin('ah.DmlTiposCuentas tc')
+                ->innerJoin('ah.DmlContratosBancarios cb')
+                ->innerJoin('cb.DmlEntidades en')
+                ->innerJoin('cb.DmlPersonas pe')
+                ->where('mo.mo_concepto LIKE ?', array('%'.$txt.'%'))
+                ->andWhere('mo.mo_borrado_logico = ?', array(0))
+                ->andWhere('pe.id = ?', array(sfContext::getInstance()->getUser()->getAttribute('id')));
+        return $sql->orderBy('mo.mo_fecha DESC');
+    }
 
 }

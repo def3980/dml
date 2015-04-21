@@ -269,6 +269,18 @@
                 });
                 // + ----------------------------------------------------------- +
                 
+                /* --------------------------------------------------- buscar */
+                $('.btnSrch').bind('click', function() {
+                    var params = { moCon : $(this).prev().val() };
+                    $.post('<?=url_for('movimientos/searchMove')?>', params, function(data) {
+                        $('.table tbody').html(data);
+                    });
+                    $.post('<?=url_for('movimientos/searchPager')?>', params, function(data) {
+                        $('#paginador').html(data);
+                    });
+                });
+                /* ----------------------------------------------- fin buscar */
+                
                 var node = document.getElementById('txta'), global = null;
                 node.onpaste = function(e) {
                     if (e.clipboardData) {

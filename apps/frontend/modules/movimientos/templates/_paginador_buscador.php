@@ -39,7 +39,11 @@ $(function() {
     });
     $('.pagination ul li a').bind('click', function() {
         if (!$(this).parent().hasClass('active')) {
-            var params = { pagina : $(this).attr('id'), moCon : $('.txtSrch').val() };
+            var params = { 
+                pagina : $(this).attr('id'), 
+                moCon : $('.txtSrch').val(), 
+                ahNc : $('#cuentas').find("option:selected").text().trim() 
+            };
             $.post('<?php echo url_for('movimientos/searchMove') ?>', params, function(data) {
                 $('.table tbody').html(data);
             });

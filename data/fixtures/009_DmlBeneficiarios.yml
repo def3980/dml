@@ -1,5 +1,5 @@
 DmlBeneficiarios:
-<?php foreach (Singleton::getInstance()->csv_to_array('C:\Users\oswaldo.rojas\Downloads\DmlBeneficiarios.csv') as $k => $v): ?>
+<?php foreach (Singleton::getInstance()->csv_to_array('C:\Users\oswaldo.rojas.REPLICA\Downloads\DmlBeneficiarios.csv') as $k => $v): ?>
   id_<?=$k?>:
     be_orden:                   <?php echo "" == $v['be_orden'] ? NULL : $v['be_orden']; echo PHP_EOL; ?>
     be_nombres_identificativos: <?php echo "" == $v['be_nombres_identificativos'] ? NULL : $v['be_nombres_identificativos']; echo PHP_EOL; ?>

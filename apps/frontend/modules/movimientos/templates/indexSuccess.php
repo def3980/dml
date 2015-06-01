@@ -243,6 +243,7 @@
                 // + ----------------------------------------------------------- +
                 $('#cuentas').on('change', function(e) {
                     var option = $(this).find("option:selected");
+                    $('.txtSrch').val("");
                     $.post('<?php echo url_for('movimientos/transactions') ?>', { cuenta : $.trim(option.text()) }, function(data) {
                         $('.table tbody').html(data);
                         $('.table tbody td:nth-child(2) a').tooltip({
@@ -271,7 +272,7 @@
                 
                 /* --------------------------------------------------- buscar */
                 $('.btnSrch').bind('click', function() {
-                    var params = { moCon : $(this).prev().val() };
+                    var params = { moCon : $(this).prev().val(), ahNc : $('#cuentas').find("option:selected").text().trim() };
                     $.post('<?=url_for('movimientos/searchMove')?>', params, function(data) {
                         $('.table tbody').html(data);
                     });

@@ -122,7 +122,10 @@ class movimientosActions extends sfActions {
     
     public function executeSearchMove(sfWebRequest $request) {
         $movimientos = new sfDoctrinePager('DmlMovimientos', sfConfig::get('app_max_per_page'));
-        $movimientos->setQuery(DmlMovimientosTable::getListaDeMovimientosPorConcepto($request->getParameter('moCon')));
+        $movimientos->setQuery(
+            DmlMovimientosTable::getListaDeMovimientosPorConcepto($request->getParameter('moCon'), 
+            $request->getParameter('ahNc'))
+        );
         $movimientos->setPage(
             $request->getParameter(
                 'pagina', 
@@ -136,7 +139,10 @@ class movimientosActions extends sfActions {
     
     public function executeSearchPager(sfWebRequest $request) {
         $movimientos = new sfDoctrinePager('DmlMovimientos', sfConfig::get('app_max_per_page'));
-        $movimientos->setQuery(DmlMovimientosTable::getListaDeMovimientosPorConcepto($request->getParameter('moCon')));
+        $movimientos->setQuery(
+            DmlMovimientosTable::getListaDeMovimientosPorConcepto($request->getParameter('moCon'), 
+            $request->getParameter('ahNc'))
+        );
         $movimientos->setPage(
             $request->getParameter(
                 'pagina', 

@@ -5,14 +5,14 @@
  */
 
 /**
- * DmlRespaldos formulario para el filtrado.
+ * DmlConsumosTarjetas formulario para el filtrado.
  *
  * @package    dml
  * @subpackage filter
  * @author     Oswaldo Rojas <def.3980@gmail.com>
  * @version    SVN: $Id: sfDoctrineFormFilterTemplate.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
-class DmlRespaldosFormFilter extends BaseDmlRespaldosFormFilter {
+class DmlConsumosTarjetasFormFilter extends BaseDmlConsumosTarjetasFormFilter {
 
     public function configure() {}
 

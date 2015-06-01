@@ -4,8 +4,8 @@
  * Fecha creacion : "Viernes, 5 Diciembre 2014 12:41:57"
  * 
  * Acciones realizadas:
- * - Veces ejecutado doctrine:build-model  : "000090"
- * - Ultima vez que se actualizo el modelo : "2015-03-25 10:36:31"
+ * - Veces ejecutado doctrine:build-model  : "000091"
+ * - Ultima vez que se actualizo el modelo : "2015-06-01 13:03:02"
  */
 
 // Connection Component Binding
@@ -19,6 +19,7 @@ Doctrine_Manager::getInstance()->bindComponent('DmlPagos', 'doctrine');
  * @property integer $id
  * @property integer $personas
  * @property integer $facturas
+ * @property integer $tarjetas_credito_debito
  * @property decimal $pa_iva
  * @property decimal $pa_ice
  * @property decimal $pa_comision
@@ -32,42 +33,47 @@ Doctrine_Manager::getInstance()->bindComponent('DmlPagos', 'doctrine');
  * @property integer $pa_borrado_logico
  * @property DmlFacturas $DmlFacturas
  * @property DmlPersonas $DmlPersonas
- * @property Doctrine_Collection $DmlRespaldos
+ * @property DmlTarjetasCreditoDebito $DmlTarjetasCreditoDebito
+ * @property Doctrine_Collection $DmlPagosConsumosTarjetas
  * 
- * @method integer             getId()              Retorna el registro (valor) actual del campo [id]
- * @method integer             getPersonas()        Retorna el registro (valor) actual del campo [personas]
- * @method integer             getFacturas()        Retorna el registro (valor) actual del campo [facturas]
- * @method decimal             getPaIva()           Retorna el registro (valor) actual del campo [pa_iva]
- * @method decimal             getPaIce()           Retorna el registro (valor) actual del campo [pa_ice]
- * @method decimal             getPaComision()      Retorna el registro (valor) actual del campo [pa_comision]
- * @method decimal             getPaValorParcial()  Retorna el registro (valor) actual del campo [pa_valor_parcial]
- * @method timestamp           getPaFechaCrea()     Retorna el registro (valor) actual del campo [pa_fecha_crea]
- * @method integer             getPaQuienCrea()     Retorna el registro (valor) actual del campo [pa_quien_crea]
- * @method timestamp           getPaFechaModifica() Retorna el registro (valor) actual del campo [pa_fecha_modifica]
- * @method integer             getPaQuienModifica() Retorna el registro (valor) actual del campo [pa_quien_modifica]
- * @method timestamp           getPaFechaBorra()    Retorna el registro (valor) actual del campo [pa_fecha_borra]
- * @method integer             getPaQuienBorra()    Retorna el registro (valor) actual del campo [pa_quien_borra]
- * @method integer             getPaBorradoLogico() Retorna el registro (valor) actual del campo [pa_borrado_logico]
- * @method DmlFacturas         getDmlFacturas()     Retorna el registro (valor) actual del campo [DmlFacturas]
- * @method DmlPersonas         getDmlPersonas()     Retorna el registro (valor) actual del campo [DmlPersonas]
- * @method Doctrine_Collection getDmlRespaldos()    Retorna el registro (coleccion de datos) actual del campo [DmlRespaldos]
- * @method DmlPagos            setId()              Guarda un registro (valor) al campo [id]
- * @method DmlPagos            setPersonas()        Guarda un registro (valor) al campo [personas]
- * @method DmlPagos            setFacturas()        Guarda un registro (valor) al campo [facturas]
- * @method DmlPagos            setPaIva()           Guarda un registro (valor) al campo [pa_iva]
- * @method DmlPagos            setPaIce()           Guarda un registro (valor) al campo [pa_ice]
- * @method DmlPagos            setPaComision()      Guarda un registro (valor) al campo [pa_comision]
- * @method DmlPagos            setPaValorParcial()  Guarda un registro (valor) al campo [pa_valor_parcial]
- * @method DmlPagos            setPaFechaCrea()     Guarda un registro (valor) al campo [pa_fecha_crea]
- * @method DmlPagos            setPaQuienCrea()     Guarda un registro (valor) al campo [pa_quien_crea]
- * @method DmlPagos            setPaFechaModifica() Guarda un registro (valor) al campo [pa_fecha_modifica]
- * @method DmlPagos            setPaQuienModifica() Guarda un registro (valor) al campo [pa_quien_modifica]
- * @method DmlPagos            setPaFechaBorra()    Guarda un registro (valor) al campo [pa_fecha_borra]
- * @method DmlPagos            setPaQuienBorra()    Guarda un registro (valor) al campo [pa_quien_borra]
- * @method DmlPagos            setPaBorradoLogico() Guarda un registro (valor) al campo [pa_borrado_logico]
- * @method DmlPagos            setDmlFacturas()     Guarda un registro (valor) al campo [DmlFacturas]
- * @method DmlPagos            setDmlPersonas()     Guarda un registro (valor) al campo [DmlPersonas]
- * @method DmlPagos            setDmlRespaldos()    Guarda un registro (coleccion de datos) al campo [DmlRespaldos]
+ * @method integer                  getId()                       Retorna el registro (valor) actual del campo [id]
+ * @method integer                  getPersonas()                 Retorna el registro (valor) actual del campo [personas]
+ * @method integer                  getFacturas()                 Retorna el registro (valor) actual del campo [facturas]
+ * @method integer                  getTarjetasCreditoDebito()    Retorna el registro (valor) actual del campo [tarjetas_credito_debito]
+ * @method decimal                  getPaIva()                    Retorna el registro (valor) actual del campo [pa_iva]
+ * @method decimal                  getPaIce()                    Retorna el registro (valor) actual del campo [pa_ice]
+ * @method decimal                  getPaComision()               Retorna el registro (valor) actual del campo [pa_comision]
+ * @method decimal                  getPaValorParcial()           Retorna el registro (valor) actual del campo [pa_valor_parcial]
+ * @method timestamp                getPaFechaCrea()              Retorna el registro (valor) actual del campo [pa_fecha_crea]
+ * @method integer                  getPaQuienCrea()              Retorna el registro (valor) actual del campo [pa_quien_crea]
+ * @method timestamp                getPaFechaModifica()          Retorna el registro (valor) actual del campo [pa_fecha_modifica]
+ * @method integer                  getPaQuienModifica()          Retorna el registro (valor) actual del campo [pa_quien_modifica]
+ * @method timestamp                getPaFechaBorra()             Retorna el registro (valor) actual del campo [pa_fecha_borra]
+ * @method integer                  getPaQuienBorra()             Retorna el registro (valor) actual del campo [pa_quien_borra]
+ * @method integer                  getPaBorradoLogico()          Retorna el registro (valor) actual del campo [pa_borrado_logico]
+ * @method DmlFacturas              getDmlFacturas()              Retorna el registro (valor) actual del campo [DmlFacturas]
+ * @method DmlPersonas              getDmlPersonas()              Retorna el registro (valor) actual del campo [DmlPersonas]
+ * @method DmlTarjetasCreditoDebito getDmlTarjetasCreditoDebito() Retorna el registro (valor) actual del campo [DmlTarjetasCreditoDebito]
+ * @method Doctrine_Collection      getDmlPagosConsumosTarjetas() Retorna el registro (coleccion de datos) actual del campo [DmlPagosConsumosTarjetas]
+ * @method DmlPagos                 setId()                       Guarda un registro (valor) al campo [id]
+ * @method DmlPagos                 setPersonas()                 Guarda un registro (valor) al campo [personas]
+ * @method DmlPagos                 setFacturas()                 Guarda un registro (valor) al campo [facturas]
+ * @method DmlPagos                 setTarjetasCreditoDebito()    Guarda un registro (valor) al campo [tarjetas_credito_debito]
+ * @method DmlPagos                 setPaIva()                    Guarda un registro (valor) al campo [pa_iva]
+ * @method DmlPagos                 setPaIce()                    Guarda un registro (valor) al campo [pa_ice]
+ * @method DmlPagos                 setPaComision()               Guarda un registro (valor) al campo [pa_comision]
+ * @method DmlPagos                 setPaValorParcial()           Guarda un registro (valor) al campo [pa_valor_parcial]
+ * @method DmlPagos                 setPaFechaCrea()              Guarda un registro (valor) al campo [pa_fecha_crea]
+ * @method DmlPagos                 setPaQuienCrea()              Guarda un registro (valor) al campo [pa_quien_crea]
+ * @method DmlPagos                 setPaFechaModifica()          Guarda un registro (valor) al campo [pa_fecha_modifica]
+ * @method DmlPagos                 setPaQuienModifica()          Guarda un registro (valor) al campo [pa_quien_modifica]
+ * @method DmlPagos                 setPaFechaBorra()             Guarda un registro (valor) al campo [pa_fecha_borra]
+ * @method DmlPagos                 setPaQuienBorra()             Guarda un registro (valor) al campo [pa_quien_borra]
+ * @method DmlPagos                 setPaBorradoLogico()          Guarda un registro (valor) al campo [pa_borrado_logico]
+ * @method DmlPagos                 setDmlFacturas()              Guarda un registro (valor) al campo [DmlFacturas]
+ * @method DmlPagos                 setDmlPersonas()              Guarda un registro (valor) al campo [DmlPersonas]
+ * @method DmlPagos                 setDmlTarjetasCreditoDebito() Guarda un registro (valor) al campo [DmlTarjetasCreditoDebito]
+ * @method DmlPagos                 setDmlPagosConsumosTarjetas() Guarda un registro (coleccion de datos) al campo [DmlPagosConsumosTarjetas]
  * 
  * @package    dml
  * @subpackage model
@@ -81,6 +87,7 @@ abstract class BaseDmlPagos extends sfDoctrineRecord {
         $this->hasColumn('id', 'integer', 4, array(            'type'          => 'integer',            'fixed'         => 0,            'unsigned'      => false,            'primary'       => true,            'autoincrement' => true,            'length'        => 4,        ));
         $this->hasColumn('personas', 'integer', 4, array(            'type'          => 'integer',            'fixed'         => 0,            'unsigned'      => false,            'primary'       => false,            'notnull'       => true,            'autoincrement' => false,            'length'        => 4,        ));
         $this->hasColumn('facturas', 'integer', 4, array(            'type'          => 'integer',            'fixed'         => 0,            'unsigned'      => false,            'primary'       => false,            'notnull'       => true,            'autoincrement' => false,            'length'        => 4,        ));
+        $this->hasColumn('tarjetas_credito_debito', 'integer', 4, array(            'type'          => 'integer',            'fixed'         => 0,            'unsigned'      => false,            'primary'       => false,            'notnull'       => false,            'autoincrement' => false,            'length'        => 4,        ));
         $this->hasColumn('pa_iva', 'decimal', 10, array(            'type'          => 'decimal',            'fixed'         => 0,            'unsigned'      => false,            'primary'       => false,            'notnull'       => false,            'autoincrement' => false,            'length'        => 10,            'scale'         => '2',        ));
         $this->hasColumn('pa_ice', 'decimal', 10, array(            'type'          => 'decimal',            'fixed'         => 0,            'unsigned'      => false,            'primary'       => false,            'notnull'       => false,            'autoincrement' => false,            'length'        => 10,            'scale'         => '2',        ));
         $this->hasColumn('pa_comision', 'decimal', 10, array(            'type'          => 'decimal',            'fixed'         => 0,            'unsigned'      => false,            'primary'       => false,            'notnull'       => false,            'autoincrement' => false,            'length'        => 10,            'scale'         => '2',        ));
@@ -104,7 +111,11 @@ abstract class BaseDmlPagos extends sfDoctrineRecord {
             'local'   => 'personas',
             'foreign' => 'id'
         ));
-        $this->hasMany('DmlRespaldos', array(
+        $this->hasOne('DmlTarjetasCreditoDebito', array(
+            'local'   => 'tarjetas_credito_debito',
+            'foreign' => 'id'
+        ));
+        $this->hasMany('DmlPagosConsumosTarjetas', array(
             'local'   => 'id',
             'foreign' => 'pagos'
         ));

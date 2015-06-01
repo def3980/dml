@@ -4,8 +4,8 @@
  * Fecha creacion : "Viernes, 5 Diciembre 2014 12:44:41"
  * 
  * Acciones realizadas:
- * - Veces ejecutado doctrine:build-forms            : "000090"
- * - Ultima vez que se actualizo la clase formulario : "2015-03-25 10:36:52"
+ * - Veces ejecutado doctrine:build-forms            : "000091"
+ * - Ultima vez que se actualizo la clase formulario : "2015-06-01 14:39:57"
  */
 
 /**
@@ -22,37 +22,39 @@ abstract class BaseDmlPagosForm extends BaseFormDoctrine {
 
     public function setup() {
         $this->setWidgets(array(
-            'id'                => new sfWidgetFormInputHidden(),
-            'personas'          => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DmlPersonas'), 'add_empty' => false)),
-            'facturas'          => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DmlFacturas'), 'add_empty' => false)),
-            'pa_iva'            => new sfWidgetFormInputText(),
-            'pa_ice'            => new sfWidgetFormInputText(),
-            'pa_comision'       => new sfWidgetFormInputText(),
-            'pa_valor_parcial'  => new sfWidgetFormInputText(),
-            'pa_fecha_crea'     => new sfWidgetFormDateTime(),
-            'pa_quien_crea'     => new sfWidgetFormInputText(),
-            'pa_fecha_modifica' => new sfWidgetFormDateTime(),
-            'pa_quien_modifica' => new sfWidgetFormInputText(),
-            'pa_fecha_borra'    => new sfWidgetFormDateTime(),
-            'pa_quien_borra'    => new sfWidgetFormInputText(),
-            'pa_borrado_logico' => new sfWidgetFormInputText(),
+            'id'                      => new sfWidgetFormInputHidden(),
+            'personas'                => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DmlPersonas'), 'add_empty' => false)),
+            'facturas'                => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DmlFacturas'), 'add_empty' => false)),
+            'tarjetas_credito_debito' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DmlTarjetasCreditoDebito'), 'add_empty' => true)),
+            'pa_iva'                  => new sfWidgetFormInputText(),
+            'pa_ice'                  => new sfWidgetFormInputText(),
+            'pa_comision'             => new sfWidgetFormInputText(),
+            'pa_valor_parcial'        => new sfWidgetFormInputText(),
+            'pa_fecha_crea'           => new sfWidgetFormDateTime(),
+            'pa_quien_crea'           => new sfWidgetFormInputText(),
+            'pa_fecha_modifica'       => new sfWidgetFormDateTime(),
+            'pa_quien_modifica'       => new sfWidgetFormInputText(),
+            'pa_fecha_borra'          => new sfWidgetFormDateTime(),
+            'pa_quien_borra'          => new sfWidgetFormInputText(),
+            'pa_borrado_logico'       => new sfWidgetFormInputText(),
         ));
 
         $this->setValidators(array(
-            'id'                => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
-            'personas'          => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('DmlPersonas'))),
-            'facturas'          => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('DmlFacturas'))),
-            'pa_iva'            => new sfValidatorNumber(array('required' => false)),
-            'pa_ice'            => new sfValidatorNumber(array('required' => false)),
-            'pa_comision'       => new sfValidatorNumber(array('required' => false)),
-            'pa_valor_parcial'  => new sfValidatorNumber(array('required' => false)),
-            'pa_fecha_crea'     => new sfValidatorDateTime(array('required' => false)),
-            'pa_quien_crea'     => new sfValidatorInteger(array('required' => false)),
-            'pa_fecha_modifica' => new sfValidatorDateTime(array('required' => false)),
-            'pa_quien_modifica' => new sfValidatorInteger(array('required' => false)),
-            'pa_fecha_borra'    => new sfValidatorDateTime(array('required' => false)),
-            'pa_quien_borra'    => new sfValidatorInteger(array('required' => false)),
-            'pa_borrado_logico' => new sfValidatorInteger(array('required' => false)),
+            'id'                      => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
+            'personas'                => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('DmlPersonas'))),
+            'facturas'                => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('DmlFacturas'))),
+            'tarjetas_credito_debito' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('DmlTarjetasCreditoDebito'), 'required' => false)),
+            'pa_iva'                  => new sfValidatorNumber(array('required' => false)),
+            'pa_ice'                  => new sfValidatorNumber(array('required' => false)),
+            'pa_comision'             => new sfValidatorNumber(array('required' => false)),
+            'pa_valor_parcial'        => new sfValidatorNumber(array('required' => false)),
+            'pa_fecha_crea'           => new sfValidatorDateTime(array('required' => false)),
+            'pa_quien_crea'           => new sfValidatorInteger(array('required' => false)),
+            'pa_fecha_modifica'       => new sfValidatorDateTime(array('required' => false)),
+            'pa_quien_modifica'       => new sfValidatorInteger(array('required' => false)),
+            'pa_fecha_borra'          => new sfValidatorDateTime(array('required' => false)),
+            'pa_quien_borra'          => new sfValidatorInteger(array('required' => false)),
+            'pa_borrado_logico'       => new sfValidatorInteger(array('required' => false)),
         ));
 
         $this->widgetSchema->setNameFormat('dml_pagos[%s]');

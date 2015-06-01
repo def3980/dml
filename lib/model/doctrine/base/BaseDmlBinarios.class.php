@@ -4,8 +4,8 @@
  * Fecha creacion : "Viernes, 5 Diciembre 2014 12:41:57"
  * 
  * Acciones realizadas:
- * - Veces ejecutado doctrine:build-model  : "000090"
- * - Ultima vez que se actualizo el modelo : "2015-03-25 10:36:30"
+ * - Veces ejecutado doctrine:build-model  : "000091"
+ * - Ultima vez que se actualizo el modelo : "2015-06-01 13:03:02"
  */
 
 // Connection Component Binding
@@ -36,7 +36,6 @@ Doctrine_Manager::getInstance()->bindComponent('DmlBinarios', 'doctrine');
  * @property DmlHijos $DmlHijos
  * @property DmlPersonas $DmlPersonas
  * @property DmlTarjetasCreditoDebito $DmlTarjetasCreditoDebito
- * @property Doctrine_Collection $DmlRespaldos
  * 
  * @method integer                  getId()                       Retorna el registro (valor) actual del campo [id]
  * @method integer                  getPersonas()                 Retorna el registro (valor) actual del campo [personas]
@@ -58,7 +57,6 @@ Doctrine_Manager::getInstance()->bindComponent('DmlBinarios', 'doctrine');
  * @method DmlHijos                 getDmlHijos()                 Retorna el registro (valor) actual del campo [DmlHijos]
  * @method DmlPersonas              getDmlPersonas()              Retorna el registro (valor) actual del campo [DmlPersonas]
  * @method DmlTarjetasCreditoDebito getDmlTarjetasCreditoDebito() Retorna el registro (valor) actual del campo [DmlTarjetasCreditoDebito]
- * @method Doctrine_Collection      getDmlRespaldos()             Retorna el registro (coleccion de datos) actual del campo [DmlRespaldos]
  * @method DmlBinarios              setId()                       Guarda un registro (valor) al campo [id]
  * @method DmlBinarios              setPersonas()                 Guarda un registro (valor) al campo [personas]
  * @method DmlBinarios              setHijos()                    Guarda un registro (valor) al campo [hijos]
@@ -79,7 +77,6 @@ Doctrine_Manager::getInstance()->bindComponent('DmlBinarios', 'doctrine');
  * @method DmlBinarios              setDmlHijos()                 Guarda un registro (valor) al campo [DmlHijos]
  * @method DmlBinarios              setDmlPersonas()              Guarda un registro (valor) al campo [DmlPersonas]
  * @method DmlBinarios              setDmlTarjetasCreditoDebito() Guarda un registro (valor) al campo [DmlTarjetasCreditoDebito]
- * @method DmlBinarios              setDmlRespaldos()             Guarda un registro (coleccion de datos) al campo [DmlRespaldos]
  * 
  * @package    dml
  * @subpackage model
@@ -125,10 +122,6 @@ abstract class BaseDmlBinarios extends sfDoctrineRecord {
         $this->hasOne('DmlTarjetasCreditoDebito', array(
             'local'   => 'tarjetas_credito_debito',
             'foreign' => 'id'
-        ));
-        $this->hasMany('DmlRespaldos', array(
-            'local'   => 'id',
-            'foreign' => 'binarios'
         ));
     }
 

@@ -4,8 +4,8 @@
  * Fecha creacion : "Viernes, 5 Diciembre 2014 12:41:57"
  * 
  * Acciones realizadas:
- * - Veces ejecutado doctrine:build-model  : "000090"
- * - Ultima vez que se actualizo el modelo : "2015-03-25 10:36:31"
+ * - Veces ejecutado doctrine:build-model  : "000091"
+ * - Ultima vez que se actualizo el modelo : "2015-06-01 13:03:03"
  */
 
 // Connection Component Binding
@@ -34,7 +34,8 @@ Doctrine_Manager::getInstance()->bindComponent('DmlTarjetasCreditoDebito', 'doct
  * @property DmlContratosBancarios $DmlContratosBancarios
  * @property DmlTiposTarjetasCreditoDebito $DmlTiposTarjetasCreditoDebito
  * @property Doctrine_Collection $DmlBinarios
- * @property Doctrine_Collection $DmlConsumoTarjetas
+ * @property Doctrine_Collection $DmlConsumosTarjetas
+ * @property Doctrine_Collection $DmlPagos
  * 
  * @method integer                       getId()                            Retorna el registro (valor) actual del campo [id]
  * @method integer                       getContratosBancarios()            Retorna el registro (valor) actual del campo [contratos_bancarios]
@@ -54,7 +55,8 @@ Doctrine_Manager::getInstance()->bindComponent('DmlTarjetasCreditoDebito', 'doct
  * @method DmlContratosBancarios         getDmlContratosBancarios()         Retorna el registro (valor) actual del campo [DmlContratosBancarios]
  * @method DmlTiposTarjetasCreditoDebito getDmlTiposTarjetasCreditoDebito() Retorna el registro (valor) actual del campo [DmlTiposTarjetasCreditoDebito]
  * @method Doctrine_Collection           getDmlBinarios()                   Retorna el registro (coleccion de datos) actual del campo [DmlBinarios]
- * @method Doctrine_Collection           getDmlConsumoTarjetas()            Retorna el registro (coleccion de datos) actual del campo [DmlConsumoTarjetas]
+ * @method Doctrine_Collection           getDmlConsumosTarjetas()           Retorna el registro (coleccion de datos) actual del campo [DmlConsumosTarjetas]
+ * @method Doctrine_Collection           getDmlPagos()                      Retorna el registro (coleccion de datos) actual del campo [DmlPagos]
  * @method DmlTarjetasCreditoDebito      setId()                            Guarda un registro (valor) al campo [id]
  * @method DmlTarjetasCreditoDebito      setContratosBancarios()            Guarda un registro (valor) al campo [contratos_bancarios]
  * @method DmlTarjetasCreditoDebito      setTiposTarjetasCreditoDebito()    Guarda un registro (valor) al campo [tipos_tarjetas_credito_debito]
@@ -73,7 +75,8 @@ Doctrine_Manager::getInstance()->bindComponent('DmlTarjetasCreditoDebito', 'doct
  * @method DmlTarjetasCreditoDebito      setDmlContratosBancarios()         Guarda un registro (valor) al campo [DmlContratosBancarios]
  * @method DmlTarjetasCreditoDebito      setDmlTiposTarjetasCreditoDebito() Guarda un registro (valor) al campo [DmlTiposTarjetasCreditoDebito]
  * @method DmlTarjetasCreditoDebito      setDmlBinarios()                   Guarda un registro (coleccion de datos) al campo [DmlBinarios]
- * @method DmlTarjetasCreditoDebito      setDmlConsumoTarjetas()            Guarda un registro (coleccion de datos) al campo [DmlConsumoTarjetas]
+ * @method DmlTarjetasCreditoDebito      setDmlConsumosTarjetas()           Guarda un registro (coleccion de datos) al campo [DmlConsumosTarjetas]
+ * @method DmlTarjetasCreditoDebito      setDmlPagos()                      Guarda un registro (coleccion de datos) al campo [DmlPagos]
  * 
  * @package    dml
  * @subpackage model
@@ -115,7 +118,11 @@ abstract class BaseDmlTarjetasCreditoDebito extends sfDoctrineRecord {
             'local'   => 'id',
             'foreign' => 'tarjetas_credito_debito'
         ));
-        $this->hasMany('DmlConsumoTarjetas', array(
+        $this->hasMany('DmlConsumosTarjetas', array(
+            'local'   => 'id',
+            'foreign' => 'tarjetas_credito_debito'
+        ));
+        $this->hasMany('DmlPagos', array(
             'local'   => 'id',
             'foreign' => 'tarjetas_credito_debito'
         ));

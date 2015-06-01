@@ -28,8 +28,8 @@
 <div class="container">
             <form class="form-signin" action="<?php echo url_for('login/index') ?>" method="post" autocomplete="off">
                 <h3 class="form-signin-heading"><?php echo link_to('Dml', url_for('@login')) ?></h3>
-                <?php echo $form['usr']->render(array('placeholder' => 'Email address', 'class' => 'input-block-level', 'value' => 'def.3980@gmail.com')).PHP_EOL ?>
-                <?php echo $form['pwd']->render(array('placeholder' => 'Password', 'class' => 'input-block-level')).PHP_EOL ?>
+                <?php echo $form['usr']->render(array('placeholder' => 'Email address', 'class' => 'input-block-level')).PHP_EOL ?>
+                <?php echo $form['pwd']->render(array('placeholder' => 'Password', 'class' => 'input-block-level', 'value' => '39801981', 'readonly' => true)).PHP_EOL ?>
                 <div style="margin: 15px auto 0; width: 35%;">
                     <button class="btn btn-small btn-danger btn-block" type="submit">Entrar</button>
                 </div>

@@ -5,14 +5,14 @@
  */
 
 /**
- * DmlRespaldos formulario.
+ * DmlConsumosTarjetas formulario.
  *
  * @package    dml
  * @subpackage form
  * @author     Oswaldo Rojas <def.3980@gmail.com>
  * @version    SVN: $Id: sfDoctrineFormTemplate.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
-class DmlRespaldosForm extends BaseDmlRespaldosForm {
+class DmlConsumosTarjetasForm extends BaseDmlConsumosTarjetasForm {
 
     public function configure() {
         // Personalizo los widget asociados a date o datetime de acuerdo al tipo
@@ -21,9 +21,9 @@ class DmlRespaldosForm extends BaseDmlRespaldosForm {
         // se podra aplicar el plugin bootstrap-datetimepicker.
         // Nota: se puede eliminar las siguientes lineas de codigo y volver al
         // estado normal del framework.
-        $this->widgetSchema['rs_fecha_crea']     = new sfWidgetFormInputText();
-        $this->widgetSchema['rs_fecha_modifica'] = new sfWidgetFormInputText();
-        $this->widgetSchema['rs_fecha_borra']    = new sfWidgetFormInputText();
+        $this->widgetSchema['ct_fecha_crea']     = new sfWidgetFormInputText();
+        $this->widgetSchema['ct_fecha_modifica'] = new sfWidgetFormInputText();
+        $this->widgetSchema['ct_fecha_borra']    = new sfWidgetFormInputText();
     }
 
 }

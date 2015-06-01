@@ -3,8 +3,8 @@
 # Fecha: Viernes, 5 Diciembre 2014 12:20:18
 #
 # Acciones realizadas:
-#  - Veces ejecutado doctrine:build-schema  : "000016"
-#  - Ultima vez que se actualizo el esquema : "2015-03-25 10:35:53"
+#  - Veces ejecutado doctrine:build-schema  : "000017"
+#  - Ultima vez que se actualizo el esquema : "2015-06-01 12:59:43"
 # + -------------------------------------------------------------------------- +
 
 DmlAhorros:
@@ -326,13 +326,9 @@ DmlBinarios:
       local: tarjetas_credito_debito
       foreign: id
       type: one
-    DmlRespaldos:
-      local: id
-      foreign: binarios
-      type: many
-DmlConsumoTarjetas:
+DmlConsumosTarjetas:
   connection: doctrine
-  tableName: dml_consumo_tarjetas
+  tableName: dml_consumos_tarjetas
   columns:
     id:
       type: integer(4)
@@ -347,21 +343,35 @@ DmlConsumoTarjetas:
       primary: false
       notnull: true
       autoincrement: false
-    ct_fecha:
-      type: timestamp(25)
+    facturas:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    ct_iva:
+      type: 'decimal(10, 2)'
       fixed: false
       unsigned: false
       primary: false
       notnull: false
       autoincrement: false
-    ct_detalle:
-      type: string()
+    ct_ice:
+      type: 'decimal(10, 2)'
       fixed: false
       unsigned: false
       primary: false
       notnull: false
       autoincrement: false
-    ct_valor:
+    ct_comision:
+      type: 'decimal(10, 2)'
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    ct_valor_parcial:
       type: 'decimal(10, 2)'
       fixed: false
       unsigned: false
@@ -418,10 +428,18 @@ DmlConsumoTarjetas:
       notnull: false
       autoincrement: false
   relations:
+    DmlFacturas:
+      local: facturas
+      foreign: id
+      type: one
     DmlTarjetasCreditoDebito:
       local: tarjetas_credito_debito
       foreign: id
       type: one
+    DmlPagosConsumosTarjetas:
+      local: id
+      foreign: consumos_tarjetas
+      type: many
 DmlContratosBancarios:
   connection: doctrine
   tableName: dml_contratos_bancarios
@@ -1034,6 +1052,10 @@ DmlFacturas:
       local: id
       foreign: facturas
       type: many
+    DmlConsumosTarjetas:
+      local: id
+      foreign: facturas
+      type: many
     DmlPagos:
       local: id
       foreign: facturas
@@ -1381,6 +1403,13 @@ DmlPagos:
       primary: false
       notnull: true
       autoincrement: false
+    tarjetas_credito_debito:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
     pa_iva:
       type: 'decimal(10, 2)'
       fixed: false
@@ -1467,10 +1496,47 @@ DmlPagos:
       local: personas
       foreign: id
       type: one
-    DmlRespaldos:
+    DmlTarjetasCreditoDebito:
+      local: tarjetas_credito_debito
+      foreign: id
+      type: one
+    DmlPagosConsumosTarjetas:
       local: id
       foreign: pagos
       type: many
+DmlPagosConsumosTarjetas:
+  connection: doctrine
+  tableName: dml_pagos_consumos_tarjetas
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    pagos:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    consumos_tarjetas:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    DmlConsumosTarjetas:
+      local: consumos_tarjetas
+      foreign: id
+      type: one
+    DmlPagos:
+      local: pagos
+      foreign: id
+      type: one
 DmlPersonas:
   connection: doctrine
   tableName: dml_personas
@@ -1813,92 +1879,6 @@ DmlRemuneraciones:
       local: id
       foreign: remuneraciones
       type: many
-DmlRespaldos:
-  connection: doctrine
-  tableName: dml_respaldos
-  columns:
-    id:
-      type: integer(4)
-      fixed: false
-      unsigned: false
-      primary: true
-      autoincrement: true
-    pagos:
-      type: integer(4)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: false
-      autoincrement: false
-    binarios:
-      type: integer(4)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: false
-      autoincrement: false
-    rs_fecha_crea:
-      type: timestamp(25)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: false
-      autoincrement: false
-    rs_quien_crea:
-      type: integer(4)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: false
-      autoincrement: false
-    rs_fecha_modifica:
-      type: timestamp(25)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: false
-      autoincrement: false
-    rs_quien_modifica:
-      type: integer(4)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: false
-      autoincrement: false
-    rs_fecha_borra:
-      type: timestamp(25)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: false
-      autoincrement: false
-    rs_quien_borra:
-      type: integer(4)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: false
-      autoincrement: false
-    rs_borrado_logico:
-      type: integer(1)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: false
-      autoincrement: false
-  relations:
-    DmlBinarios:
-      local: binarios
-      foreign: id
-      type: one
-      onUpdate: cascade
-      onDelete: cascade
-    DmlPagos:
-      local: pagos
-      foreign: id
-      type: one
-      onUpdate: cascade
-      onDelete: cascade
 DmlTarjetasCreditoDebito:
   connection: doctrine
   tableName: dml_tarjetas_credito_debito
@@ -2020,7 +2000,11 @@ DmlTarjetasCreditoDebito:
       local: id
       foreign: tarjetas_credito_debito
       type: many
-    DmlConsumoTarjetas:
+    DmlConsumosTarjetas:
+      local: id
+      foreign: tarjetas_credito_debito
+      type: many
+    DmlPagos:
       local: id
       foreign: tarjetas_credito_debito
       type: many

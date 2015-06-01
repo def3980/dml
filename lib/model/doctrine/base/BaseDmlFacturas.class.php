@@ -4,8 +4,8 @@
  * Fecha creacion : "Miercoles, 11 Marzo 2015 10:16:20"
  * 
  * Acciones realizadas:
- * - Veces ejecutado doctrine:build-model  : "000003"
- * - Ultima vez que se actualizo el modelo : "2015-03-25 10:36:31"
+ * - Veces ejecutado doctrine:build-model  : "000004"
+ * - Ultima vez que se actualizo el modelo : "2015-06-01 13:03:02"
  */
 
 // Connection Component Binding
@@ -33,6 +33,7 @@ Doctrine_Manager::getInstance()->bindComponent('DmlFacturas', 'doctrine');
  * @property integer $fa_borrado_logico
  * @property DmlTiposGastos $DmlTiposGastos
  * @property Doctrine_Collection $DmlBinarios
+ * @property Doctrine_Collection $DmlConsumosTarjetas
  * @property Doctrine_Collection $DmlPagos
  * 
  * @method integer             getId()                    Retorna el registro (valor) actual del campo [id]
@@ -52,6 +53,7 @@ Doctrine_Manager::getInstance()->bindComponent('DmlFacturas', 'doctrine');
  * @method integer             getFaBorradoLogico()       Retorna el registro (valor) actual del campo [fa_borrado_logico]
  * @method DmlTiposGastos      getDmlTiposGastos()        Retorna el registro (valor) actual del campo [DmlTiposGastos]
  * @method Doctrine_Collection getDmlBinarios()           Retorna el registro (coleccion de datos) actual del campo [DmlBinarios]
+ * @method Doctrine_Collection getDmlConsumosTarjetas()   Retorna el registro (coleccion de datos) actual del campo [DmlConsumosTarjetas]
  * @method Doctrine_Collection getDmlPagos()              Retorna el registro (coleccion de datos) actual del campo [DmlPagos]
  * @method DmlFacturas         setId()                    Guarda un registro (valor) al campo [id]
  * @method DmlFacturas         setTiposGastos()           Guarda un registro (valor) al campo [tipos_gastos]
@@ -70,6 +72,7 @@ Doctrine_Manager::getInstance()->bindComponent('DmlFacturas', 'doctrine');
  * @method DmlFacturas         setFaBorradoLogico()       Guarda un registro (valor) al campo [fa_borrado_logico]
  * @method DmlFacturas         setDmlTiposGastos()        Guarda un registro (valor) al campo [DmlTiposGastos]
  * @method DmlFacturas         setDmlBinarios()           Guarda un registro (coleccion de datos) al campo [DmlBinarios]
+ * @method DmlFacturas         setDmlConsumosTarjetas()   Guarda un registro (coleccion de datos) al campo [DmlConsumosTarjetas]
  * @method DmlFacturas         setDmlPagos()              Guarda un registro (coleccion de datos) al campo [DmlPagos]
  * 
  * @package    dml
@@ -105,6 +108,10 @@ abstract class BaseDmlFacturas extends sfDoctrineRecord {
             'foreign' => 'id'
         ));
         $this->hasMany('DmlBinarios', array(
+            'local'   => 'id',
+            'foreign' => 'facturas'
+        ));
+        $this->hasMany('DmlConsumosTarjetas', array(
             'local'   => 'id',
             'foreign' => 'facturas'
         ));

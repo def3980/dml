@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Fecha creacion : "Jueves, 12 Marzo 2015 12:52:44"
+ * Fecha creacion : "Lunes, 1 Junio 2015 13:03:02"
  */
 
 /**
- * DmlRespaldos
+ * DmlConsumosTarjetas
  * 
  * Esta clase ha sido auto-generada por el Framework ORM de Doctrine
  * 
@@ -14,7 +14,7 @@
  * @author     Oswaldo Rojas <def.3980@gmail.com>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
-class DmlRespaldos extends BaseDmlRespaldos {
+class DmlConsumosTarjetas extends BaseDmlConsumosTarjetas {
 
     // Metodo __toString() que ayuda a visualizar datos 
     // como clase padre hacia cualquier clase que herede 

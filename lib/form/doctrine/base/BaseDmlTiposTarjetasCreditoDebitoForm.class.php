@@ -4,8 +4,8 @@
  * Fecha creacion : "Viernes, 5 Diciembre 2014 12:44:41"
  * 
  * Acciones realizadas:
- * - Veces ejecutado doctrine:build-forms            : "000091"
- * - Ultima vez que se actualizo la clase formulario : "2015-06-01 14:39:59"
+ * - Veces ejecutado doctrine:build-forms            : "000093"
+ * - Ultima vez que se actualizo la clase formulario : "2015-06-02 12:57:01"
  */
 
 /**
@@ -24,6 +24,7 @@ abstract class BaseDmlTiposTarjetasCreditoDebitoForm extends BaseFormDoctrine {
         $this->setWidgets(array(
             'id'                  => new sfWidgetFormInputHidden(),
             'ttcd_nombre'         => new sfWidgetFormInputText(),
+            'ttcd_credito_debito' => new sfWidgetFormInputText(),
             'ttcd_fecha_crea'     => new sfWidgetFormDateTime(),
             'ttcd_quien_crea'     => new sfWidgetFormInputText(),
             'ttcd_fecha_modifica' => new sfWidgetFormDateTime(),
@@ -36,6 +37,7 @@ abstract class BaseDmlTiposTarjetasCreditoDebitoForm extends BaseFormDoctrine {
         $this->setValidators(array(
             'id'                  => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
             'ttcd_nombre'         => new sfValidatorString(array('max_length' => 100, 'required' => false)),
+            'ttcd_credito_debito' => new sfValidatorString(array('max_length' => 50, 'required' => false)),
             'ttcd_fecha_crea'     => new sfValidatorDateTime(array('required' => false)),
             'ttcd_quien_crea'     => new sfValidatorInteger(array('required' => false)),
             'ttcd_fecha_modifica' => new sfValidatorDateTime(array('required' => false)),

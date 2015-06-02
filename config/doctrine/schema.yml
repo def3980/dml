@@ -3,8 +3,8 @@
 # Fecha: Viernes, 5 Diciembre 2014 12:20:18
 #
 # Acciones realizadas:
-#  - Veces ejecutado doctrine:build-schema  : "000017"
-#  - Ultima vez que se actualizo el esquema : "2015-06-01 12:59:43"
+#  - Veces ejecutado doctrine:build-schema  : "000019"
+#  - Ultima vez que se actualizo el esquema : "2015-06-02 12:54:18"
 # + -------------------------------------------------------------------------- +
 
 DmlAhorros:
@@ -336,7 +336,7 @@ DmlConsumosTarjetas:
       unsigned: false
       primary: true
       autoincrement: true
-    tarjetas_credito_debito:
+    personas:
       type: integer(4)
       fixed: false
       unsigned: false
@@ -344,6 +344,13 @@ DmlConsumosTarjetas:
       notnull: true
       autoincrement: false
     facturas:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    tarjetas_credito_debito:
       type: integer(4)
       fixed: false
       unsigned: false
@@ -430,6 +437,10 @@ DmlConsumosTarjetas:
   relations:
     DmlFacturas:
       local: facturas
+      foreign: id
+      type: one
+    DmlPersonas:
+      local: personas
       foreign: id
       type: one
     DmlTarjetasCreditoDebito:
@@ -1678,6 +1689,10 @@ DmlPersonas:
       local: id
       foreign: personas
       type: many
+    DmlConsumosTarjetas:
+      local: id
+      foreign: personas
+      type: many
     DmlContratosBancarios:
       local: id
       foreign: personas
@@ -2176,6 +2191,13 @@ DmlTiposTarjetasCreditoDebito:
       autoincrement: true
     ttcd_nombre:
       type: string(100)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    ttcd_credito_debito:
+      type: string(50)
       fixed: false
       unsigned: false
       primary: false

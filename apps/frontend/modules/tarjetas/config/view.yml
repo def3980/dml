@@ -1,0 +1,9 @@
+## CONTROL DE LIBRERIAS QUE SE PUEDEN USAR O NO
+
+newSuccess:
+    stylesheets: [dropzone, chosen]
+    javascripts: [dropzone, jquery.form.js, js-personal/validators, js-personal/dump, jquery.maskedinput.js, chosen.jquery.js, autoNumeric/autoNumeric]
+
+editSuccess:
+    stylesheets: [dropzone, chosen]
+    javascripts: [dropzone, jquery.form.js, js-personal/validators, jquery.maskedinput.js, chosen.jquery.js, autoNumeric/autoNumeric]

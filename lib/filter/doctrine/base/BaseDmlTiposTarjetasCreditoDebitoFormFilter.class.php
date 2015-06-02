@@ -4,8 +4,8 @@
  * Fecha creacion : "Viernes, 5 Diciembre 2014 12:47:53"
  * 
  * Acciones realizadas:
- * - Veces ejecutado doctrine:build-forms            : "000091"
- * - Ultima vez que se actualizo la clase formulario : "2015-06-01 14:41:27"
+ * - Veces ejecutado doctrine:build-forms            : "000093"
+ * - Ultima vez que se actualizo la clase formulario : "2015-06-02 12:57:13"
  */
 
 /**
@@ -21,6 +21,7 @@ abstract class BaseDmlTiposTarjetasCreditoDebitoFormFilter extends BaseFormFilte
     public function setup() {
         $this->setWidgets(array(
             'ttcd_nombre'         => new sfWidgetFormFilterInput(),
+            'ttcd_credito_debito' => new sfWidgetFormFilterInput(),
             'ttcd_fecha_crea'     => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
             'ttcd_quien_crea'     => new sfWidgetFormFilterInput(),
             'ttcd_fecha_modifica' => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
@@ -32,6 +33,7 @@ abstract class BaseDmlTiposTarjetasCreditoDebitoFormFilter extends BaseFormFilte
 
         $this->setValidators(array(
             'ttcd_nombre'         => new sfValidatorPass(array('required' => false)),
+            'ttcd_credito_debito' => new sfValidatorPass(array('required' => false)),
             'ttcd_fecha_crea'     => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
             'ttcd_quien_crea'     => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
             'ttcd_fecha_modifica' => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
@@ -56,6 +58,7 @@ abstract class BaseDmlTiposTarjetasCreditoDebitoFormFilter extends BaseFormFilte
         return array(
                 'id'                  => 'Number',
                 'ttcd_nombre'         => 'Text',
+                'ttcd_credito_debito' => 'Text',
                 'ttcd_fecha_crea'     => 'Date',
                 'ttcd_quien_crea'     => 'Number',
                 'ttcd_fecha_modifica' => 'Date',

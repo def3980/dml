@@ -1,0 +1,18 @@
+DmlTarjetasCreditoDebito:
+<?php foreach (Singleton::getInstance()->csv_to_array('C:\Users\oswaldo.rojas.REPLICA\Downloads\DmlTarjetasCreditoDebito.csv') as $k => $v): ?>
+  id_<?=$k?>:
+    contratos_bancarios:           <?php echo "" == $v['contratos_bancarios'] ? NULL : $v['contratos_bancarios']; echo PHP_EOL; ?>
+    tipos_tarjetas_credito_debito: <?php echo "" == $v['tipos_tarjetas_credito_debito'] ? NULL : $v['tipos_tarjetas_credito_debito']; echo PHP_EOL; ?>
+    tcd_fecha_emision:             <?php echo "" == $v['tcd_fecha_emision'] ? NULL : "|".PHP_EOL.str_repeat(' ', 25).$v['tcd_fecha_emision']; echo PHP_EOL; ?>
+    tcd_fecha_expiracion:          <?php echo "" == $v['tcd_fecha_expiracion'] ? NULL : "|".PHP_EOL.str_repeat(' ', 25).$v['tcd_fecha_expiracion']; echo PHP_EOL; ?>
+    tcd_numero:                    <?php echo "" == $v['tcd_numero'] ? NULL : $v['tcd_numero']; echo PHP_EOL; ?>
+    tcd_cvv:                       <?php echo "" == $v['tcd_cvv'] ? NULL : $v['tcd_cvv']; echo PHP_EOL; ?>
+    tcd_estado:                    <?php echo "" == $v['tcd_estado'] ? NULL : $v['tcd_estado']; echo PHP_EOL; ?>
+    tcd_fecha_crea:                <?php echo "" == $v['tcd_fecha_crea'] ? NULL : "|".PHP_EOL.str_repeat(' ', 25).$v['tcd_fecha_crea']; echo PHP_EOL; ?>
+    tcd_quien_crea:                <?php echo "" == $v['tcd_quien_crea'] ? NULL : $v['tcd_quien_crea']; echo PHP_EOL; ?>
+    tcd_fecha_modifica:            <?php echo "" == $v['tcd_fecha_modifica'] ? NULL : "|".PHP_EOL.str_repeat(' ', 25).$v['tcd_fecha_modifica']; echo PHP_EOL; ?>
+    tcd_quien_modifica:            <?php echo "" == $v['tcd_quien_modifica'] ? NULL : $v['tcd_quien_modifica']; echo PHP_EOL; ?>
+    tcd_fecha_borra:               <?php echo "" == $v['tcd_fecha_borra'] ? NULL : "|".PHP_EOL.str_repeat(' ', 25).$v['tcd_fecha_borra']; echo PHP_EOL; ?>
+    tcd_quien_borra:               <?php echo "" == $v['tcd_quien_borra'] ? NULL : $v['tcd_quien_borra']; echo PHP_EOL; ?>
+    tcd_borrado_logico:            <?php echo "" == $v['tcd_borrado_logico'] ? NULL : $v['tcd_borrado_logico']; echo PHP_EOL; ?>
+<?php endforeach; ?>

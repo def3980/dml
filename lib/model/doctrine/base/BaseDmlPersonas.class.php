@@ -4,8 +4,8 @@
  * Fecha creacion : "Viernes, 5 Diciembre 2014 12:41:57"
  * 
  * Acciones realizadas:
- * - Veces ejecutado doctrine:build-model  : "000091"
- * - Ultima vez que se actualizo el modelo : "2015-06-01 13:03:02"
+ * - Veces ejecutado doctrine:build-model  : "000094"
+ * - Ultima vez que se actualizo el modelo : "2015-06-02 12:54:35"
  */
 
 // Connection Component Binding
@@ -36,6 +36,7 @@ Doctrine_Manager::getInstance()->bindComponent('DmlPersonas', 'doctrine');
  * @property integer $pe_quien_borra
  * @property integer $pe_borrado_logico
  * @property Doctrine_Collection $DmlBinarios
+ * @property Doctrine_Collection $DmlConsumosTarjetas
  * @property Doctrine_Collection $DmlContratosBancarios
  * @property Doctrine_Collection $DmlContratosLaborales
  * @property Doctrine_Collection $DmlHijos
@@ -62,6 +63,7 @@ Doctrine_Manager::getInstance()->bindComponent('DmlPersonas', 'doctrine');
  * @method integer             getPeQuienBorra()          Retorna el registro (valor) actual del campo [pe_quien_borra]
  * @method integer             getPeBorradoLogico()       Retorna el registro (valor) actual del campo [pe_borrado_logico]
  * @method Doctrine_Collection getDmlBinarios()           Retorna el registro (coleccion de datos) actual del campo [DmlBinarios]
+ * @method Doctrine_Collection getDmlConsumosTarjetas()   Retorna el registro (coleccion de datos) actual del campo [DmlConsumosTarjetas]
  * @method Doctrine_Collection getDmlContratosBancarios() Retorna el registro (coleccion de datos) actual del campo [DmlContratosBancarios]
  * @method Doctrine_Collection getDmlContratosLaborales() Retorna el registro (coleccion de datos) actual del campo [DmlContratosLaborales]
  * @method Doctrine_Collection getDmlHijos()              Retorna el registro (coleccion de datos) actual del campo [DmlHijos]
@@ -87,6 +89,7 @@ Doctrine_Manager::getInstance()->bindComponent('DmlPersonas', 'doctrine');
  * @method DmlPersonas         setPeQuienBorra()          Guarda un registro (valor) al campo [pe_quien_borra]
  * @method DmlPersonas         setPeBorradoLogico()       Guarda un registro (valor) al campo [pe_borrado_logico]
  * @method DmlPersonas         setDmlBinarios()           Guarda un registro (coleccion de datos) al campo [DmlBinarios]
+ * @method DmlPersonas         setDmlConsumosTarjetas()   Guarda un registro (coleccion de datos) al campo [DmlConsumosTarjetas]
  * @method DmlPersonas         setDmlContratosBancarios() Guarda un registro (coleccion de datos) al campo [DmlContratosBancarios]
  * @method DmlPersonas         setDmlContratosLaborales() Guarda un registro (coleccion de datos) al campo [DmlContratosLaborales]
  * @method DmlPersonas         setDmlHijos()              Guarda un registro (coleccion de datos) al campo [DmlHijos]
@@ -126,6 +129,10 @@ abstract class BaseDmlPersonas extends sfDoctrineRecord {
     public function setUp() {
         parent::setUp();
         $this->hasMany('DmlBinarios', array(
+            'local'   => 'id',
+            'foreign' => 'personas'
+        ));
+        $this->hasMany('DmlConsumosTarjetas', array(
             'local'   => 'id',
             'foreign' => 'personas'
         ));

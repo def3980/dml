@@ -13,6 +13,9 @@
             .table tbody td:nth-child(4) {
                 text-align: center;
             }
+            .table tbody td:nth-child(3) {
+                font-weight: bold;
+            }
             .table thead th:nth-child(1) {
                 width: 15%;
             }
@@ -159,10 +162,10 @@
                             <tr>
                                 <th>Fecha<small>mo_fecha</small></th>
                                 <th>Concepto<small>mo_concepto</small></th>
-                                <th>Tipo<small>&nbsp;</small></th>
+                                <th>Tipo<small>C/D</small></th>
                                 <th>Documento<small>ahorros</small></th>
-                                <th>Monto<small>&nbsp;</small></th>
-                                <th>Saldo<small>&nbsp;</small></th>
+                                <th>Monto<small>$ 0,01</small></th>
+                                <th>Saldo<small>$ 0,01</small></th>
                             </tr>
                         </thead>
                         <tbody>

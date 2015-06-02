@@ -19,6 +19,11 @@ class DmlTarjetasCreditoDebito extends BaseDmlTarjetasCreditoDebito {
     // Metodo __toString() que ayuda a visualizar datos 
     // como clase padre hacia cualquier clase que herede 
     // de ella. Descomenta dicha funcion cuando sea necesario
-    //public function __toString() {}
+    public function __toString() {
+        // OJO: está asociado con el resultado de la consulta
+        //      en DmlTarjetasCreditoDebitoTable
+        //      especificamente con la funcion getMisTarjetasCredito()
+        return $this->getTcdNumero();
+    }
 
 }

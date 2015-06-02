@@ -48,8 +48,8 @@ class DmlMovimientosTable extends Doctrine_Table {
                 ->innerJoin('cb.DmlEntidades en')
                 ->innerJoin('cb.DmlPersonas pe')
 //                ->where('MONTH(mo.mo_fecha) = MONTH(CURDATE())')
-//                ->where('MONTH(mo.mo_fecha) >= MONTH(DATE_ADD(NOW(), INTERVAL -6 MONTH))');
-                ->where('MONTH(mo.mo_fecha) >= MONTH(DATE_ADD(NOW(), INTERVAL -3 MONTH))')
+//                ->where('MONTH(mo.mo_fecha) >= MONTH(DATE_ADD(NOW(), INTERVAL -6 MONTH))')
+//                ->where('MONTH(mo.mo_fecha) >= MONTH(DATE_ADD(NOW(), INTERVAL -3 MONTH))')
                 ->andWhere('YEAR(mo.mo_fecha) = YEAR(CURDATE())');
         if (strlen($cuenta) == 0) {
             $sq1 = $sql->createSubquery()
@@ -64,7 +64,7 @@ class DmlMovimientosTable extends Doctrine_Table {
         }
         return $sql->andWhere('mo.mo_borrado_logico = ?', array(0))
                    ->andWhere('pe.id = ?', array(sfContext::getInstance()->getUser()->getAttribute('id')))
-                   ->orderBy('mo.id DESC');
+                   ->orderBy('mo.id DESC, mo.mo_fecha DESC');
 //        $sql = DmlMovimientosTable::getAlias()
 //                ->addSelect($select)
 //                ->innerJoin('mo.DmlAhorros ah')
@@ -131,7 +131,7 @@ class DmlMovimientosTable extends Doctrine_Table {
                 ->andWhere('mo.mo_borrado_logico = ?', array(0))
                 ->andWhere('ah.ah_numero_cuenta = ?', array($cta))
                 ->andWhere('pe.id = ?', array(sfContext::getInstance()->getUser()->getAttribute('id')));
-        return $sql->orderBy('mo.mo_fecha DESC');
+        return $sql->orderBy('mo.id DESC, mo.mo_fecha DESC');
     }
 
 }

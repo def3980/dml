@@ -4,8 +4,8 @@
  * Fecha creacion : "Viernes, 5 Diciembre 2014 12:41:57"
  * 
  * Acciones realizadas:
- * - Veces ejecutado doctrine:build-model  : "000091"
- * - Ultima vez que se actualizo el modelo : "2015-06-01 13:03:02"
+ * - Veces ejecutado doctrine:build-model  : "000094"
+ * - Ultima vez que se actualizo el modelo : "2015-06-02 12:54:35"
  */
 
 // Connection Component Binding

@@ -16,6 +16,11 @@
 <?php else: ?>
                             <li><a href="<?=url_for('@pagos')?>">Pagos</a></li>
 <?php endif; ?>
+<?php if ($barra_activa == 'tarjetas'): ?>
+                            <li class="active"><a href="javascript:void(0)" style="cursor: default">Pagos T.C.</a></li>
+<?php else: ?>
+                            <li><a href="<?=url_for('@tarjetas')?>">Pagos T.C.</a></li>
+<?php endif; ?>
 <?php if ($barra_activa == 'movimientos'): ?>
                             <li class="active"><a href="javascript:void(0)" style="cursor: default">Movimientos</a></li>
 <?php else: ?>

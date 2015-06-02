@@ -4,8 +4,8 @@
  * Fecha creacion : "Viernes, 5 Diciembre 2014 12:47:53"
  * 
  * Acciones realizadas:
- * - Veces ejecutado doctrine:build-forms            : "000000"
- * - Ultima vez que se actualizo la clase formulario : "yyyy-mm-dd_hh:mm:ss"
+ * - Veces ejecutado doctrine:build-forms            : "000002"
+ * - Ultima vez que se actualizo la clase formulario : "2015-06-02 12:57:08"
  */
 
 /**
@@ -20,8 +20,9 @@ abstract class BaseDmlConsumosTarjetasFormFilter extends BaseFormFilterDoctrine 
 
     public function setup() {
         $this->setWidgets(array(
-            'tarjetas_credito_debito' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DmlTarjetasCreditoDebito'), 'add_empty' => true)),
+            'personas'                => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DmlPersonas'), 'add_empty' => true)),
             'facturas'                => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DmlFacturas'), 'add_empty' => true)),
+            'tarjetas_credito_debito' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DmlTarjetasCreditoDebito'), 'add_empty' => true)),
             'ct_iva'                  => new sfWidgetFormFilterInput(),
             'ct_ice'                  => new sfWidgetFormFilterInput(),
             'ct_comision'             => new sfWidgetFormFilterInput(),
@@ -36,8 +37,9 @@ abstract class BaseDmlConsumosTarjetasFormFilter extends BaseFormFilterDoctrine 
         ));
 
         $this->setValidators(array(
-            'tarjetas_credito_debito' => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('DmlTarjetasCreditoDebito'), 'column' => 'id')),
+            'personas'                => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('DmlPersonas'), 'column' => 'id')),
             'facturas'                => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('DmlFacturas'), 'column' => 'id')),
+            'tarjetas_credito_debito' => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('DmlTarjetasCreditoDebito'), 'column' => 'id')),
             'ct_iva'                  => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
             'ct_ice'                  => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
             'ct_comision'             => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
@@ -65,8 +67,9 @@ abstract class BaseDmlConsumosTarjetasFormFilter extends BaseFormFilterDoctrine 
     public function getFields() {
         return array(
                 'id'                      => 'Number',
-                'tarjetas_credito_debito' => 'ForeignKey',
+                'personas'                => 'ForeignKey',
                 'facturas'                => 'ForeignKey',
+                'tarjetas_credito_debito' => 'ForeignKey',
                 'ct_iva'                  => 'Number',
                 'ct_ice'                  => 'Number',
                 'ct_comision'             => 'Number',

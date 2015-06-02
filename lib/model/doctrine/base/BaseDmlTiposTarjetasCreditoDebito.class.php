@@ -4,8 +4,8 @@
  * Fecha creacion : "Viernes, 5 Diciembre 2014 12:41:57"
  * 
  * Acciones realizadas:
- * - Veces ejecutado doctrine:build-model  : "000091"
- * - Ultima vez que se actualizo el modelo : "2015-06-01 13:03:03"
+ * - Veces ejecutado doctrine:build-model  : "000094"
+ * - Ultima vez que se actualizo el modelo : "2015-06-02 12:54:35"
  */
 
 // Connection Component Binding
@@ -18,6 +18,7 @@ Doctrine_Manager::getInstance()->bindComponent('DmlTiposTarjetasCreditoDebito', 
  * 
  * @property integer $id
  * @property string $ttcd_nombre
+ * @property string $ttcd_credito_debito
  * @property timestamp $ttcd_fecha_crea
  * @property integer $ttcd_quien_crea
  * @property timestamp $ttcd_fecha_modifica
@@ -29,6 +30,7 @@ Doctrine_Manager::getInstance()->bindComponent('DmlTiposTarjetasCreditoDebito', 
  * 
  * @method integer                       getId()                       Retorna el registro (valor) actual del campo [id]
  * @method string                        getTtcdNombre()               Retorna el registro (valor) actual del campo [ttcd_nombre]
+ * @method string                        getTtcdCreditoDebito()        Retorna el registro (valor) actual del campo [ttcd_credito_debito]
  * @method timestamp                     getTtcdFechaCrea()            Retorna el registro (valor) actual del campo [ttcd_fecha_crea]
  * @method integer                       getTtcdQuienCrea()            Retorna el registro (valor) actual del campo [ttcd_quien_crea]
  * @method timestamp                     getTtcdFechaModifica()        Retorna el registro (valor) actual del campo [ttcd_fecha_modifica]
@@ -39,6 +41,7 @@ Doctrine_Manager::getInstance()->bindComponent('DmlTiposTarjetasCreditoDebito', 
  * @method Doctrine_Collection           getDmlTarjetasCreditoDebito() Retorna el registro (coleccion de datos) actual del campo [DmlTarjetasCreditoDebito]
  * @method DmlTiposTarjetasCreditoDebito setId()                       Guarda un registro (valor) al campo [id]
  * @method DmlTiposTarjetasCreditoDebito setTtcdNombre()               Guarda un registro (valor) al campo [ttcd_nombre]
+ * @method DmlTiposTarjetasCreditoDebito setTtcdCreditoDebito()        Guarda un registro (valor) al campo [ttcd_credito_debito]
  * @method DmlTiposTarjetasCreditoDebito setTtcdFechaCrea()            Guarda un registro (valor) al campo [ttcd_fecha_crea]
  * @method DmlTiposTarjetasCreditoDebito setTtcdQuienCrea()            Guarda un registro (valor) al campo [ttcd_quien_crea]
  * @method DmlTiposTarjetasCreditoDebito setTtcdFechaModifica()        Guarda un registro (valor) al campo [ttcd_fecha_modifica]
@@ -59,6 +62,7 @@ abstract class BaseDmlTiposTarjetasCreditoDebito extends sfDoctrineRecord {
         $this->setTableName('dml_tipos_tarjetas_credito_debito');
         $this->hasColumn('id', 'integer', 4, array(            'type'          => 'integer',            'fixed'         => 0,            'unsigned'      => false,            'primary'       => true,            'autoincrement' => true,            'length'        => 4,        ));
         $this->hasColumn('ttcd_nombre', 'string', 100, array(            'type'          => 'string',            'fixed'         => 0,            'unsigned'      => false,            'primary'       => false,            'notnull'       => false,            'autoincrement' => false,            'length'        => 100,        ));
+        $this->hasColumn('ttcd_credito_debito', 'string', 50, array(            'type'          => 'string',            'fixed'         => 0,            'unsigned'      => false,            'primary'       => false,            'notnull'       => false,            'autoincrement' => false,            'length'        => 50,        ));
         $this->hasColumn('ttcd_fecha_crea', 'timestamp', 25, array(            'type'          => 'timestamp',            'fixed'         => 0,            'unsigned'      => false,            'primary'       => false,            'notnull'       => false,            'autoincrement' => false,            'length'        => 25,        ));
         $this->hasColumn('ttcd_quien_crea', 'integer', 4, array(            'type'          => 'integer',            'fixed'         => 0,            'unsigned'      => false,            'primary'       => false,            'notnull'       => false,            'autoincrement' => false,            'length'        => 4,        ));
         $this->hasColumn('ttcd_fecha_modifica', 'timestamp', 25, array(            'type'          => 'timestamp',            'fixed'         => 0,            'unsigned'      => false,            'primary'       => false,            'notnull'       => false,            'autoincrement' => false,            'length'        => 25,        ));

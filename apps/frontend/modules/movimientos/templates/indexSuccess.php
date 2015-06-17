@@ -36,12 +36,6 @@
             .table tbody td:nth-child(6) {
                 text-align: right;
             }
-            .alert p {
-                margin: 0;
-            }
-            .alert h4 {
-                margin-bottom: 5px;
-            }
             .opc {
                 display: block;
                 text-decoration: none;

@@ -57,12 +57,6 @@
                                                 <?php echo $form['tarjetas_credito_debito']->render(array('placeholder' => 'tarjetas_credito_debito', 'class' => 'show-menu-arrow span3')).PHP_EOL ?>
                                             </fieldset>
                                         </div>
-                                        <div class="pull-right">
-                                            <fieldset>
-                                                <?php echo $frmFacturas['fa_valor_total']->renderLabel().PHP_EOL ?>
-                                                <?php echo $frmFacturas['fa_valor_total']->render(array('placeholder' => 'fa_valor_total', 'class' => 'span3')).PHP_EOL ?>
-                                            </fieldset>
-                                        </div>
                                         <div class="row">
                                             <div class="span3 pull-right">
                                                 <div class="pull-right">
@@ -110,6 +104,17 @@
                                                     </div>
                                                 </fieldset>
                                             </div>
+                                        </div>
+                                        <div class="pull-right">
+                                            <fieldset>
+                                                <?php echo $frmFacturas['fa_valor_total']->renderLabel().PHP_EOL ?>
+                                                <div class="input-prepend">
+                                                    <button class="btn valor-total<?php echo !$form->getObject()->isNew() && !empty($frmFacturas['fa_valor_total']->getValue()) ? ' active' : '' ?>" type="button" data-toggle="button" style="width: 30px; padding: 4px 0px;">
+                                                        <i class="icon-pencil"></i>
+                                                    </button>
+                                                    <?php echo $frmFacturas['fa_valor_total']->render(array('placeholder' => 'fa_valor_total', 'readonly' => !$frmFacturas->getObject()->isNew() && !empty($frmFacturas['fa_valor_total']->getValue()) ? false : true, 'style' => 'width: 228px')).PHP_EOL ?>
+                                                </div>
+                                            </fieldset>
                                         </div>
                                     </div>
                                 </div>
@@ -353,6 +358,14 @@
                 $('.valor-parcial').bind('click', function() {
                     var comun = '#dml_consumos_tarjetas_',
                         par = $(comun + 'ct_valor_parcial');
+                    if (!$(this).hasClass('active'))
+                        par.attr('readonly', false).focus();
+                    else
+                        par.attr('readonly', true).val('');
+                });
+                $('.valor-total').bind('click', function() {
+                    var comun = '#dml_facturas_',
+                        par = $(comun + 'fa_valor_total');
                     if (!$(this).hasClass('active'))
                         par.attr('readonly', false).focus();
                     else

@@ -15,8 +15,8 @@
 class tarjetasActions extends sfActions {
 
     public function executeIndex(sfWebRequest $request) {
-        $sql = DmlConsumosTarjetasTable::getInstance()->createQuery('a');
-        $this->tarjetas = new sfDoctrinePager('DmlConsumosTarjetas', 5);
+        $sql = DmlConsumosTarjetasTable::getListaDeConsumos();
+        $this->tarjetas = new sfDoctrinePager('DmlConsumosTarjetas', sfConfig::get('app_max_per_page'));
         $this->tarjetas->setQuery($sql);
         $this->tarjetas->setPage($request->getParameter('pagina', 1));
         $this->tarjetas->init();
@@ -109,7 +109,7 @@ class tarjetasActions extends sfActions {
             'id' => $this->getUser()->getAttribute('id'),
             'idFa' => $this->processFormDmlFacturas($request, $this->frmFacturas)
         ));
-        $request->setParameter('dml_tarjetas', $this->preDmlTarjetasProccessForm($request));
+        $request->setParameter('dml_consumos_tarjetas', $this->preDmlTarjetasProccessForm($request));
         $this->redirect($this->generateUrl('json', array(
             'id' => $this->processForm($request, $this->form),
             'idFa' => $facturas['id'],

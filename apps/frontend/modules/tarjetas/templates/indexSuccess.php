@@ -1,4 +1,4 @@
-<?php slot('titulo', 'Pagos Tarjetas Credito &middot; dml') ?>
+<?php slot('titulo', 'Consumos Tarjetas Credito &middot; dml') ?>
 <?php slot('menu_bar') ?>
 <?php include_partial('global/menu_bar', array('barra_activa' => 'tarjetas')) ?>
 <?php end_slot() ?>
@@ -8,11 +8,24 @@
             .table tbody td:first-child {
                 text-align: center;
             }
-            .alert p {
-                margin: 0;
+            .table thead th:nth-child(1) {
+                width: 15%;
             }
-            .alert h4 {
-                margin-bottom: 5px;
+            .table thead th:nth-child(2) {
+                width: 15%;
+            }
+            .table thead th:nth-child(3) {
+                width: 47.5%;
+            }
+            .table thead th:nth-child(4) {
+                width: 12.5%;
+            }
+            .table tbody td:nth-child(4) {
+                text-align: right;
+                color: #d33;
+            }
+            .table thead th:nth-child(5) {
+                width: 10%;
             }
             .opc {
                 display: block;
@@ -103,29 +116,14 @@
                     <table class="table table-bordered table-striped table-hover responsive-utilities">
                         <thead>
                             <tr>
-                                <th>Id<small>id</small></th>
-                                <th>Tarjetas credito debito<small>tarjetas_credito_debito</small></th>
-                                <th>Facturas<small>facturas</small></th>
-                                <th>Ct iva<small>ct_iva</small></th>
-                                <th>Ct ice<small>ct_ice</small></th>
+                                <th>Fecha<small>y hora</small></th>
+                                <th># Factura<small>edici&oacute;n</small></th>
+                                <th>Detalle<small>pdf's</small></th>
+                                <th>Valor Parcial<small>y total</small></th>
+                                <th>Estado<small>del consumo</small></th>
                             </tr>
                         </thead>
-                        <tbody><?php if ($tarjetas->count()): foreach ($tarjetas->getResults() as $ct): echo PHP_EOL; ?>
-                            <tr>
-                                <td><?php echo link_to($ct->getId(), 'tarjetas/edit?id='.$ct->getId()) ?></td>
-                                <td><?php echo $ct->getTarjetasCreditoDebito() ?></td>
-                                <td><?php echo $ct->getFacturas() ?></td>
-                                <td><?php echo $ct->getCtIva() ?></td>
-                                <td><?php echo $ct->getCtIce() ?></td>
-                            </tr><?php endforeach; ?>
-<?php else: echo PHP_EOL; ?>
-                            <tr>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr><?php endif; echo PHP_EOL; ?>
+                        <tbody><?php include_partial('tarjetas', array('tarjetas' => $tarjetas, 'first' => true)) ?>
                         </tbody>
                     </table>
                     <div class="row">
@@ -178,3 +176,38 @@
         <br />
         <br />
 <?php include_partial('footer') ?>
+<?php slot('porcion_js') ?>
+        <script>
+            $(function() {
+                $('body').tooltip({
+                    selector  : '[data-toggle=tooltip]'
+                });
+                /* --------------------------------------------------- buscar */
+//                $('.btnSrch').bind('click', function() {
+//                    var params = { faDet : $(this).prev().val() };
+//                    $.post('<?//=url_for('pagos/searchPaid')?>', params, function(data) {
+//                        $('.table tbody').html(data);
+//                    });
+//                    $.post('<?//=url_for('pagos/searchPager')?>', params, function(data) {
+//                        $('.paginador').html(data);
+//                    });
+//                });
+                /* ----------------------------------------------- fin buscar */
+                
+                /* ------------------------------------------ paginador pagos */
+//                $('.pagination ul li a').bind('click', function() {
+//                    if (!$(this).parent().hasClass('active')) {
+//                        var params = { pagina : $(this).attr('id'), faDet : $(this).prev().val() };
+//                        console.log(params);
+//                        $.post('<?php //echo url_for('pagos/searchPaid') ?>', params, function(data) {
+//                            $('.table tbody').html(data);
+//                        });
+//                        $.post('<?php //echo url_for('pagos/searchPager') ?>', params, function(data) {
+//                            $('.paginador').html(data);
+//                        });
+//                    }
+//                });
+                /* -------------------------------------- fin paginador pagos */
+            });
+        </script>
+<?php end_slot() ?>

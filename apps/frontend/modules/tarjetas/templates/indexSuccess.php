@@ -132,40 +132,8 @@
                             <?php echo link_to('Nuevo', 'tarjetas/new', array('class' => 'btn btn-link')) ?>
                         </div>
                     </div>
-<?php if ($tarjetas->count()): if ($tarjetas->haveToPaginate()): ?>
-                    <hr>
-                    <div class="pagination pagination-centered">
-                        <ul>
-                            <li<?php echo 1 == $tarjetas->getPage() ? ' class="active"' : '' ?>>
-                                <a<?php echo 1 == $tarjetas->getPage() ? ' href="javascript:void(0)"' : ' href="'.url_for('tarjetas/index?pagina=1').'"' ?>>&laquo;</a>
-                            </li><?php foreach ($tarjetas->getLinks() as $pag): echo PHP_EOL; ?>
-                            <li<?php echo $pag == $tarjetas->getPage() ? ' class="active"' : '' ?>>
-                                <a<?php echo $pag == $tarjetas->getPage() ? ' href="javascript:void(0)"' : ' href="'.url_for('tarjetas/index?pagina='.$pag).'"' ?>><?php echo$pag?></a>
-                            </li><?php endforeach; echo PHP_EOL; ?>
-                            <li<?php echo $tarjetas->getLastPage() == $tarjetas->getPage() ? ' class="active"' : '' ?>>
-                                <a<?php echo $tarjetas->getLastPage() == $tarjetas->getPage() ? ' href="javascript:void(0)"' : ' href="'.url_for('tarjetas/index?pagina='.$tarjetas->getNextPage()).'"' ?>>&raquo;</a>
-                            </li>
-                        </ul>
+                    <div class="paginador"><?php include_partial('paginador', array('tarjetas' => $tarjetas, 'first' => true)) ?>
                     </div>
-<?php else: ?>
-                    <hr>
-                    <div class="pagination pagination-centered">
-                        <ul>
-                            <li class="active"><a href="javascript:void(0)">&laquo;</a></li>
-                            <li class="active"><a href="javascript:void(0)">1</a></li>
-                            <li class="active"><a href="javascript:void(0)">&raquo;</a></li>
-                        </ul>
-                    </div>
-<?php endif; else: echo PHP_EOL; ?>
-                    <hr>
-                    <div class="pagination pagination-centered">
-                        <ul>
-                            <li class="active"><a href="javascript:void(0)">&laquo;</a></li>
-                            <li class="active"><a href="javascript:void(0)">1</a></li>
-                            <li class="active"><a href="javascript:void(0)">&raquo;</a></li>
-                        </ul>
-                    </div>
-<?php endif; ?>
                 </div>
             </div>
         </div><!-- /container -->
@@ -194,20 +162,20 @@
 //                });
                 /* ----------------------------------------------- fin buscar */
                 
-                /* ------------------------------------------ paginador pagos */
-//                $('.pagination ul li a').bind('click', function() {
-//                    if (!$(this).parent().hasClass('active')) {
-//                        var params = { pagina : $(this).attr('id'), faDet : $(this).prev().val() };
-//                        console.log(params);
-//                        $.post('<?php //echo url_for('pagos/searchPaid') ?>', params, function(data) {
-//                            $('.table tbody').html(data);
-//                        });
-//                        $.post('<?php //echo url_for('pagos/searchPager') ?>', params, function(data) {
-//                            $('.paginador').html(data);
-//                        });
-//                    }
-//                });
-                /* -------------------------------------- fin paginador pagos */
+                /* ------------------------------------------ paginador tarjetas */
+                $('.pagination ul li a').bind('click', function() {
+                    if (!$(this).parent().hasClass('active')) {
+                        var params = { pagina : $(this).attr('id') };
+                        console.log(params);
+                        $.post('<?=url_for('tarjetas/cardsList')?>', params, function(data) {
+                            $('.table tbody').html(data);
+                        });
+                        $.post('<?=url_for('tarjetas/cardsPager')?>', params, function(data) {
+                            $('.paginador').html(data);
+                        });
+                    }
+                });
+                /* -------------------------------------- fin paginador tarjetas */
             });
         </script>
 <?php end_slot() ?>

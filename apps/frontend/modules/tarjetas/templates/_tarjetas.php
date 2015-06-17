@@ -8,6 +8,8 @@
                                                 : link_to("---", 'tarjetas/edit?id='.$ct['ct_id']) ?></td>
                                 <td>
 <?php if (DmlBinariosTable::getConteoBinNoEliminados($ct['fa_id']) > 0): ?>
+                                    <?php echo image_tag('mastercard', array('size' => '23x13')).PHP_EOL ?>
+                                    <?php //echo image_tag('diners', array('size' => '28x17')).PHP_EOL ?>
                                     <a href="#modal<?=$ct['fa_id']?>" role="button" data-toggle="modal"><?=$ct['fa_fa_detalle']?></a>
 <?php include_partial('modal', array('idFa' => $ct['fa_id'])) ?>
 <?php else: ?>

@@ -21,6 +21,34 @@ class tarjetasActions extends sfActions {
         $this->tarjetas->setPage($request->getParameter('pagina', 1));
         $this->tarjetas->init();
     }
+    
+    public function executeCardsList(sfWebRequest $request) {
+        $tarjetas = new sfDoctrinePager('DmlConsumosTarjetas', sfConfig::get('app_max_per_page'));
+        $tarjetas->setQuery(DmlConsumosTarjetasTable::getListaDeConsumos());
+        $tarjetas->setPage(
+            $request->getParameter(
+                'pagina', 
+                array_key_exists('pagina', $request->getParameterHolder()->getAll())
+                    ? $request->getParameter('pagina') : 1
+            )
+        );
+        $tarjetas->init();
+        return $this->renderPartial('tarjetas', array('tarjetas' => $tarjetas));
+    }
+
+    public function executeCardsPager(sfWebRequest $request) {
+        $tarjetas = new sfDoctrinePager('DmlConsumosTarjetas', sfConfig::get('app_max_per_page'));
+        $tarjetas->setQuery(DmlConsumosTarjetasTable::getListaDeConsumos());
+        $tarjetas->setPage(
+            $request->getParameter(
+                'pagina', 
+                array_key_exists('pagina', $request->getParameterHolder()->getAll())
+                    ? $request->getParameter('pagina') : 1
+            )
+        );
+        $tarjetas->init();
+        return $this->renderPartial('paginador', array('tarjetas' => $tarjetas));
+    }
 
     public function executeNew(sfWebRequest $request) {
         $this->form = new DmlConsumosTarjetasForm();

@@ -31,12 +31,12 @@ class DmlTarjetasCreditoDebitoTable extends Doctrine_Table {
     }
 
     /**
-     * getMisTarjetasCredito() obtiene todas las tarjetas de crédito asociadas al
+     * getMisTarjetasCredito obtiene todas las tarjetas de crédito asociadas al
      * usuario logueado
      * 
      * @return type
      */
-    public function getMisTarjetasCredito() {
+    public static function getMisTarjetasCredito() {
         $select = 'tcd.tcd_numero';
         return DmlTarjetasCreditoDebitoTable::getAlias()
                 ->addSelect($select)
@@ -45,8 +45,20 @@ class DmlTarjetasCreditoDebitoTable extends Doctrine_Table {
                 ->where('ttcd.ttcd_credito_debito = ?', array('credito'))
                 ->andWhere('cb.personas = ?', array(sfContext::getInstance()->getUser()->getAttribute('id')))
                 ->andWhere('tcd.tcd_borrado_logico = ?', array(0))
-                ->orderBy('tcd.id DESC')
-                ->execute();
+                ->orderBy('tcd.id DESC');
+    }
+
+    /**
+     * getInfoMisTarjetasCredito obtiene toda la info de todas las tarjetas de 
+     * crédito asociadas al usuario logueado
+     * 
+     * @return type
+     */
+    public static function getInfoMisTarjetasCredito() {
+        $select = 'tcd.id, tcd.tcd_numero, '
+                . 'ttcd.ttcd_nombre';
+        return DmlTarjetasCreditoDebitoTable::getMisTarjetasCredito()
+                ->addSelect($select);
     }
 
 }

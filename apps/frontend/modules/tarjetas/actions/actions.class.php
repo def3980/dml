@@ -20,6 +20,14 @@ class tarjetasActions extends sfActions {
         $this->tarjetas->setQuery($sql);
         $this->tarjetas->setPage($request->getParameter('pagina', 1));
         $this->tarjetas->init();
+        $this->tarjetas_credito = DmlTarjetasCreditoDebitoTable::getInfoMisTarjetasCredito()->execute(null, 5);
+//        echo "<pre>";
+//        print_r(DmlTarjetasCreditoDebitoTable::getInfoMisTarjetasCredito()->execute(null, 5));
+//        echo "</pre>";
+//        echo "<textarea cols='100' rows='10'>";
+//        print_r(DmlTarjetasCreditoDebitoTable::getInfoMisTarjetasCredito()->getSqlQuery());
+//        echo "</textarea>";
+//        die();
     }
     
     public function executeCardsList(sfWebRequest $request) {

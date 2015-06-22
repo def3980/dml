@@ -2,6 +2,8 @@
 <?php slot('menu_bar') ?>
 <?php include_partial('global/menu_bar', array('barra_activa' => 'tarjetas')) ?>
 <?php end_slot() ?>
+<?php use_stylesheet('bootstrap-select') ?>
+<?php use_javascript('bootstrap-select') ?>
 <?php slot('porcion_css') ?>
         <style type="text/css">
             .table thead th,
@@ -45,6 +47,10 @@
                    -moz-border-radius: 5px;
                         border-radius: 5px;
             }
+            .bootstrap-select.btn-group:not(.input-group-btn),
+            .bootstrap-select.btn-group[class*="span"] {
+                margin-bottom: 5px;
+            }
         </style>
 <?php end_slot() ?>
 <br />
@@ -62,7 +68,6 @@
                         </div>
                     </div>
                     <hr style="margin: 0 0 20px">
-                    
                     <div class="navbar" style="position: static;">
                         <div class="navbar-inner">
                             <div class="container">
@@ -95,17 +100,11 @@
                                         <button type="button" class="btn btnSrch">Buscar</button>
                                     </div>
                                     <ul class="nav pull-right">
-                                        <li><a href="#">Link</a></li>
-                                        <li class="divider-vertical"></li>
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="#">Action</a></li>
-                                                <li><a href="#">Another action</a></li>
-                                                <li><a href="#">Something else here</a></li>
-                                                <li class="divider"></li>
-                                                <li><?php echo link_to('Salir', '@logout') ?></li>
-                                            </ul>
+                                        <li><a href="javascript:void(0)">Tarjetas Cr&eacute;dito</a></li>
+                                        <li>
+                                            <select id="tarjetas" class="show-menu-arrow span2"><?php foreach ($tarjetas_credito as $k => $v): echo "\n"; ?>
+                                                <option value="<?=$v['tcd_id']?>" data-subtext="<?=$v['ttcd_ttcd_nombre']?>"><?php echo $v['tcd_tcd_numero'] ?></option><?php endforeach; echo PHP_EOL; ?>
+                                            </select>
                                         </li>
                                     </ul>
                                 </div><!-- /.nav-collapse -->
@@ -150,6 +149,9 @@
                 $('body').tooltip({
                     selector  : '[data-toggle=tooltip]'
                 });
+                
+                $('#tarjetas').selectpicker({ size : 5 });
+                
                 /* --------------------------------------------------- buscar */
 //                $('.btnSrch').bind('click', function() {
 //                    var params = { faDet : $(this).prev().val() };

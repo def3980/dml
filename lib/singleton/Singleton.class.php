@@ -209,5 +209,22 @@ class Singleton {
     public function quitarComa($cadena) {
         return str_replace(',', '', $cadena);
     }
+    
+    /**
+     * slugify() transforma el texto en formato limpio es decir sustituye los 
+     * caracteres no ASCII por un guioo}n, ideal para acomodarlos en una URL
+     * 
+     * @param type $texto
+     * @return type string Texto listo para la URL
+     */
+    public function slugify($texto) {
+        // replace all non letters or digits by -
+        $texto = preg_replace('/\W+/', '-', $texto);
+
+        // trim and lowercase
+        $texto = strtolower(trim($texto, '-'));
+
+        return $texto;
+  }
 
 }

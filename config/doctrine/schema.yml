@@ -3,8 +3,8 @@
 # Fecha: Viernes, 5 Diciembre 2014 12:20:18
 #
 # Acciones realizadas:
-#  - Veces ejecutado doctrine:build-schema  : "000019"
-#  - Ultima vez que se actualizo el esquema : "2015-06-02 12:54:18"
+#  - Veces ejecutado doctrine:build-schema  : "000020"
+#  - Ultima vez que se actualizo el esquema : "2015-07-01 17:22:21"
 # + -------------------------------------------------------------------------- +
 
 DmlAhorros:
@@ -2114,13 +2114,6 @@ DmlTiposGastos:
     tg_nombre:
       type: string(100)
       fixed: false
-      unsigned: false
-      primary: false
-      notnull: false
-      autoincrement: false
-    tg_alias:
-      type: string(5)
-      fixed: true
       unsigned: false
       primary: false
       notnull: false

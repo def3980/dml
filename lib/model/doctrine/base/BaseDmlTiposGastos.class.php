@@ -4,8 +4,8 @@
  * Fecha creacion : "Viernes, 5 Diciembre 2014 12:41:57"
  * 
  * Acciones realizadas:
- * - Veces ejecutado doctrine:build-model  : "000094"
- * - Ultima vez que se actualizo el modelo : "2015-06-02 12:54:35"
+ * - Veces ejecutado doctrine:build-model  : "000095"
+ * - Ultima vez que se actualizo el modelo : "2015-07-01 17:22:41"
  */
 
 // Connection Component Binding
@@ -19,7 +19,6 @@ Doctrine_Manager::getInstance()->bindComponent('DmlTiposGastos', 'doctrine');
  * @property integer $id
  * @property integer $tg_orden
  * @property string $tg_nombre
- * @property string $tg_alias
  * @property timestamp $tg_fecha_crea
  * @property integer $tg_quien_crea
  * @property timestamp $tg_fecha_modifica
@@ -32,7 +31,6 @@ Doctrine_Manager::getInstance()->bindComponent('DmlTiposGastos', 'doctrine');
  * @method integer             getId()              Retorna el registro (valor) actual del campo [id]
  * @method integer             getTgOrden()         Retorna el registro (valor) actual del campo [tg_orden]
  * @method string              getTgNombre()        Retorna el registro (valor) actual del campo [tg_nombre]
- * @method string              getTgAlias()         Retorna el registro (valor) actual del campo [tg_alias]
  * @method timestamp           getTgFechaCrea()     Retorna el registro (valor) actual del campo [tg_fecha_crea]
  * @method integer             getTgQuienCrea()     Retorna el registro (valor) actual del campo [tg_quien_crea]
  * @method timestamp           getTgFechaModifica() Retorna el registro (valor) actual del campo [tg_fecha_modifica]
@@ -44,7 +42,6 @@ Doctrine_Manager::getInstance()->bindComponent('DmlTiposGastos', 'doctrine');
  * @method DmlTiposGastos      setId()              Guarda un registro (valor) al campo [id]
  * @method DmlTiposGastos      setTgOrden()         Guarda un registro (valor) al campo [tg_orden]
  * @method DmlTiposGastos      setTgNombre()        Guarda un registro (valor) al campo [tg_nombre]
- * @method DmlTiposGastos      setTgAlias()         Guarda un registro (valor) al campo [tg_alias]
  * @method DmlTiposGastos      setTgFechaCrea()     Guarda un registro (valor) al campo [tg_fecha_crea]
  * @method DmlTiposGastos      setTgQuienCrea()     Guarda un registro (valor) al campo [tg_quien_crea]
  * @method DmlTiposGastos      setTgFechaModifica() Guarda un registro (valor) al campo [tg_fecha_modifica]
@@ -66,7 +63,6 @@ abstract class BaseDmlTiposGastos extends sfDoctrineRecord {
         $this->hasColumn('id', 'integer', 4, array(            'type'          => 'integer',            'fixed'         => 0,            'unsigned'      => false,            'primary'       => true,            'autoincrement' => true,            'length'        => 4,        ));
         $this->hasColumn('tg_orden', 'integer', 4, array(            'type'          => 'integer',            'fixed'         => 0,            'unsigned'      => false,            'primary'       => false,            'notnull'       => false,            'autoincrement' => false,            'length'        => 4,        ));
         $this->hasColumn('tg_nombre', 'string', 100, array(            'type'          => 'string',            'fixed'         => 0,            'unsigned'      => false,            'primary'       => false,            'notnull'       => false,            'autoincrement' => false,            'length'        => 100,        ));
-        $this->hasColumn('tg_alias', 'string', 5, array(            'type'          => 'string',            'fixed'         => 1,            'unsigned'      => false,            'primary'       => false,            'notnull'       => false,            'autoincrement' => false,            'length'        => 5,        ));
         $this->hasColumn('tg_fecha_crea', 'timestamp', 25, array(            'type'          => 'timestamp',            'fixed'         => 0,            'unsigned'      => false,            'primary'       => false,            'notnull'       => false,            'autoincrement' => false,            'length'        => 25,        ));
         $this->hasColumn('tg_quien_crea', 'integer', 4, array(            'type'          => 'integer',            'fixed'         => 0,            'unsigned'      => false,            'primary'       => false,            'notnull'       => false,            'autoincrement' => false,            'length'        => 4,        ));
         $this->hasColumn('tg_fecha_modifica', 'timestamp', 25, array(            'type'          => 'timestamp',            'fixed'         => 0,            'unsigned'      => false,            'primary'       => false,            'notnull'       => false,            'autoincrement' => false,            'length'        => 25,        ));

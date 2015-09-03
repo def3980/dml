@@ -9,7 +9,7 @@
                                                     ? 'create' 
                                                     : 'update'
                                                 ).(!$form->getObject()->isNew() 
-                                                    ? '?id='.$form->getObject()->getId() : '')) ?>" class="form-horizontal" method="post" autocomplete="off"<?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
+                                                    ? '?id='.$form->getObject()->getId().'&nombre_tarjeta='.$sf_request->getParameter('nombre_tarjeta') : '')) ?>" class="form-horizontal" method="post" autocomplete="off"<?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
 <?php if (!$form->getObject()->isNew()): ?>
                         <input type="hidden" name="sf_method" value="put" />
 <?php endif; ?>
@@ -395,8 +395,8 @@
                         if (formData[i].name.toString() == "dz_count")
                             formData[i].value = $('#previews > div').length;
                 }
-                function showResponse(responseText, statusText, xhr, $form) {
-                    $("#btnDropzone").text(responseText.id + "," + responseText.idFa + "," + $('#previews > div').length).click();
+                function showResponse(json, statusText, xhr, $form) {
+                    $("#btnDropzone").text(json.id + "," + json.idFa + "," + $('#previews > div').length + "," + json.nombreTarjeta).click();
                 }
                 /* -------------------------------------------- fin ajax form */
                 
@@ -425,9 +425,10 @@
                             if (myDropzone.files.length > 0) { // valido para cuando no envio archivos
                                 myDropzone.processQueue(); // Tell Dropzone to process all queued files.
                             } else {
-                                var res = $("#btnDropzone").text().split(',');
+                                var res = $("#btnDropzone").text().split(','),
+                                    url = "<?php echo url_for('tarjetas/edit?id=aqui_numero&nombre_tarjeta=aqui_tarjeta') ?>";
                                 setTimeout(function() {
-                                    window.location.href = "<?php echo url_for('tarjetas/edit?id=') ?>" + res[0];
+                                    window.location.href = url.replace(/aqui_numero/, res[0]).replace(/aqui_tarjeta/, res[3]);
                                 }, 350);
                             }
                         });
@@ -442,9 +443,10 @@
                         this.on("success", function(file) {
                             if (this.getUploadingFiles().length === 0 
                                 && this.getQueuedFiles().length === 0) { // verificando cuando todo los archivos se han subido
-                                var res = $("#btnDropzone").text().split(',');
+                                var res = $("#btnDropzone").text().split(','),
+                                    url = "<?php echo url_for('tarjetas/edit?id=aqui_numero&nombre_tarjeta=aqui_tarjeta') ?>";
                                 setTimeout(function() {
-                                    window.location.href = "<?php echo url_for('tarjetas/edit?id=') ?>" + res[0];
+                                    window.location.href = url.replace(/aqui_numero/, res[0]).replace(/aqui_tarjeta/, res[3]);
                                 }, 350);
                             }
                         });

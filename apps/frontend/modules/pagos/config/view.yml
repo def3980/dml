@@ -4,8 +4,8 @@
 
 newSuccess:
     stylesheets: [dropzone, chosen]
-    javascripts: [dropzone, jquery.form.js, js-personal/validators, js-personal/dump, jquery.maskedinput.js, chosen.jquery.js, autoNumeric/autoNumeric]
+    javascripts: [dropzone, jquery.form.js, js-personal/validators, js-personal/dump, jquery.maskedinput.js, chosen.jquery.js, autoNumeric/autoNumeric, expander/jquery.expander.js]
 
 editSuccess:
     stylesheets: [dropzone, chosen]
-    javascripts: [dropzone, jquery.form.js, js-personal/validators, jquery.maskedinput.js, chosen.jquery.js, autoNumeric/autoNumeric]
+    javascripts: [dropzone, jquery.form.js, js-personal/validators, jquery.maskedinput.js, chosen.jquery.js, autoNumeric/autoNumeric, expander/jquery.expander.js]

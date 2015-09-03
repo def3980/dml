@@ -51,10 +51,13 @@
                                                 <?php echo $frmFacturas['tipos_gastos']->render(array('placeholder' => 'tipos_gastos', 'class' => 'show-menu-arrow span3')).PHP_EOL ?>
                                             </fieldset>
                                         </div>
-                                        <div class="pull-right">
+                                        <div class="pull-right tc" style="display: none">
                                             <fieldset>
-                                                <?php echo $frmFacturas['fa_valor_total']->renderLabel().PHP_EOL ?>
-                                                <?php echo $frmFacturas['fa_valor_total']->render(array('placeholder' => 'fa_valor_total', 'class' => 'span3')).PHP_EOL ?>
+                                                <?php echo $form['tarjetas_credito_debito']->renderLabel().PHP_EOL ?>
+                                                <?php echo $form['tarjetas_credito_debito']->render(array('placeholder' => 'tarjetas_credito_debito', 'class' => 'show-menu-arrow span3')).PHP_EOL ?>
+                                            </fieldset>
+                                            <fieldset style="text-align: center">
+                                                <button class="btn btn-small btnTc">Lista de consumos</button>
                                             </fieldset>
                                         </div>
                                         <div class="row">
@@ -104,6 +107,17 @@
                                                     </div>
                                                 </fieldset>
                                             </div>
+                                        </div>
+                                        <div class="pull-right">
+                                            <fieldset>
+                                                <?php echo $frmFacturas['fa_valor_total']->renderLabel().PHP_EOL ?>
+                                                <div class="input-prepend">
+                                                    <button class="btn valor-total<?php echo !$form->getObject()->isNew() && !empty($frmFacturas['fa_valor_total']->getValue()) ? ' active' : '' ?>" type="button" data-toggle="button" style="width: 30px; padding: 4px 0px;">
+                                                        <i class="icon-pencil"></i>
+                                                    </button>
+                                                    <?php echo $frmFacturas['fa_valor_total']->render(array('placeholder' => 'fa_valor_total', 'readonly' => !$frmFacturas->getObject()->isNew() && !empty($frmFacturas['fa_valor_total']->getValue()) ? false : true, 'style' => 'width: 228px')).PHP_EOL ?>
+                                                </div>
+                                            </fieldset>
                                         </div>
                                     </div>
                                 </div>
@@ -165,6 +179,7 @@
                     </form>
                     <button id="btnDropzone" style="display: none">guardar</button>
                     <div style="display: none" class="pdfsLeft"><?=$bi_count?></div>
+                    <div class="listaConsumos"></div>
 <?php include_partial('modal_facturas', array('idFa' => $frmFacturas['id']->getValue())) ?>
 <?php if (!$form->getObject()->isNew()): ?>
                     <!-- Modal -->
@@ -235,6 +250,31 @@
                 border: none;
                 margin-top: 10px;
             }
+            .tblTc,
+            .tblTc input[type="checkbox"] {
+                margin: 0;
+            }
+            .tblTc th:nth-child(1) {
+                width: 10%;
+                vertical-align: middle;
+            }
+            .tblTc th:nth-child(2) {
+                width: 70%;
+            }
+            .tblTc th:nth-child(3) {
+                width: 20%;
+            }
+            .tblTc th:nth-child(1),
+            .tblTc th:nth-child(2),
+            .tblTc th:nth-child(3),
+            .tblTc td:nth-child(1),
+            .tblTc td:nth-child(3) {
+                text-align: center;
+            }
+            .tblTc td:nth-child(3) {
+                text-align: right;
+                color: #d33
+            }
         </style>
 <?php end_slot() ?>
 <?php slot('porcion_js') ?>
@@ -246,9 +286,7 @@
                 // para abrir el modal
                 $('#del').bind('click', function(e) {
                     e.preventDefault();
-                    $('#myModal').modal({
-                        keyboard : false
-                    });
+                    $('#myModal').modal({ keyboard : false });
                 });
 
                 $('#myModal div:last .btn-danger').bind('click', function() {
@@ -265,14 +303,14 @@
                             }),
                             $('<input/>', {
                                 type  : 'hidden',
-                                name  : '<?php echo$token->getCSRFFieldName()?>',
-                                value : '<?php echo$token->getCSRFToken()?>'
+                                name  : '<?php echo $token->getCSRFFieldName()?>',
+                                value : '<?php echo $token->getCSRFToken()?>'
                             })
                         )
                     ).find('form').submit();
                 });
 <?php endif; ?>
-                var inputForeinKey = "#dml_facturas_tipos_gastos";
+                var inputForeinKey = "#dml_facturas_tipos_gastos, #dml_pagos_tarjetas_credito_debito";
                 // activando bootstrap-select en los campos que son claves foreaneas
                 $(inputForeinKey).selectpicker({ size : 5 });
                 
@@ -355,6 +393,14 @@
                     } else {
                         par.attr('readonly', true).val('');
                     }
+                });
+                $('.valor-total').bind('click', function() {
+                    var comun = '#dml_facturas_',
+                        par = $(comun + 'fa_valor_total');
+                    if (!$(this).hasClass('active'))
+                        par.attr('readonly', false).focus();
+                    else
+                        par.attr('readonly', true).val('');
                 });
                 /* -------------------- fin calculo de impuestos y comisiones */
                 
@@ -458,6 +504,36 @@
                     }, 'json');
                 });
                 /* ----------------------------------- fin eliminación lógica */
+                
+                /* --------------------- Cuando selecciono tarjeta de credito */
+                $(comun + 'tipos_gastos').bind('change', function() {
+                    if (10 == $(this).find('option:selected').val()
+                        && $('.tc').not(':visible')) {
+                        $(comun + 'fa_beneficiarios_json').prop('disabled', true).trigger('chosen:updated');
+                        $(comun + 'fa_detalle').prop('disabled', true);
+                        $('.in-out, .iva, .ice, .comision').prop('disabled', true);
+                        $('.tc').show();
+                    } else {
+                        $(comun + 'fa_beneficiarios_json').prop('disabled', false).trigger('chosen:updated');
+                        $(comun + 'fa_detalle').prop('disabled', false);
+                        $('.in-out, .iva, .ice, .comision').prop('disabled', false);
+                        $('.tc').hide();
+                    }
+                });
+                /* ----------------- fin Cuando selecciono tarjeta de credito */
+                
+                /* ---------------------------------------- Lista de consumos */
+                $('.btnTc').bind('click', function(e) {
+                    e.preventDefault();
+                    var params = {
+                        'idTc' : $('#dml_pagos_tarjetas_credito_debito').find('option:selected').val()
+                    };
+                    $.post('<?=url_for('pagos/listaConsumos')?>', params, function(data) {
+                        $('.listaConsumos').html(data);
+                        $('#myModalTc').modal({ keyboard : false, backdrop: 'static' });
+                    });
+                });
+                /* ------------------------------------ Fin lista de consumos */
 <?php if ($form->getObject()->isNew()): echo PHP_EOL; ?>
                 /* ------------------------------------- cargando informacion */
                 $('div[id^="chk"]').bind('click', function() {

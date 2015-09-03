@@ -60,6 +60,7 @@ class movimientosActions extends sfActions {
 
     public function executeUpdate(sfWebRequest $request) {
         $this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
+        var_dump($request->getParameterHolder()->getAll());
         $mo = Doctrine_Core::getTable('DmlMovimientos')->find(array(
             $request->getParameter('id')
         ));
@@ -69,6 +70,8 @@ class movimientosActions extends sfActions {
         );
         $this->form = new DmlMovimientosForm($mo, array('id' => $this->getUser()->getAttribute('id')));
         $request->setParameter('dml_movimientos', $this->preDmlMovimientosProccessForm($request));
+        var_dump($request->getParameterHolder()->getAll());
+        die();
         $this->redirect($this->generateUrl(
             'json', 
             array('id' => $this->processForm($request, $this->form))
@@ -278,7 +281,16 @@ class movimientosActions extends sfActions {
     protected function processForm(sfWebRequest $request, sfForm $form) {
         $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
         if ($form->isValid()) {
+//            $dml_movimientos = $request->getParameter('dml_movimientos');
+//            $ah = $dml_movimientos['ahorros'];
+            //$form->getValue('');
             $mo = $form->save();
+//            $upd = Doctrine_Query::create()
+//                    ->update('DmlMovimientos')
+//                    ->set(array('mo_mini_detalle_json' => null))
+//                    ->where('id = ?', array($mo->getId()))
+//                    ->andWhere('ahorros = ?', array($ah))
+//                    ->execute();
             return $mo->getId();
         }
     }

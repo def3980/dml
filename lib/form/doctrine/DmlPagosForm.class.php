@@ -32,11 +32,19 @@ class DmlPagosForm extends BaseDmlPagosForm {
             $this['pa_quien_borra'], 
             $this['pa_borrado_logico']
         );
+        $this->widgetSchema['tarjetas_credito_debito'] = new sfWidgetFormDoctrineChoice(array(
+            'model'        => 'DmlTarjetasCreditoDebito',
+            'table_method' => 'getMisTarjetasCredito',
+            'multiple'     => false
+        ));
+        $this->widgetSchema['tarjetas_credito_debito']->setOption('subtext', true);
+        $this->widgetSchema['tarjetas_credito_debito']->setOption('spaces', 48);
         $this->widgetSchema->setLabels(array(
-            'pa_iva'                => 'I.V.A.:',
-            'pa_ice'                => 'I.C.E.:',
-            'pa_comision'           => 'Comision:',
-            'pa_valor_parcial'      => 'Valor parcial:',
+            'pa_iva'                  => 'I.V.A.:',
+            'pa_ice'                  => 'I.C.E.:',
+            'pa_comision'             => 'Comision:',
+            'pa_valor_parcial'        => 'Valor parcial:',
+            'tarjetas_credito_debito' => 'Tarjeta consumida:'
         ));
 //        $this->widgetSchema['pa_con_sin_factura'] = new sfWidgetFormInputHidden();
 //        $this->widgetSchema['pa_numero_factura']->setDefault(

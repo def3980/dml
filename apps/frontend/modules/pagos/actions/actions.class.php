@@ -221,6 +221,17 @@ class pagosActions extends sfActions {
         $facturas->init();
         return $this->renderPartial('paginador_sharefile', array('facturas' => $facturas));
     }
+    
+    public function executeListaConsumos(sfWebRequest $request) {
+        $consumos = DmlConsumosTarjetasTable::getListaDeConsumos()
+                        ->andWhere('tcd.id = ?', array($request->getParameter('idTc')))
+                        ->execute(null, 5);
+//        echo "<textarea cols='100' rows='10'>";
+//        print_r($consumos);
+//        echo "</textarea>";
+//        die();
+        return $this->renderPartial('modal_tc', array('consumos' => $consumos));
+    }
 
     private function preDmlPagosProccessForm(sfWebRequest $request, $idFa) {
         foreach ($dml_pagos = $request->getParameter('dml_pagos') as $k => $v):

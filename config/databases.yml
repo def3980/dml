@@ -6,14 +6,14 @@
 # Fecha: Viernes, 5 Diciembre 2014 12:20:18
 #
 # Acciones realizadas:
-#  - Veces ejecutado configure:database     : "008"
-#  - Ultima vez que se actualizo el esquema : "2015-06-01 09:37:32"
+#  - Veces ejecutado configure:database     : "009"
+#  - Ultima vez que se actualizo el esquema : "2015-07-01 17:04:26"
 # + -------------------------------------------------------------------------- +
 
 all:
   doctrine:
     class: sfDoctrineDatabase
     param:
-      dsn: 'mysql:host=localhost;port=3306;dbname=dml'
+      dsn: 'mysql:host=192.168.205.132;port=3306;dbname=dml'
       username: root
-      password: '39801981'
+      password: Admin1234

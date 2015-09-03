@@ -16,18 +16,18 @@ class tarjetasActions extends sfActions {
 
     public function executeIndex(sfWebRequest $request) {
         $sql = DmlConsumosTarjetasTable::getListaDeConsumos();
+//        echo "<pre>";
+//        print_r($sql->execute(array(), 5));
+//        echo "</pre>";
+//        echo "<textarea cols='100' rows='10'>";
+//        print_r($sql->getSqlQuery());
+//        echo "</textarea>";
+//        die();
         $this->tarjetas = new sfDoctrinePager('DmlConsumosTarjetas', sfConfig::get('app_max_per_page'));
         $this->tarjetas->setQuery($sql);
         $this->tarjetas->setPage($request->getParameter('pagina', 1));
         $this->tarjetas->init();
         $this->tarjetas_credito = DmlTarjetasCreditoDebitoTable::getInfoMisTarjetasCredito()->execute(null, 5);
-//        echo "<pre>";
-//        print_r(DmlTarjetasCreditoDebitoTable::getInfoMisTarjetasCredito()->execute(null, 5));
-//        echo "</pre>";
-//        echo "<textarea cols='100' rows='10'>";
-//        print_r(DmlTarjetasCreditoDebitoTable::getInfoMisTarjetasCredito()->getSqlQuery());
-//        echo "</textarea>";
-//        die();
     }
     
     public function executeCardsList(sfWebRequest $request) {
@@ -93,10 +93,14 @@ class tarjetasActions extends sfActions {
             'idFa' => $idFa
         ));
         $request->setParameter('dml_consumos_tarjetas', $this->preDmlTarjetasProccessForm($request));
-        $idCt = $this->processForm($request, $this->form);
+        $id = $this->processForm($request, $this->form);
+        $nombre_tarjeta = DmlConsumosTarjetasTable::getListaDeConsumos()
+                            ->andWhere('ct.id = ?', array($id))
+                            ->fetchOne(null, 5);
         $this->redirect($this->generateUrl('json', array(
-            'id' => $idCt,
+            'id' => $id,
             'idFa' => $idFa,
+            'nombreTarjeta' => Singleton::getInstance()->slugify($nombre_tarjeta['ttcd_ttcd_nombre'])
         )));
     }
 
@@ -146,9 +150,14 @@ class tarjetasActions extends sfActions {
             'idFa' => $this->processFormDmlFacturas($request, $this->frmFacturas)
         ));
         $request->setParameter('dml_consumos_tarjetas', $this->preDmlTarjetasProccessForm($request));
+        $id = $this->processForm($request, $this->form);
+        $nombre_tarjeta = DmlConsumosTarjetasTable::getListaDeConsumos()
+                            ->andWhere('ct.id = ?', array($id))
+                            ->fetchOne(null, 5);
         $this->redirect($this->generateUrl('json', array(
-            'id' => $this->processForm($request, $this->form),
+            'id' => $id,
             'idFa' => $facturas['id'],
+            'nombreTarjeta' => Singleton::getInstance()->slugify($nombre_tarjeta['ttcd_ttcd_nombre'])
         )));
     }
 

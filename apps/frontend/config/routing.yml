@@ -1,9 +1,15 @@
 # You can find more information about this file on the symfony website:
 # http://www.symfony-project.org/reference/1_4/en/10-Routing
 
+# + ------------------------------------------------------------ Modulo tarjetas
 tarjetas:
   url:   /tarjetas
   param: { module: tarjetas, action: index }
+
+tarjetas_edit:
+  url:   /editar-consumo/:id/:nombre_tarjeta
+  param: { module: tarjetas, action: edit }
+# + -------------------------------------------------------------------------- +
 
 movimientos:
     url: /movimientos

@@ -4,8 +4,8 @@
  * Fecha creacion : "Viernes, 5 Diciembre 2014 12:47:53"
  * 
  * Acciones realizadas:
- * - Veces ejecutado doctrine:build-forms            : "000093"
- * - Ultima vez que se actualizo la clase formulario : "2015-06-02 12:57:13"
+ * - Veces ejecutado doctrine:build-forms            : "000094"
+ * - Ultima vez que se actualizo la clase formulario : "2015-07-01 17:23:13"
  */
 
 /**
@@ -22,7 +22,6 @@ abstract class BaseDmlTiposGastosFormFilter extends BaseFormFilterDoctrine {
         $this->setWidgets(array(
             'tg_orden'          => new sfWidgetFormFilterInput(),
             'tg_nombre'         => new sfWidgetFormFilterInput(),
-            'tg_alias'          => new sfWidgetFormFilterInput(),
             'tg_fecha_crea'     => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
             'tg_quien_crea'     => new sfWidgetFormFilterInput(),
             'tg_fecha_modifica' => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
@@ -35,7 +34,6 @@ abstract class BaseDmlTiposGastosFormFilter extends BaseFormFilterDoctrine {
         $this->setValidators(array(
             'tg_orden'          => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
             'tg_nombre'         => new sfValidatorPass(array('required' => false)),
-            'tg_alias'          => new sfValidatorPass(array('required' => false)),
             'tg_fecha_crea'     => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
             'tg_quien_crea'     => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
             'tg_fecha_modifica' => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
@@ -61,7 +59,6 @@ abstract class BaseDmlTiposGastosFormFilter extends BaseFormFilterDoctrine {
                 'id'                => 'Number',
                 'tg_orden'          => 'Number',
                 'tg_nombre'         => 'Text',
-                'tg_alias'          => 'Text',
                 'tg_fecha_crea'     => 'Date',
                 'tg_quien_crea'     => 'Number',
                 'tg_fecha_modifica' => 'Date',

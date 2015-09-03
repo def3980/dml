@@ -358,6 +358,10 @@
                         validador($('#dml_movimientos_mo_saldo'), "Sin valor");
                         return false;
                     }
+                    for ( var i = 0 ; i < formData.length ; i++ )
+                        if (formData[i].name.toString() == "dml_movimientos[mo_mini_detalle_json]")
+                            if (formData[i].value === "")
+                                formData[i].value = null;
                 }
                 function showResponse(responseText, statusText, xhr, $form) {
                     window.location.href = "<?php echo url_for('movimientos/edit?id=') ?>" + responseText.id;

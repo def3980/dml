@@ -35,12 +35,13 @@ class movimientosActions extends sfActions {
 
     public function executeNew(sfWebRequest $request) {
         $this->form = new DmlMovimientosForm();
+        $this->form->setDefault('mo_tipo', 'D');
     }
 
     public function executeCreate(sfWebRequest $request) {
-        $this->forward404Unless($request->isMethod(sfRequest::POST));
+        $this->forward404Unless($request->isMethod(sfRequest::POST));        
         $this->form = new DmlMovimientosForm(null, array('id' => $this->getUser()->getAttribute('id')));
-        $request->setParameter('dml_movimientos', $this->preDmlMovimientosProccessForm($request));
+        $request->setParameter('dml_movimientos', $this->preDmlMovimientosProccessForm($request));        
         $this->redirect($this->generateUrl(
             'json', 
             array('id' => $this->processForm($request, $this->form))
@@ -278,7 +279,7 @@ class movimientosActions extends sfActions {
         return $dml_movimientos;
     }
 
-    protected function processForm(sfWebRequest $request, sfForm $form) {
+    protected function processForm(sfWebRequest $request, sfForm $form) {        
         $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
         if ($form->isValid()) {
 //            $dml_movimientos = $request->getParameter('dml_movimientos');

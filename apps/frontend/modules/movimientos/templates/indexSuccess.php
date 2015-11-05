@@ -169,7 +169,7 @@
                     <div class="row">
                         <div class="span6">&nbsp;</div>
                         <div class="span6" style="text-align: right">
-                            <?php echo link_to('Nuevo', 'movimientos/new', array('class' => 'btn btn-link')).PHP_EOL ?>
+                            <?php echo link_to('Nuevo', '@movimientos_nuevos', array('class' => 'btn btn-link')).PHP_EOL ?>
                             |&nbsp;<button class="btn btn-link" id="mass">Inserci&oacute;n masiva</button>
                         </div>
                     </div>

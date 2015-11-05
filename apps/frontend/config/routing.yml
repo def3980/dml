@@ -11,17 +11,23 @@ tarjetas_edit:
   param: { module: tarjetas, action: edit }
 # + -------------------------------------------------------------------------- +
 
+# + --------------------------------------------------------- Modulo movimientos
 movimientos:
-    url: /movimientos
-    param: { module: movimientos, action: index }
+  url: /movimientos
+  param: { module: movimientos, action: index }
+
+movimientos_nuevos:
+  url: /nuevo-movimiento
+  param: { module: movimientos, action: new }
+# + -------------------------------------------------------------------------- +
 
 pdf:
-    url: /archivo/:id/*
-    param: { module: binarios, action: bin }
+  url: /archivo/:id/*
+  param: { module: binarios, action: bin }
 
 json:
-    url: /json
-    param: { module: json, action: json }
+  url: /json
+  param: { module: json, action: json }
 
 pagos:
   url:   /pagos

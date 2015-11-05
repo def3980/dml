@@ -55,7 +55,7 @@ class DmlMovimientosForm extends BaseDmlMovimientosForm {
         ));
     }
     
-    public function doSave($con = null) {
+    protected function doSave($con = null) {
         if ($this->isNew()) {
             $this->getObject()->setMoFechaCrea(date('Y-m-d H:i:s'));
             $this->getObject()->setMoQuienCrea($this->getOption('id'));

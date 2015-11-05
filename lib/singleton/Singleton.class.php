@@ -41,12 +41,12 @@ class Singleton {
      * 
      * @return array Arreglo asociativo de campos equivalente a su valor
      */
-    public function csv_to_array($filename = '', $delimiter = ',') {
+    public function csv_to_array($filename = '', $delimiter = ',') {        
         if (!file_exists($filename) || !is_readable($filename))
             return FALSE;
 
         $header = NULL;
-        $data = array();
+        $data = array();        
         if (($handle = fopen($filename, 'r')) !== FALSE) {
             while (($row = fgetcsv($handle, 1000, $delimiter)) !== FALSE) {
                 if (!$header)
@@ -56,7 +56,7 @@ class Singleton {
             }
             fclose($handle);
         }
-
+        
         return $data;
     }
     

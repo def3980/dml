@@ -1,5 +1,5 @@
 DmlTarjetasCreditoDebito:
-<?php foreach (Singleton::getInstance()->csv_to_array('C:\Users\oswaldo.rojas.REPLICA\Downloads\DmlTarjetasCreditoDebito.csv') as $k => $v): ?>
+<?php foreach (Singleton::getInstance()->csv_to_array('C:\Users\Oswaldo\Downloads\DmlTarjetasCreditoDebito.csv') as $k => $v): ?>
   id_<?=$k?>:
     contratos_bancarios:           <?php echo "" == $v['contratos_bancarios'] ? NULL : $v['contratos_bancarios']; echo PHP_EOL; ?>
     tipos_tarjetas_credito_debito: <?php echo "" == $v['tipos_tarjetas_credito_debito'] ? NULL : $v['tipos_tarjetas_credito_debito']; echo PHP_EOL; ?>

@@ -225,6 +225,17 @@ class Singleton {
         $texto = strtolower(trim($texto, '-'));
 
         return $texto;
-  }
+    }
+    
+    /**
+     * IsNullOrEmptyString(), valida si un texto esta vacio o nulo retornando
+     * true si es asi o false si no
+     * 
+     * @param type $question
+     * @return type bool true Si te texto esta vacio o si es nulo
+     */
+    public function IsNullOrEmptyString($question){
+        return (!isset($question) || trim($question) === '');
+    }
 
 }

@@ -282,16 +282,24 @@ class movimientosActions extends sfActions {
     protected function processForm(sfWebRequest $request, sfForm $form) {        
         $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
         if ($form->isValid()) {
-//            $dml_movimientos = $request->getParameter('dml_movimientos');
-//            $ah = $dml_movimientos['ahorros'];
-            //$form->getValue('');
             $mo = $form->save();
-//            $upd = Doctrine_Query::create()
-//                    ->update('DmlMovimientos')
-//                    ->set(array('mo_mini_detalle_json' => null))
-//                    ->where('id = ?', array($mo->getId()))
-//                    ->andWhere('ahorros = ?', array($ah))
-//                    ->execute();
+            /**
+             * Lun, 9 Nov 2015 15:31:49
+             * Llego a realizar esta táctica ya que actualmente symfony 1.4 por
+             * el lado de formularios no guarda valores nulos cuando se los indica
+             * a los campos en el form principal. Espero poder arreglar ese error
+             * ya que cuando cargo los fixtures si me guarda nulos en campos vacios
+             */
+            $dml_movimientos = $request->getParameter('dml_movimientos');
+            if (trim($dml_movimientos['mo_mini_detalle_json']) === ''):            
+                $ah = $dml_movimientos['ahorros'];
+                $upd = Doctrine_Query::create()
+                        ->update('DmlMovimientos')
+                        ->set(array('mo_mini_detalle_json' => null))
+                        ->where('id = ?', array($mo->getId()))
+                        ->andWhere('ahorros = ?', array($ah))
+                        ->execute();
+            endif;
             return $mo->getId();
         }
     }

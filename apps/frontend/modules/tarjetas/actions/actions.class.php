@@ -76,9 +76,9 @@ class tarjetasActions extends sfActions {
     public function executeCreate(sfWebRequest $request) {
         $this->forward404Unless($request->isMethod(sfRequest::POST));
         $facturas = $request->getParameter('dml_facturas');
-        if (isset($facturas['id']) && empty($facturas['id'])):
+        if (isset($facturas['id']) && empty($facturas['id'])): // Cuando realizo inserción
             $this->frmFacturas = new DmlFacturasForm(null, array('id' => $this->getUser()->getAttribute('id')));
-            $request->setParameter('dml_facturas', $this->preDmlFacturasProccessForm($request));
+            $request->setParameter('dml_facturas', $this->preDmlFacturasProccessForm($request));            
             $idFa = $this->processFormDmlFacturas($request, $this->frmFacturas);
         else:
             $facturas = $request->getParameter('dml_facturas');

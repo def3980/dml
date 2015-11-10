@@ -32,7 +32,7 @@ class DmlFacturasTable extends Doctrine_Table {
     
     /**
      * getCountNonInvoice, retorna el total de registros que no son facturas, es decir
-     * recibos de consumo o pago que no tienen numero de facrura registrado
+     * recibos de consumo o pago que no tienen numero de factura registrado
      * 
      * @return type integer
      */

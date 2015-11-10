@@ -36,21 +36,19 @@
                                             </div>
                                         </fieldset>
                                         <fieldset>
+                                            <?php echo $frmFacturas['tipos_gastos']->renderLabel().PHP_EOL ?>
+                                            <?php echo $frmFacturas['tipos_gastos']->render(array('placeholder' => 'tipos_gastos', 'class' => 'show-menu-arrow span3')).PHP_EOL ?>
+                                        </fieldset>
+                                        <fieldset>
                                             <?php echo $frmFacturas['fa_beneficiarios_json']->renderLabel().PHP_EOL ?>
                                             <?php echo $frmFacturas['fa_beneficiarios_json']->render(array('class' => 'chosen-select span3', 'data-placeholder' => 'fa_beneficiario')).PHP_EOL ?>
                                         </fieldset>
                                         <fieldset>
                                             <?php echo $frmFacturas['fa_detalle']->renderLabel().PHP_EOL ?>
                                             <?php echo $frmFacturas['fa_detalle']->render(array('placeholder' => 'fa_detalle', 'class' => 'span3', 'style' => 'resize: none; height: 50px;')).PHP_EOL ?>
-                                        </fieldset>
+                                        </fieldset>             
                                     </div>
                                     <div class="span4 offset1">
-                                        <div class="pull-right">
-                                            <fieldset>
-                                                <?php echo $frmFacturas['tipos_gastos']->renderLabel().PHP_EOL ?>
-                                                <?php echo $frmFacturas['tipos_gastos']->render(array('placeholder' => 'tipos_gastos', 'class' => 'show-menu-arrow span3')).PHP_EOL ?>
-                                            </fieldset>
-                                        </div>
                                         <div class="pull-right">
                                             <fieldset>
                                                 <?php echo $form['tarjetas_credito_debito']->renderLabel().PHP_EOL ?>
@@ -115,6 +113,17 @@
                                                     <?php echo $frmFacturas['fa_valor_total']->render(array('placeholder' => 'fa_valor_total', 'readonly' => !$frmFacturas->getObject()->isNew() && !empty($frmFacturas['fa_valor_total']->getValue()) ? false : true, 'style' => 'width: 228px')).PHP_EOL ?>
                                                 </div>
                                             </fieldset>
+                                        </div>
+                                        <div class="row">
+                                            <div class="span3 pull-right">
+                                                <fieldset>
+                                                    <label for="dml_facturas_fa_beneficiarios_json">Consumo compartido:</label>
+                                                    <div class="btn-group" data-toggle="buttons-radio" style="margin-bottom: 4px">
+                                                        <button type="button" class="btn span1 btnCompartidoNo disabled">Si</button>
+                                                        <button type="button" class="btn span1 btnCompartidoSi disabled">No</button>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -442,7 +451,7 @@
                         });
                         this.on("success", function(file) {
                             if (this.getUploadingFiles().length === 0 
-                                && this.getQueuedFiles().length === 0) { // verificando cuando todo los archivos se han subido
+                                && this.getQueuedFiles().length === 0) { // verificando cuando todos los archivos se han subido
                                 var res = $("#btnDropzone").text().split(','),
                                     url = "<?php echo url_for('tarjetas/edit?id=aqui_numero&nombre_tarjeta=aqui_tarjeta') ?>";
                                 setTimeout(function() {

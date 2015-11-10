@@ -62,7 +62,7 @@ class DmlBinariosTable extends Doctrine_Table {
      * @param type $id
      */
     public static function setBinLogicalDelete($idFa, $idBi) {
-        if (DmlRespaldosTable::setRsLogicalDelete($idFa, $idBi)) {
+        if (DmlBinariosTable::getConteoBinNoEliminados($idFa) > 0) {
             $upd = Doctrine_Query::create()
                     ->update('DmlBinarios')
                     ->set(array(

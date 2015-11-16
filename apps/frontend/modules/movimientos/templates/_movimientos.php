@@ -12,7 +12,7 @@
                                     <span style="color: #d33"><?php echo $mo->getMoTipo() ?></span>
 <?php endif; ?>
                                 </td>
-                                <td><?php echo $mo->getMoDocumento() ?></td>
+                                <td><span><?php echo str_repeat('0', (sfConfig::get('app_numero_documento') * 1) - strlen($mo->getMoDocumento())) ?></span><?php echo $mo->getMoDocumento() ?></td>
                                 <td>
 <?php if ($mo->getMoTipo() == 'C'): ?>
                                     <span style="color: #499249">+ $ <?php echo number_format($mo->getMoMonto(), 2, ',', '.') ?></span>

@@ -36,6 +36,10 @@
             .table tbody td:nth-child(6) {
                 text-align: right;
             }
+            .table tbody td:nth-child(4) span {
+                color: #999;
+                text-decoration: line-through;
+            }
             .opc {
                 display: block;
                 text-decoration: none;

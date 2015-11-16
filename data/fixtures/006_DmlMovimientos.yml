@@ -5,7 +5,7 @@ DmlMovimientos:
     mo_fecha:             <?php echo "" == $v['mo_fecha'] ? NULL : "|".PHP_EOL.str_repeat(' ', 25).$v['mo_fecha']; echo PHP_EOL; ?>
     mo_concepto:          <?php echo "" == $v['mo_concepto'] ? NULL : $v['mo_concepto']; echo PHP_EOL; ?>
     mo_tipo:              <?php echo "" == $v['mo_tipo'] ? NULL : $v['mo_tipo']; echo PHP_EOL; ?>
-    mo_documento:         <?php echo "" == $v['mo_documento'] ? NULL : "|".PHP_EOL.str_repeat(' ', 25).$v['mo_documento']; echo PHP_EOL; ?>
+    mo_documento:         <?php echo "" == $v['mo_documento'] ? NULL : $v['mo_documento']; echo PHP_EOL; ?>
     mo_oficina:           <?php echo "" == $v['mo_oficina'] ? NULL : $v['mo_oficina']; echo PHP_EOL; ?>
     mo_monto:             <?php echo "" == $v['mo_monto'] ? NULL : $v['mo_monto']; echo PHP_EOL; ?>
     mo_saldo:             <?php echo "" == $v['mo_saldo'] ? NULL : $v['mo_saldo']; echo PHP_EOL; ?>

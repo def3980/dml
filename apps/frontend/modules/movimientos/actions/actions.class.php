@@ -41,7 +41,7 @@ class movimientosActions extends sfActions {
     public function executeCreate(sfWebRequest $request) {
         $this->forward404Unless($request->isMethod(sfRequest::POST));        
         $this->form = new DmlMovimientosForm(null, array('id' => $this->getUser()->getAttribute('id')));
-        $request->setParameter('dml_movimientos', $this->preDmlMovimientosProccessForm($request));        
+        $request->setParameter('dml_movimientos', $this->preDmlMovimientosProccessForm($request));
         $this->redirect($this->generateUrl(
             'json', 
             array('id' => $this->processForm($request, $this->form))

@@ -260,7 +260,7 @@
                     aSign: '$ ',
                     aPad: true // Esta opcion me sirve para llenar ceros al lado derecho
                 });
-                $('#dml_movimientos_mo_documento').mask("***************", { placeholder : " " });
+//                $('#dml_movimientos_mo_documento').mask("***************", { placeholder : " " });
                 $('.btnDeb').bind('click', function() { $('#dml_movimientos_mo_tipo').val('D') });
                 $('.btnCre').bind('click', function() { $('#dml_movimientos_mo_tipo').val('C') });
                 $('.btnTrans').bind('click', function() {

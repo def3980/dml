@@ -39,7 +39,7 @@ class movimientosActions extends sfActions {
     }
 
     public function executeCreate(sfWebRequest $request) {
-        $this->forward404Unless($request->isMethod(sfRequest::POST));        
+        $this->forward404Unless($request->isMethod(sfRequest::POST));
         $this->form = new DmlMovimientosForm(null, array('id' => $this->getUser()->getAttribute('id')));
         $request->setParameter('dml_movimientos', $this->preDmlMovimientosProccessForm($request));
         $this->redirect($this->generateUrl(
@@ -92,7 +92,7 @@ class movimientosActions extends sfActions {
         $this->redirect('movimientos/index');
     }
     
-    public function executeMassInsertion(sfWebRequest $request) {
+    public function executeMassInsertion(sfWebRequest $request) {        
         $this->redirect($this->generateUrl('json', array('movimientos' => $this->proccessFields($request))));
     }
     
@@ -184,7 +184,9 @@ class movimientosActions extends sfActions {
                             $arrTd[$c] = $val;
                         break;
                         case 3: // campo Documento, controlo el número de ceros restantes en la parte izquieda
-                            $arrTd[$c] = str_pad(($val * 1), sfConfig::get('app_numero_documento'), '0', STR_PAD_LEFT);
+                            //$arrTd[$c] = str_pad(($val * 1), sfConfig::get('app_numero_documento'), '0', STR_PAD_LEFT);
+                            // Se elimina los ceros ya que se controla en la vista completando los ceros que son necesarios
+                            $arrTd[$c] = ($val * 1).'';
                         break;
                         case 4: // campo Oficina, similar al campo Concepto
                             $arrTd[$c] = trim(preg_replace('/\s+/', ' ', $val));

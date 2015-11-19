@@ -26,11 +26,25 @@ class movimientosActions extends sfActions {
         );
 
     public function executeIndex(sfWebRequest $request) {
+//        echo "<textarea rows='10' cols='100'>";
+//        print_r(DmlMovimientosTable::getSumaSaldoPositivoDTodo()->getSqlQuery());
+//        echo "</textarea>";
+//        echo "<pre>";
+//        print_r(DmlMovimientosTable::getSumaSaldoPositivoDTodo());
+//        echo "</pre>";
+//        die();
         $this->movimientos = new sfDoctrinePager('DmlMovimientos', sfConfig::get('app_max_per_page'));
         $this->movimientos->setQuery(DmlMovimientosTable::getListaDeMovimientos($request->getParameter('cuenta')));
         $this->movimientos->setPage($request->getParameter('pagina', 1));
         $this->movimientos->init();
         $this->cuentas_ahorros = DmlAhorrosTable::getCuentasDeAhorros()->execute(array(), Doctrine_Core::HYDRATE_SCALAR);
+        $this->cuenta_mov = DmlMovimientosTable::getNumeroDRegistrosPorAnioYCuenta($this->cuentas_ahorros[0]['ah_ah_numero_cuenta'], true)
+                                ->execute()
+                                ->count();
+        $this->cuenta_mov_total = DmlMovimientosTable::getNumeroDRegistrosPorAnioYCuenta($this->cuentas_ahorros[0]['ah_ah_numero_cuenta'])
+                                    ->execute()
+                                    ->count();
+        $this->saldo_cuentas = DmlMovimientosTable::getSumaSaldoPositivoDTodo();
     }
 
     public function executeNew(sfWebRequest $request) {

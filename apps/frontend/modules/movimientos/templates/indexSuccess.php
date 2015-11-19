@@ -6,37 +6,39 @@
 <?php use_javascript('bootstrap-select') ?>
 <?php slot('porcion_css') ?>
         <style type="text/css">
-            .table thead th,
-            .table tbody td:nth-child(1),
-            .table tbody td:nth-child(2),
-            .table tbody td:nth-child(3),
-            .table tbody td:nth-child(4) {
+            .tbl-movimientos thead th,
+            .tbl-movimientos tbody td:nth-child(1),
+            .tbl-movimientos tbody td:nth-child(2),
+            .tbl-movimientos tbody td:nth-child(3),
+            .tbl-detalle tbody td:nth-child(3),
+            .tbl-movimientos tbody td:nth-child(4) {
                 text-align: center;
             }
-            .table tbody td:nth-child(3) {
+            .tbl-movimientos tbody td:nth-child(3),
+            .tbl-detalle tbody td:nth-child(3) {
                 font-weight: bold;
             }
-            .table thead th:nth-child(1) {
+            .tbl-movimientos thead th:nth-child(1) {
                 width: 15%;
             }
-            .table thead th:nth-child(2) {
+            .tbl-movimientos thead th:nth-child(2) {
                 width: 45%;
             }
-            .table thead th:nth-child(3) {
+            .tbl-movimientos thead th:nth-child(3) {
                 width: 5%;
             }
-            .table thead th:nth-child(4) {
+            .tbl-movimientos thead th:nth-child(4) {
                 width: 15%;
             }
-            .table thead th:nth-child(5),
-            .table thead th:nth-child(6) {
+            .tbl-movimientos thead th:nth-child(5),
+            .tbl-movimientos thead th:nth-child(6) {
                 width: 10%;
             }
-            .table tbody td:nth-child(5),
-            .table tbody td:nth-child(6) {
+            .tbl-movimientos tbody td:nth-child(5),
+            .tbl-movimientos tbody td:nth-child(6) {
                 text-align: right;
             }
-            .table tbody td:nth-child(4) span {
+            .tbl-movimientos tbody td:nth-child(4) span {
                 color: #999;
                 text-decoration: line-through;
             }
@@ -58,7 +60,7 @@
                    -moz-border-radius: 5px;
                         border-radius: 5px;
             }
-            .table tbody td:nth-child(2) a {
+            .tbl-movimientos tbody td:nth-child(2) a {
                 cursor: default;
             }
             .dropdown-menu {
@@ -67,6 +69,17 @@
             .bootstrap-select.btn-group:not(.input-group-btn),
             .bootstrap-select.btn-group[class*="span"] {
                 margin-bottom: 5px;
+            }
+            .tbl-detalle tbody tr:first-child td,
+            .tbl-ingresos tbody tr:first-child td{
+                border-top: 0;
+            }
+            .tbl-detalle tbody td:first-child {
+                text-align: left;
+            }
+            .tbl-ingresos tbody td:first-child {
+                text-align: right;
+                padding: 0;
             }
         </style>
 <?php end_slot() ?>
@@ -93,17 +106,16 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </a>
-                                <a class="brand" href="#">Title</a>
+                                <a class="brand" href="#">Dml</a>
                                 <div class="nav-collapse collapse navbar-inverse-collapse">
                                     <ul class="nav">
-                                        <li class="active"><a href="#">Home</a></li>
-                                        <li><a href="#">Link</a></li>
-                                        <li><a href="#">Link</a></li>
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                                        <li class="active"><a href="javascript:void(0)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Inicio&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                                        <!--<li><a href="javascript:void(0)">&nbsp;</a></li>-->
+<!--                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Informaci&oacute;n <b class="caret"></b></a>
                                             <ul class="dropdown-menu">
-                                                <li><a href="#">Action</a></li>
-                                                <li><a href="#">Another action</a></li>
+                                                <li><a href="javascript:void(0)"><strong>Movimientos en <//?=date('Y')?>:</strong> <//?=$cuenta_mov?></a></li>
+                                                <li><a href="javascript:void(0)"><strong>Movimientos en total:</strong> <//?=$cuenta_mov_total?></a></li>
                                                 <li><a href="#">Something else here</a></li>
                                                 <li class="divider"></li>
                                                 <li class="nav-header">Nav header</li>
@@ -111,6 +123,7 @@
                                                 <li><a href="#">One more separated link</a></li>
                                             </ul>
                                         </li>
+                                        <li><a href="javascript:void(0)">&nbsp;</a></li>-->
                                     </ul>
                                     <div class="navbar-form pull-left">
                                         <input type="text" class="span3 txtSrch" placeholder="Buscar..." />
@@ -155,11 +168,11 @@
                             </div>
                         </div>
                     </div>-->
-                    <table class="table table-bordered table-striped table-hover responsive-utilities">
+                    <table class="table table-bordered table-striped table-hover responsive-utilities tbl-movimientos">
                         <thead>
                             <tr>
-                                <th>Fecha<small>mo_fecha</small></th>
-                                <th>Concepto<small>mo_concepto</small></th>
+                                <th>Fecha<small>movimiento</small></th>
+                                <th>Concepto<small>detalle del movimiento</small></th>
                                 <th>Tipo<small>C/D</small></th>
                                 <th>Documento<small>ahorros</small></th>
                                 <th>Monto<small>$ 0,01</small></th>
@@ -171,10 +184,39 @@
                         </tbody>
                     </table>
                     <div class="row">
-                        <div class="span6">&nbsp;</div>
-                        <div class="span6" style="text-align: right">
-                            <?php echo link_to('Nuevo', '@movimientos_nuevos', array('class' => 'btn btn-link')).PHP_EOL ?>
-                            |&nbsp;<button class="btn btn-link" id="mass">Inserci&oacute;n masiva</button>
+                        <div class="span3">
+                            <table class="table table-condensed tbl-detalle">
+                                <tbody>
+                                    <tr>
+                                        <td>Saldo total en cuentas</td>
+                                        <td>:</td>
+                                        <td><span style="color: <?php echo $saldo_cuentas < 1000 ? '#d33' : '#499249' ?>"><?php echo '$ '.number_format($saldo_cuentas, 2, ',', '.') ?></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Movimientos en <?=date('Y')?></td>
+                                        <td>:</td>
+                                        <td><?php echo number_format($cuenta_mov, 0, ',', '.') ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total de registros</td>
+                                        <td>:</td>
+                                        <td><?php echo number_format($cuenta_mov_total, 0, ',', '.') ?></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="span7">&nbsp;</div>
+                        <div class="span2">
+                            <table class="table table-condensed tbl-ingresos">
+                                <tbody>
+                                    <tr>
+                                        <td><?php echo link_to('Nuevo', '@movimientos_nuevos', array('class' => 'btn btn-link')) ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td><button class="btn btn-link" id="mass">Inserci&oacute;n masiva</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     <div id="paginador">
@@ -246,8 +288,8 @@
                     var option = $(this).find("option:selected");
                     $('.txtSrch').val("");
                     $.post('<?php echo url_for('movimientos/transactions') ?>', { cuenta : $.trim(option.text()) }, function(data) {
-                        $('.table tbody').html(data);
-                        $('.table tbody td:nth-child(2) a').tooltip({
+                        $('.tbl-movimientos tbody').html(data);
+                        $('.tbl-movimientos tbody td:nth-child(2) a').tooltip({
                             'placement' : 'right'
                         });
                     });
@@ -259,8 +301,8 @@
                     if (!$(this).parent().hasClass('active')) {
                         var option = $('#cuentas').find("option:selected");
                         $.post('<?php echo url_for('movimientos/transactions') ?>', { cuenta : $.trim(option.text()), pagina : $(this).attr('id') }, function(data) {
-                            $('.table tbody').html(data);
-                            $('.table tbody td:nth-child(2) a').tooltip({
+                            $('.tbl-movimientos tbody').html(data);
+                            $('.tbl-movimientos tbody td:nth-child(2) a').tooltip({
                                 'placement' : 'right'
                             });
                         });

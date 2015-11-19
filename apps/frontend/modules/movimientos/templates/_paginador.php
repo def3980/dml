@@ -1,5 +1,5 @@
 <?php if ($movimientos->count()): if ($movimientos->haveToPaginate()): ?>
-                        <hr>
+                        <hr style="margin: 0">
                         <div class="pagination pagination-centered">
                             <ul>
                                 <li<?php echo 1 == $movimientos->getPage() ? ' class="active"' : '' ?>>
@@ -38,8 +38,8 @@ $(function() {
         if (!$(this).parent().hasClass('active')) {
             var option = $('#cuentas').find("option:selected");
             $.post('<?php echo url_for('movimientos/transactions') ?>', { cuenta : $.trim(option.text()), pagina : $(this).attr('id') }, function(data) {
-                $('.table tbody').html(data);
-                $('.table tbody td:nth-child(2) a').tooltip({
+                $('.tbl-movimientos tbody').html(data);
+                $('.tbl-movimientos tbody td:nth-child(2) a').tooltip({
                     'placement' : 'right'
                 });
             });

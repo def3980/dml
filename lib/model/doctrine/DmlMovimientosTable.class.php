@@ -133,5 +133,35 @@ class DmlMovimientosTable extends Doctrine_Table {
                 ->andWhere('pe.id = ?', array(sfContext::getInstance()->getUser()->getAttribute('id')));
         return $sql->orderBy('mo.id DESC, mo.mo_fecha DESC');
     }
+    
+    public static function getNumeroDRegistrosPorAnioYCuenta($cuenta = null, $anio = false) {
+        $sql = DmlMovimientosTable::getAlias()
+                ->addSelect('mo.id, mo.mo_saldo')
+                ->innerJoin('mo.DmlAhorros ah')
+                ->innerJoin('ah.DmlTiposCuentas tc')
+                ->innerJoin('ah.DmlContratosBancarios cb')
+                ->innerJoin('cb.DmlEntidades en')
+                ->innerJoin('cb.DmlPersonas pe');
+        if ($anio) {
+            $sql = $sql->where('YEAR(mo.mo_fecha) = YEAR(CURDATE())');
+        }
+        $sql = $sql->andWhere('ah.ah_numero_cuenta = ?', array($cuenta))
+                    ->andWhere('mo.mo_borrado_logico = ?', array(0))
+                    ->andWhere('pe.id = ?', array(sfContext::getInstance()->getUser()->getAttribute('id')));
+        
+        return $sql;
+    }
+    
+    public static function getSumaSaldoPositivoDTodo() {
+        $saldos = 0;
+        foreach (DmlAhorrosTable::getCuentasDeAhorros()->execute(null, 5) as $k => $v):
+            $last = DmlMovimientosTable::getNumeroDRegistrosPorAnioYCuenta($v['ah_ah_numero_cuenta'], true)
+                        ->execute()
+                        ->getLast();
+            $saldos += $last->getMoSaldo();
+        endforeach;
+
+        return $saldos;
+    }
 
 }

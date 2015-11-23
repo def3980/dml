@@ -136,7 +136,7 @@ class DmlMovimientosTable extends Doctrine_Table {
     
     public static function getNumeroDRegistrosPorAnioYCuenta($cuenta = null, $anio = false) {
         $sql = DmlMovimientosTable::getAlias()
-                ->addSelect('mo.id, mo.mo_saldo')
+                ->addSelect('mo.id, mo.mo_saldo, mo.mo_fecha_crea, mo.mo_fecha_modifica')
                 ->innerJoin('mo.DmlAhorros ah')
                 ->innerJoin('ah.DmlTiposCuentas tc')
                 ->innerJoin('ah.DmlContratosBancarios cb')

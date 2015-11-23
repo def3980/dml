@@ -70,6 +70,9 @@
             .bootstrap-select.btn-group[class*="span"] {
                 margin-bottom: 5px;
             }
+            .tbl-detalle tbody td {
+                border-top: 1px dotted #dddddd;
+            }
             .tbl-detalle tbody tr:first-child td,
             .tbl-ingresos tbody tr:first-child td{
                 border-top: 0;
@@ -202,6 +205,13 @@
                                         <td>:</td>
                                         <td><?php echo number_format($cuenta_mov_total, 0, ',', '.') ?></td>
                                     </tr>
+                                    <tr>
+                                        <td>&Uacute;ltimo registro</td>
+                                        <td>:</td>
+                                        <td style="font-weight: normal"><?php $dia = explode(',', $ultimo_registro) ?>
+                                            <a href="#" data-toggle="tooltip" data-placement="right" title="" data-original-title="<?php echo trim(end($dia)) ?>" style="cursor: default; font-weight: bold;"><?php echo trim(reset($dia)) ?></a>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -270,7 +280,8 @@
 <?php slot('porcion_js') ?>
         <script>
             $(function() {
-                $('.table tbody td:nth-child(2) a').tooltip({
+                $('.tbl-movimientos tbody td:nth-child(2) a, '
+                    + '.tbl-detalle td:last a').tooltip({
                     'placement' : 'right'
                 });
                 // para abrir el modal
@@ -317,7 +328,7 @@
                 $('.btnSrch').bind('click', function() {
                     var params = { moCon : $(this).prev().val(), ahNc : $('#cuentas').find("option:selected").text().trim() };
                     $.post('<?=url_for('movimientos/searchMove')?>', params, function(data) {
-                        $('.table tbody').html(data);
+                        $('.tbl-movimientos tbody').html(data);
                     });
                     $.post('<?=url_for('movimientos/searchPager')?>', params, function(data) {
                         $('#paginador').html(data);
@@ -363,7 +374,7 @@
                             success  : function(data) {
                                 if (Object.keys(data.movimientos) != "observacion") {
                                     $('.modal-body fieldset:last').html(
-                                        $('<table/>', { class : 'table table-bordered table-condensed', style : 'margin-bottom: 10px' })
+                                        $('<table/>', { class : 'table table-bordered table-condensed tbl-movimientos', style : 'margin-bottom: 10px' })
                                         .append($('<thead/>')
                                             .append($('<tr/>')
                                                 .append($('<th/>', { colspan : 2 }).html('Movimientos'))
@@ -382,7 +393,7 @@
                                     );
                                 } else {
                                     $('.modal-body fieldset:last').html(
-                                        $('<table/>', { class : 'table table-bordered table-condensed', style : 'margin-bottom: 10px' })
+                                        $('<table/>', { class : 'table table-bordered table-condensed tbl-movimientos', style : 'margin-bottom: 10px' })
                                         .append($('<thead/>')
                                             .append($('<tr/>')
                                                 .append($('<th/>', { colspan : 2 }).html('Movimientos'))
@@ -406,7 +417,7 @@
                         });
                     } else {
                         $('.modal-body fieldset:last').html(
-                            $('<table/>', { class : 'table table-bordered table-condensed', style : 'margin-bottom: 10px' })
+                            $('<table/>', { class : 'table table-bordered table-condensed tbl-movimientos', style : 'margin-bottom: 10px' })
                             .append($('<thead/>')
                                 .append($('<tr/>')
                                     .append($('<th/>', { colspan : 2 }).html('Movimientos'))

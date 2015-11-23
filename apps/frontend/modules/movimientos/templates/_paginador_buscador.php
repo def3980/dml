@@ -1,5 +1,5 @@
 <?php if ($movimientos->count()): if ($movimientos->haveToPaginate()): ?>
-                        <hr>
+                        <hr style="margin: 0">
                         <div class="pagination pagination-centered">
                             <ul>
                                 <li<?php echo 1 == $movimientos->getPage() ? ' class="active"' : '' ?>>
@@ -45,7 +45,7 @@ $(function() {
                 ahNc : $('#cuentas').find("option:selected").text().trim() 
             };
             $.post('<?php echo url_for('movimientos/searchMove') ?>', params, function(data) {
-                $('.table tbody').html(data);
+                $('.tbl-movimientos tbody').html(data);
             });
             $.post('<?php echo url_for('movimientos/searchPager') ?>', params, function(data) {
                 $('#paginador').html(data);

@@ -14,8 +14,7 @@
             .tbl-movimientos tbody td:nth-child(4) {
                 text-align: center;
             }
-            .tbl-movimientos tbody td:nth-child(3),
-            .tbl-detalle tbody td:nth-child(3) {
+            .tbl-movimientos tbody td:nth-child(3) {
                 font-weight: bold;
             }
             .tbl-movimientos thead th:nth-child(1) {
@@ -113,20 +112,6 @@
                                 <div class="nav-collapse collapse navbar-inverse-collapse">
                                     <ul class="nav">
                                         <li class="active"><a href="javascript:void(0)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Inicio&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
-                                        <!--<li><a href="javascript:void(0)">&nbsp;</a></li>-->
-<!--                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Informaci&oacute;n <b class="caret"></b></a>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="javascript:void(0)"><strong>Movimientos en <//?=date('Y')?>:</strong> <//?=$cuenta_mov?></a></li>
-                                                <li><a href="javascript:void(0)"><strong>Movimientos en total:</strong> <//?=$cuenta_mov_total?></a></li>
-                                                <li><a href="#">Something else here</a></li>
-                                                <li class="divider"></li>
-                                                <li class="nav-header">Nav header</li>
-                                                <li><a href="#">Separated link</a></li>
-                                                <li><a href="#">One more separated link</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="javascript:void(0)">&nbsp;</a></li>-->
                                     </ul>
                                     <div class="navbar-form pull-left">
                                         <input type="text" class="span3 txtSrch" placeholder="Buscar..." />
@@ -156,21 +141,6 @@
                             </div>
                         </div><!-- /navbar-inner -->
                     </div><!-- /navbar -->
-<!--                    <div class="row-fluid">
-                        <div class="span12">
-                            <div class="row-fluid">
-                                <div class="span6">&nbsp;</div>
-                                <div class="span6">
-                                    <fieldset style="text-align: right">
-                                        <label>Cuentas bancarias:</label>
-                                        <select id="cuentas" class="show-menu-arrow span5"><?php foreach ($cuentas_ahorros as $k => $ah): echo "\n"; ?>
-                                            <option value="<?=$ah['ah_id']?>" data-subtext="<?=$ah['en_en_alias']?>"><?php echo str_replace("_", "&nbsp;&nbsp;", str_pad($ah['ah_ah_numero_cuenta'], 11, "_", STR_PAD_LEFT)) ?></option><?php endforeach; echo PHP_EOL; ?>
-                                        </select>
-                                    </fieldset>
-                                </div>
-                            </div>
-                        </div>
-                    </div>-->
                     <table class="table table-bordered table-striped table-hover responsive-utilities tbl-movimientos">
                         <thead>
                             <tr>
@@ -208,8 +178,8 @@
                                     <tr>
                                         <td>&Uacute;ltimo registro</td>
                                         <td>:</td>
-                                        <td style="font-weight: normal"><?php $dia = explode(',', $ultimo_registro) ?>
-                                            <a href="#" data-toggle="tooltip" data-placement="right" title="" data-original-title="<?php echo trim(end($dia)) ?>" style="cursor: default; font-weight: bold;"><?php echo trim(reset($dia)) ?></a>
+                                        <td><?php $dia = explode(',', $ultimo_registro) ?>
+                                            <a href="#" data-toggle="tooltip" data-placement="right" title="" data-original-title="<?php echo trim(end($dia)) ?>" style="cursor: default"><?php echo trim(reset($dia)) ?></a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -304,6 +274,10 @@
                             'placement' : 'right'
                         });
                     });
+                    $.post('<?php echo url_for('movimientos/aditionalInfo') ?>', { cuenta : $.trim(option.text()) }, function (data) {
+                        $('.tbl-detalle tr:nth-child(2) td:last-child').html(data.cuenta_mov);
+                        $('.tbl-detalle tr:nth-child(3) td:last-child').html(data.cuenta_mov_total);
+                    }, 'json');
                     $.post('<?php echo url_for('movimientos/transactionsPager') ?>', { cuenta : $.trim(option.text()), pagina : 1 }, function(data) {
                         $('#paginador').html(data);
                     });

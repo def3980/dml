@@ -80,8 +80,6 @@ class movimientosActions extends sfActions {
         );
         $this->form = new DmlMovimientosForm($mo, array('id' => $this->getUser()->getAttribute('id')));
         $request->setParameter('dml_movimientos', $this->preDmlMovimientosProccessForm($request));
-//        var_dump($request->getParameterHolder()->getAll());
-//        die();
         $this->redirect($this->generateUrl(
             'json', 
             array('id' => $this->processForm($request, $this->form))
@@ -165,6 +163,24 @@ class movimientosActions extends sfActions {
         );
         $movimientos->init();
         return $this->renderPartial('paginador_buscador', array('movimientos' => $movimientos));
+    }
+    
+    public function executeAditionalInfo(sfWebRequest $request) {
+        $cuenta_mov = DmlMovimientosTable::getNumeroDRegistrosPorAnioYCuenta($request->getParameter('cuenta'), true)
+                        ->execute()
+                        ->count();
+        $cuenta_mov_total = DmlMovimientosTable::getNumeroDRegistrosPorAnioYCuenta($request->getParameter('cuenta'))
+                                ->execute()
+                                ->count();
+        return $this->redirect(
+            $this->generateUrl(
+                'json',
+                array(
+                    'cuenta_mov' => number_format($cuenta_mov, 0, ',', '.'),
+                    'cuenta_mov_total' => number_format($cuenta_mov_total, 0, ',', '.')
+                )
+            )
+        );
     }
 
     private function validateFields(sfWebRequest $request) {

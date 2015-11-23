@@ -233,7 +233,7 @@
                     </div>
                 </div>
                 <fieldset>
-                    <textarea rows="3" style="width: 97.5%; resize: none;" id="txta"></textarea>
+                    <textarea rows="3" style="width: 97.5%; resize: none; margin-top: 8px;" id="txta"></textarea>
                 </fieldset>
                 <div class="row-fluid">
                     <div class="span12" style="text-align: center">
@@ -256,6 +256,12 @@
                 });
                 // para abrir el modal
                 $('#mass').bind('click', function() {
+                    $('#ctas option')
+                        .eq($('#cuentas')
+                            .find('option:selected')
+                            .val() - 1
+                        ).attr('selected', 'selected');
+                    $('#ctas').selectpicker('refresh');
                     $('#myModal').modal({
                         keyboard : false,
                         backdrop : 'static'

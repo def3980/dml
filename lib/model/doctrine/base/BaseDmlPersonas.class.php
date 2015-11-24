@@ -4,8 +4,8 @@
  * Fecha creacion : "Viernes, 5 Diciembre 2014 12:41:57"
  * 
  * Acciones realizadas:
- * - Veces ejecutado doctrine:build-model  : "000095"
- * - Ultima vez que se actualizo el modelo : "2015-07-01 17:22:40"
+ * - Veces ejecutado doctrine:build-model  : "000096"
+ * - Ultima vez que se actualizo el modelo : "2015-11-24 17:02:45"
  */
 
 // Connection Component Binding
@@ -42,59 +42,62 @@ Doctrine_Manager::getInstance()->bindComponent('DmlPersonas', 'doctrine');
  * @property Doctrine_Collection $DmlHijos
  * @property Doctrine_Collection $DmlIngresos
  * @property Doctrine_Collection $DmlPagos
+ * @property Doctrine_Collection $DmlPagosConsumosTarjetas
  * 
- * @method integer             getId()                    Retorna el registro (valor) actual del campo [id]
- * @method string              getPeCedula()              Retorna el registro (valor) actual del campo [pe_cedula]
- * @method string              getPeNombres()             Retorna el registro (valor) actual del campo [pe_nombres]
- * @method string              getPeApellidos()           Retorna el registro (valor) actual del campo [pe_apellidos]
- * @method date                getPeFechaNacimiento()     Retorna el registro (valor) actual del campo [pe_fecha_nacimiento]
- * @method string              getPeEmail()               Retorna el registro (valor) actual del campo [pe_email]
- * @method string              getPeSalt()                Retorna el registro (valor) actual del campo [pe_salt]
- * @method string              getPePassword()            Retorna el registro (valor) actual del campo [pe_password]
- * @method integer             getPeOnline()              Retorna el registro (valor) actual del campo [pe_online]
- * @method timestamp           getPeInicioSesion()        Retorna el registro (valor) actual del campo [pe_inicio_sesion]
- * @method timestamp           getPeFinSesion()           Retorna el registro (valor) actual del campo [pe_fin_sesion]
- * @method string              getPeDuracionSesion()      Retorna el registro (valor) actual del campo [pe_duracion_sesion]
- * @method timestamp           getPeFechaCrea()           Retorna el registro (valor) actual del campo [pe_fecha_crea]
- * @method integer             getPeQuienCrea()           Retorna el registro (valor) actual del campo [pe_quien_crea]
- * @method timestamp           getPeFechaModifica()       Retorna el registro (valor) actual del campo [pe_fecha_modifica]
- * @method integer             getPeQuienModifica()       Retorna el registro (valor) actual del campo [pe_quien_modifica]
- * @method timestamp           getPeFechaBorra()          Retorna el registro (valor) actual del campo [pe_fecha_borra]
- * @method integer             getPeQuienBorra()          Retorna el registro (valor) actual del campo [pe_quien_borra]
- * @method integer             getPeBorradoLogico()       Retorna el registro (valor) actual del campo [pe_borrado_logico]
- * @method Doctrine_Collection getDmlBinarios()           Retorna el registro (coleccion de datos) actual del campo [DmlBinarios]
- * @method Doctrine_Collection getDmlConsumosTarjetas()   Retorna el registro (coleccion de datos) actual del campo [DmlConsumosTarjetas]
- * @method Doctrine_Collection getDmlContratosBancarios() Retorna el registro (coleccion de datos) actual del campo [DmlContratosBancarios]
- * @method Doctrine_Collection getDmlContratosLaborales() Retorna el registro (coleccion de datos) actual del campo [DmlContratosLaborales]
- * @method Doctrine_Collection getDmlHijos()              Retorna el registro (coleccion de datos) actual del campo [DmlHijos]
- * @method Doctrine_Collection getDmlIngresos()           Retorna el registro (coleccion de datos) actual del campo [DmlIngresos]
- * @method Doctrine_Collection getDmlPagos()              Retorna el registro (coleccion de datos) actual del campo [DmlPagos]
- * @method DmlPersonas         setId()                    Guarda un registro (valor) al campo [id]
- * @method DmlPersonas         setPeCedula()              Guarda un registro (valor) al campo [pe_cedula]
- * @method DmlPersonas         setPeNombres()             Guarda un registro (valor) al campo [pe_nombres]
- * @method DmlPersonas         setPeApellidos()           Guarda un registro (valor) al campo [pe_apellidos]
- * @method DmlPersonas         setPeFechaNacimiento()     Guarda un registro (valor) al campo [pe_fecha_nacimiento]
- * @method DmlPersonas         setPeEmail()               Guarda un registro (valor) al campo [pe_email]
- * @method DmlPersonas         setPeSalt()                Guarda un registro (valor) al campo [pe_salt]
- * @method DmlPersonas         setPePassword()            Guarda un registro (valor) al campo [pe_password]
- * @method DmlPersonas         setPeOnline()              Guarda un registro (valor) al campo [pe_online]
- * @method DmlPersonas         setPeInicioSesion()        Guarda un registro (valor) al campo [pe_inicio_sesion]
- * @method DmlPersonas         setPeFinSesion()           Guarda un registro (valor) al campo [pe_fin_sesion]
- * @method DmlPersonas         setPeDuracionSesion()      Guarda un registro (valor) al campo [pe_duracion_sesion]
- * @method DmlPersonas         setPeFechaCrea()           Guarda un registro (valor) al campo [pe_fecha_crea]
- * @method DmlPersonas         setPeQuienCrea()           Guarda un registro (valor) al campo [pe_quien_crea]
- * @method DmlPersonas         setPeFechaModifica()       Guarda un registro (valor) al campo [pe_fecha_modifica]
- * @method DmlPersonas         setPeQuienModifica()       Guarda un registro (valor) al campo [pe_quien_modifica]
- * @method DmlPersonas         setPeFechaBorra()          Guarda un registro (valor) al campo [pe_fecha_borra]
- * @method DmlPersonas         setPeQuienBorra()          Guarda un registro (valor) al campo [pe_quien_borra]
- * @method DmlPersonas         setPeBorradoLogico()       Guarda un registro (valor) al campo [pe_borrado_logico]
- * @method DmlPersonas         setDmlBinarios()           Guarda un registro (coleccion de datos) al campo [DmlBinarios]
- * @method DmlPersonas         setDmlConsumosTarjetas()   Guarda un registro (coleccion de datos) al campo [DmlConsumosTarjetas]
- * @method DmlPersonas         setDmlContratosBancarios() Guarda un registro (coleccion de datos) al campo [DmlContratosBancarios]
- * @method DmlPersonas         setDmlContratosLaborales() Guarda un registro (coleccion de datos) al campo [DmlContratosLaborales]
- * @method DmlPersonas         setDmlHijos()              Guarda un registro (coleccion de datos) al campo [DmlHijos]
- * @method DmlPersonas         setDmlIngresos()           Guarda un registro (coleccion de datos) al campo [DmlIngresos]
- * @method DmlPersonas         setDmlPagos()              Guarda un registro (coleccion de datos) al campo [DmlPagos]
+ * @method integer             getId()                       Retorna el registro (valor) actual del campo [id]
+ * @method string              getPeCedula()                 Retorna el registro (valor) actual del campo [pe_cedula]
+ * @method string              getPeNombres()                Retorna el registro (valor) actual del campo [pe_nombres]
+ * @method string              getPeApellidos()              Retorna el registro (valor) actual del campo [pe_apellidos]
+ * @method date                getPeFechaNacimiento()        Retorna el registro (valor) actual del campo [pe_fecha_nacimiento]
+ * @method string              getPeEmail()                  Retorna el registro (valor) actual del campo [pe_email]
+ * @method string              getPeSalt()                   Retorna el registro (valor) actual del campo [pe_salt]
+ * @method string              getPePassword()               Retorna el registro (valor) actual del campo [pe_password]
+ * @method integer             getPeOnline()                 Retorna el registro (valor) actual del campo [pe_online]
+ * @method timestamp           getPeInicioSesion()           Retorna el registro (valor) actual del campo [pe_inicio_sesion]
+ * @method timestamp           getPeFinSesion()              Retorna el registro (valor) actual del campo [pe_fin_sesion]
+ * @method string              getPeDuracionSesion()         Retorna el registro (valor) actual del campo [pe_duracion_sesion]
+ * @method timestamp           getPeFechaCrea()              Retorna el registro (valor) actual del campo [pe_fecha_crea]
+ * @method integer             getPeQuienCrea()              Retorna el registro (valor) actual del campo [pe_quien_crea]
+ * @method timestamp           getPeFechaModifica()          Retorna el registro (valor) actual del campo [pe_fecha_modifica]
+ * @method integer             getPeQuienModifica()          Retorna el registro (valor) actual del campo [pe_quien_modifica]
+ * @method timestamp           getPeFechaBorra()             Retorna el registro (valor) actual del campo [pe_fecha_borra]
+ * @method integer             getPeQuienBorra()             Retorna el registro (valor) actual del campo [pe_quien_borra]
+ * @method integer             getPeBorradoLogico()          Retorna el registro (valor) actual del campo [pe_borrado_logico]
+ * @method Doctrine_Collection getDmlBinarios()              Retorna el registro (coleccion de datos) actual del campo [DmlBinarios]
+ * @method Doctrine_Collection getDmlConsumosTarjetas()      Retorna el registro (coleccion de datos) actual del campo [DmlConsumosTarjetas]
+ * @method Doctrine_Collection getDmlContratosBancarios()    Retorna el registro (coleccion de datos) actual del campo [DmlContratosBancarios]
+ * @method Doctrine_Collection getDmlContratosLaborales()    Retorna el registro (coleccion de datos) actual del campo [DmlContratosLaborales]
+ * @method Doctrine_Collection getDmlHijos()                 Retorna el registro (coleccion de datos) actual del campo [DmlHijos]
+ * @method Doctrine_Collection getDmlIngresos()              Retorna el registro (coleccion de datos) actual del campo [DmlIngresos]
+ * @method Doctrine_Collection getDmlPagos()                 Retorna el registro (coleccion de datos) actual del campo [DmlPagos]
+ * @method Doctrine_Collection getDmlPagosConsumosTarjetas() Retorna el registro (coleccion de datos) actual del campo [DmlPagosConsumosTarjetas]
+ * @method DmlPersonas         setId()                       Guarda un registro (valor) al campo [id]
+ * @method DmlPersonas         setPeCedula()                 Guarda un registro (valor) al campo [pe_cedula]
+ * @method DmlPersonas         setPeNombres()                Guarda un registro (valor) al campo [pe_nombres]
+ * @method DmlPersonas         setPeApellidos()              Guarda un registro (valor) al campo [pe_apellidos]
+ * @method DmlPersonas         setPeFechaNacimiento()        Guarda un registro (valor) al campo [pe_fecha_nacimiento]
+ * @method DmlPersonas         setPeEmail()                  Guarda un registro (valor) al campo [pe_email]
+ * @method DmlPersonas         setPeSalt()                   Guarda un registro (valor) al campo [pe_salt]
+ * @method DmlPersonas         setPePassword()               Guarda un registro (valor) al campo [pe_password]
+ * @method DmlPersonas         setPeOnline()                 Guarda un registro (valor) al campo [pe_online]
+ * @method DmlPersonas         setPeInicioSesion()           Guarda un registro (valor) al campo [pe_inicio_sesion]
+ * @method DmlPersonas         setPeFinSesion()              Guarda un registro (valor) al campo [pe_fin_sesion]
+ * @method DmlPersonas         setPeDuracionSesion()         Guarda un registro (valor) al campo [pe_duracion_sesion]
+ * @method DmlPersonas         setPeFechaCrea()              Guarda un registro (valor) al campo [pe_fecha_crea]
+ * @method DmlPersonas         setPeQuienCrea()              Guarda un registro (valor) al campo [pe_quien_crea]
+ * @method DmlPersonas         setPeFechaModifica()          Guarda un registro (valor) al campo [pe_fecha_modifica]
+ * @method DmlPersonas         setPeQuienModifica()          Guarda un registro (valor) al campo [pe_quien_modifica]
+ * @method DmlPersonas         setPeFechaBorra()             Guarda un registro (valor) al campo [pe_fecha_borra]
+ * @method DmlPersonas         setPeQuienBorra()             Guarda un registro (valor) al campo [pe_quien_borra]
+ * @method DmlPersonas         setPeBorradoLogico()          Guarda un registro (valor) al campo [pe_borrado_logico]
+ * @method DmlPersonas         setDmlBinarios()              Guarda un registro (coleccion de datos) al campo [DmlBinarios]
+ * @method DmlPersonas         setDmlConsumosTarjetas()      Guarda un registro (coleccion de datos) al campo [DmlConsumosTarjetas]
+ * @method DmlPersonas         setDmlContratosBancarios()    Guarda un registro (coleccion de datos) al campo [DmlContratosBancarios]
+ * @method DmlPersonas         setDmlContratosLaborales()    Guarda un registro (coleccion de datos) al campo [DmlContratosLaborales]
+ * @method DmlPersonas         setDmlHijos()                 Guarda un registro (coleccion de datos) al campo [DmlHijos]
+ * @method DmlPersonas         setDmlIngresos()              Guarda un registro (coleccion de datos) al campo [DmlIngresos]
+ * @method DmlPersonas         setDmlPagos()                 Guarda un registro (coleccion de datos) al campo [DmlPagos]
+ * @method DmlPersonas         setDmlPagosConsumosTarjetas() Guarda un registro (coleccion de datos) al campo [DmlPagosConsumosTarjetas]
  * 
  * @package    dml
  * @subpackage model
@@ -153,6 +156,10 @@ abstract class BaseDmlPersonas extends sfDoctrineRecord {
             'foreign' => 'personas'
         ));
         $this->hasMany('DmlPagos', array(
+            'local'   => 'id',
+            'foreign' => 'personas'
+        ));
+        $this->hasMany('DmlPagosConsumosTarjetas', array(
             'local'   => 'id',
             'foreign' => 'personas'
         ));

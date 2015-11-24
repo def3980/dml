@@ -36,10 +36,6 @@
                                             </div>
                                         </fieldset>
                                         <fieldset>
-                                            <?php echo $frmFacturas['tipos_gastos']->renderLabel().PHP_EOL ?>
-                                            <?php echo $frmFacturas['tipos_gastos']->render(array('placeholder' => 'tipos_gastos', 'class' => 'show-menu-arrow span3')).PHP_EOL ?>
-                                        </fieldset>
-                                        <fieldset>
                                             <?php echo $frmFacturas['fa_beneficiarios_json']->renderLabel().PHP_EOL ?>
                                             <?php echo $frmFacturas['fa_beneficiarios_json']->render(array('class' => 'chosen-select span3', 'data-placeholder' => 'fa_beneficiario')).PHP_EOL ?>
                                         </fieldset>
@@ -49,6 +45,12 @@
                                         </fieldset>             
                                     </div>
                                     <div class="span4 offset1">
+                                        <div class="pull-right">
+                                            <fieldset>
+                                                <?php echo $frmFacturas['tipos_gastos']->renderLabel().PHP_EOL ?>
+                                                <?php echo $frmFacturas['tipos_gastos']->render(array('placeholder' => 'tipos_gastos', 'class' => 'show-menu-arrow span3')).PHP_EOL ?>
+                                            </fieldset>
+                                        </div>
                                         <div class="pull-right">
                                             <fieldset>
                                                 <?php echo $form['tarjetas_credito_debito']->renderLabel().PHP_EOL ?>
@@ -113,17 +115,6 @@
                                                     <?php echo $frmFacturas['fa_valor_total']->render(array('placeholder' => 'fa_valor_total', 'readonly' => !$frmFacturas->getObject()->isNew() && !empty($frmFacturas['fa_valor_total']->getValue()) ? false : true, 'style' => 'width: 228px')).PHP_EOL ?>
                                                 </div>
                                             </fieldset>
-                                        </div>
-                                        <div class="row">
-                                            <div class="span3 pull-right">
-                                                <fieldset>
-                                                    <label for="dml_facturas_fa_beneficiarios_json">Consumo compartido:</label>
-                                                    <div class="btn-group" data-toggle="buttons-radio" style="margin-bottom: 4px">
-                                                        <button type="button" class="btn span1 btnCompartidoNo disabled">Si</button>
-                                                        <button type="button" class="btn span1 btnCompartidoSi disabled">No</button>
-                                                    </div>
-                                                </fieldset>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -397,7 +388,21 @@
                         validador($(comun + 'fa_detalle'), "Logitud insuficiente");
                         return false;
                     }  else if ($(comun + 'fa_valor_total').val().length < 1) {
-                        validador($(comun + 'fa_valor_total'), "Agregar un valor");
+                        var txtOriginal = $(comun + 'fa_valor_total').parent().prev().text();
+                        $(comun + 'fa_valor_total').focus();
+                        $(comun + 'fa_valor_total').parent().prev().html(
+                            $(comun + 'fa_valor_total').parent().prev().text() 
+                            + ' <span id="aviso" class="label label-important" style="display: none">' 
+                            + 'Agregar un valor' 
+                            + '</span>'
+                        );
+                        $('#aviso').fadeIn('slow');
+                        setTimeout(function(){
+                            $('#aviso').fadeOut('slow');
+                            setTimeout(function(){
+                                $(comun + 'fa_valor_total').parent().prev().text(txtOriginal);
+                            }, 500);
+                        }, 1700);
                         return false;
                     }
                     for ( var i = 0 ; i < formData.length ; i++ )

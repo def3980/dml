@@ -4,8 +4,8 @@
  * Fecha creacion : "Viernes, 5 Diciembre 2014 12:44:41"
  * 
  * Acciones realizadas:
- * - Veces ejecutado doctrine:build-forms            : "000003"
- * - Ultima vez que se actualizo la clase formulario : "2015-07-01 17:22:59"
+ * - Veces ejecutado doctrine:build-forms            : "000004"
+ * - Ultima vez que se actualizo la clase formulario : "2015-11-24 17:03:30"
  */
 
 /**
@@ -25,12 +25,14 @@ abstract class BaseDmlPagosConsumosTarjetasForm extends BaseFormDoctrine {
             'id'                => new sfWidgetFormInputHidden(),
             'pagos'             => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DmlPagos'), 'add_empty' => false)),
             'consumos_tarjetas' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DmlConsumosTarjetas'), 'add_empty' => false)),
+            'personas'          => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DmlPersonas'), 'add_empty' => false)),
         ));
 
         $this->setValidators(array(
             'id'                => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
             'pagos'             => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('DmlPagos'))),
             'consumos_tarjetas' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('DmlConsumosTarjetas'))),
+            'personas'          => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('DmlPersonas'))),
         ));
 
         $this->widgetSchema->setNameFormat('dml_pagos_consumos_tarjetas[%s]');

@@ -3,8 +3,8 @@
 # Fecha: Viernes, 5 Diciembre 2014 12:20:18
 #
 # Acciones realizadas:
-#  - Veces ejecutado doctrine:build-schema  : "000020"
-#  - Ultima vez que se actualizo el esquema : "2015-07-01 17:22:21"
+#  - Veces ejecutado doctrine:build-schema  : "000021"
+#  - Ultima vez que se actualizo el esquema : "2015-11-24 16:58:22"
 # + -------------------------------------------------------------------------- +
 
 DmlAhorros:
@@ -1539,6 +1539,13 @@ DmlPagosConsumosTarjetas:
       primary: false
       notnull: true
       autoincrement: false
+    personas:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
   relations:
     DmlConsumosTarjetas:
       local: consumos_tarjetas
@@ -1546,6 +1553,10 @@ DmlPagosConsumosTarjetas:
       type: one
     DmlPagos:
       local: pagos
+      foreign: id
+      type: one
+    DmlPersonas:
+      local: personas
       foreign: id
       type: one
 DmlPersonas:
@@ -1710,6 +1721,10 @@ DmlPersonas:
       foreign: personas
       type: many
     DmlPagos:
+      local: id
+      foreign: personas
+      type: many
+    DmlPagosConsumosTarjetas:
       local: id
       foreign: personas
       type: many

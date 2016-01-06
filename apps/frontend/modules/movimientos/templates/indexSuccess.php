@@ -178,8 +178,16 @@
                                     <tr>
                                         <td>&Uacute;ltimo registro</td>
                                         <td>:</td>
-                                        <td><?php $dia = explode(',', $ultimo_registro) ?>
-                                            <a href="#" data-toggle="tooltip" data-placement="right" title="" data-original-title="<?php echo trim(end($dia)) ?>" style="cursor: default"><?php echo trim(reset($dia)) ?></a>
+                                        <td><?php
+                                            // Realizo esta validiación ya que el UTF-8 no funciona en el controlador
+                                            // es decir las tildes no funcionan
+                                            if ($movs->count()):
+                                                $ultimo_registro = Singleton::getInstance()->IsNullOrEmptyString($movs->getLast()->getMoFechaModifica())
+                                                                    ? Singleton::getInstance()->dateTimeESN($movs->getLast()->getMoFechaCrea(), true, true, true)
+                                                                    : Singleton::getInstance()->dateTimeESN($movs->getLast()->getMoFechaModifica(), true, true, true);
+                                                $dia = explode(',', $ultimo_registro)
+                                            ?>
+                                            <a href="#" data-toggle="tooltip" data-placement="right" title="" data-original-title="<?php echo trim(end($dia)) ?>" style="cursor: default"><?php echo trim(reset($dia)) ?></a><?php else: echo '-'; endif; ?>
                                         </td>
                                     </tr>
                                 </tbody>

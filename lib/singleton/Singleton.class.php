@@ -237,5 +237,15 @@ class Singleton {
     public function IsNullOrEmptyString($question){
         return (!isset($question) || trim($question) === '');
     }
+    
+    /**
+     * rutaPrincipalFixtures, sirve para poder cambiar rapidamente la ruta de
+     * lectura de archivos csv para ser usado en los fixtures
+     * 
+     * @return string Ruta sonde se encuentran los archivos csv
+     */
+    public function rutaPrincipalFixtures() {
+        return 'D:\VGN-FW280FY\Descargas\\';
+    }
 
 }

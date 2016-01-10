@@ -6,8 +6,8 @@
 # Fecha: Viernes, 5 Diciembre 2014 12:20:18
 #
 # Acciones realizadas:
-#  - Veces ejecutado configure:database     : "010"
-#  - Ultima vez que se actualizo el esquema : "2015-11-04 16:30:27"
+#  - Veces ejecutado configure:database     : "011"
+#  - Ultima vez que se actualizo el esquema : "2015-11-28 18:19:42"
 # + -------------------------------------------------------------------------- +
 
 all:
@@ -16,4 +16,4 @@ all:
     param:
       dsn: 'mysql:host=localhost;port=3306;dbname=dml'
       username: root
-      password: '39801981'
+      password: 'Y5u8A}fo0DCVw#l{MoQP2vHBSs{1Nq'

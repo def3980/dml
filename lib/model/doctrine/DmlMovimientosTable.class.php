@@ -38,7 +38,7 @@ class DmlMovimientosTable extends Doctrine_Table {
      */
     public static function getListaDeMovimientos($cuenta = null) {
         $select = 'mo.id, mo.mo_fecha, mo.mo_concepto, mo.mo_tipo, mo.mo_documento, '
-                . 'mo.mo_oficina, mo.mo_monto, mo.mo_saldo, mo.mo_mini_detalle_json,'
+                . 'mo.mo_oficina, mo.mo_monto, mo.mo_saldo, mo.mo_mini_detalle_json, '
                 . 'ah.id, tc.id, cb.id, en.id, pe.id';
         $sql = DmlMovimientosTable::getAlias()
                 ->addSelect($select)
@@ -50,11 +50,15 @@ class DmlMovimientosTable extends Doctrine_Table {
 //                ->where('MONTH(mo.mo_fecha) = MONTH(CURDATE())')
 //                ->where('MONTH(mo.mo_fecha) >= MONTH(DATE_ADD(NOW(), INTERVAL -6 MONTH))')
 //                ->where('MONTH(mo.mo_fecha) >= MONTH(DATE_ADD(NOW(), INTERVAL -3 MONTH))')
-                ->andWhere('YEAR(mo.mo_fecha) = YEAR(CURDATE())');
+//                ->andWhere('YEAR(mo.mo_fecha) = YEAR(CURDATE())')
+                ;
         if (strlen($cuenta) == 0) {
             $sq1 = $sql->createSubquery()
                         ->select('sqah.id')
                         ->from('DmlAhorros sqah')
+                        ->innerJoin('sqah.DmlContratosBancarios sqcb')
+                        ->innerJoin('sqcb.DmlPersonas sqpe')
+                        ->where('sqpe.id = ?', array(sfContext::getInstance()->getUser()->getAttribute('id')))
                         ->limit(1);
         }
         if ($cuenta == 0) {
@@ -149,16 +153,19 @@ class DmlMovimientosTable extends Doctrine_Table {
                     ->andWhere('mo.mo_borrado_logico = ?', array(0))
                     ->andWhere('pe.id = ?', array(sfContext::getInstance()->getUser()->getAttribute('id')));
         
+//        echo "<textarea cols='100' rows='10'>";
+//        print_r($sql->getSqlQuery());
+//        echo "</textarea>";
+//        die();
+        
         return $sql;
     }
     
     public static function getSumaSaldoPositivoDTodo() {
         $saldos = 0;
         foreach (DmlAhorrosTable::getCuentasDeAhorros()->execute(null, 5) as $k => $v):
-            $last = DmlMovimientosTable::getNumeroDRegistrosPorAnioYCuenta($v['ah_ah_numero_cuenta'], true)
-                        ->execute()
-                        ->getLast();
-            $saldos += $last->getMoSaldo();
+            $last = DmlMovimientosTable::getNumeroDRegistrosPorAnioYCuenta($v['ah_ah_numero_cuenta'], true)->execute();
+            $saldos += $last->count() ? $last->getLast()->getMoSaldo() : 0;
         endforeach;
 
         return $saldos;

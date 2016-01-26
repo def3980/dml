@@ -11,3 +11,4 @@ all:
     numero_documento: 15
     movimientos_bancarios: 7
     sharefile_per_file: 3
+    list_for_fixtures: '["DmlAhorros.csv","DmlBeneficiarios.csv","DmlContratosBancarios.csv","DmlEntidades.csv","DmlMovimientos.csv","DmlPersonas.csv","DmlTarjetasCreditoDebito.csv","DmlTiposCuentas.csv","DmlTiposGastos.csv","DmlTiposTarjetasCreditoDebito.csv"]'

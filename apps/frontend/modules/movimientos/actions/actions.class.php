@@ -26,6 +26,10 @@ class movimientosActions extends sfActions {
         );
 
     public function executeIndex(sfWebRequest $request) {
+        echo "<pre>";
+        print_r(json_decode(sfConfig::get('app_list_for_fixtures')));
+        echo "</pre>";
+        die();
         Singleton::getInstance()->array_to_csv(DmlMovimientosTable::getBkpCSV()->execute(null, 3));
         $this->movimientos = new sfDoctrinePager('DmlMovimientos', sfConfig::get('app_max_per_page'));
         $this->movimientos->setQuery(DmlMovimientosTable::getListaDeMovimientos($request->getParameter('cuenta')));

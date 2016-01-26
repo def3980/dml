@@ -245,54 +245,45 @@ class Singleton {
      * @return string Ruta sonde se encuentran los archivos csv
      */
     public function rutaPrincipalFixtures() {
-        return 'C:\Users\Oswaldo\Downloads\\';
+        return 'Z:\Corei7\Descargas\\';
     }
     
     
     //C:\Users\Oswaldo\Downloads
     public function array_to_csv($arrayDoctrine) {
-        $file = 'C:\Users\Oswaldo\Downloads\file.csv';
+        $file = 'Z:\Corei7\Descargas\file.csv';
         // Realizando un trim al arreglo de datos
         // ya que el fixtures me pone un salto de linea
         // al momento de realizar load:custom
-        $myFields = '';
+        $columns = '';
         $arrayCustom = array();
         foreach ($arrayDoctrine as $k => $fields):
             foreach ($fields as $field => $value):
-                if (214 != strlen($myFields)) {
-                    $myFields += $field.',';
-                }
+                if (0 == $k):
+                    $columns .= $field.',';
+                endif;
                 if ('mo_mini_detalle_json' == $field):
                     $fields[$field] = trim($value);
                 endif;
             endforeach;
-            echo "<pre>";
-                var_dump(strlen($myFields));
-            echo "</pre>";
-            echo "<pre>";
-                var_dump(strlen($myFields));
-            echo "</pre>";
-            die();
             $arrayCustom[$k] = $fields;
         endforeach;
         
-//        echo "<pre>";
-//        print_r($arrayCustom);
-//        echo "</pre>";
-//        die();
-        
         $fp = fopen($file, 'w');
-
         foreach ($arrayCustom as $k => $fields):
-            if (0 == $k) {
-                // aqui debo guardar los campos en el archivo
-                // csv
-                $myFields += rtrim($myFields);
-                file_put_contents($file, $myFields, FILE_APPEND);
-            }
-            //fputcsv($fp, $fields);
+            fputcsv($fp, $fields);
         endforeach;
-
         fclose($fp);
+        
+        $columns = rtrim($columns, ',')."\n";
+        
+        $context = stream_context_create();
+        $fp = fopen($file, 'r', 1, $context);
+        $tmpname = md5($columns);
+        file_put_contents($tmpname, $columns);
+        file_put_contents($tmpname, $fp, FILE_APPEND);
+        fclose($fp);
+        unlink($file);
+        rename($tmpname, $file);
     }
 }

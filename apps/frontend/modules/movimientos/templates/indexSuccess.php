@@ -114,8 +114,9 @@
                                         <li class="active"><a href="javascript:void(0)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Inicio&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
                                     </ul>
                                     <div class="navbar-form pull-left">
-                                        <input type="text" class="span3 txtSrch" placeholder="Buscar..." />
+                                        <input type="text" class="span5 txtSrch" placeholder="Buscar..." />
                                         <button type="button" class="btn btnSrch">Buscar</button>
+                                        <button type="button" class="btn btnSrch"><i class="icon-hdd"></i></button>
                                     </div>
                                     <ul class="nav pull-right">
                                         <li><a href="javascript:void(0)">Cuentas bancarias</a></li>

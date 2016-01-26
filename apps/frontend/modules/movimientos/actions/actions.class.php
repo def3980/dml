@@ -26,10 +26,11 @@ class movimientosActions extends sfActions {
         );
 
     public function executeIndex(sfWebRequest $request) {
+        Singleton::getInstance()->array_to_csv(DmlMovimientosTable::getBkpCSV()->execute(null, 3));
         $this->movimientos = new sfDoctrinePager('DmlMovimientos', sfConfig::get('app_max_per_page'));
         $this->movimientos->setQuery(DmlMovimientosTable::getListaDeMovimientos($request->getParameter('cuenta')));
         $this->movimientos->setPage($request->getParameter('pagina', 1));
-        $this->movimientos->init();        
+        $this->movimientos->init();
         $this->cuentas_ahorros = DmlAhorrosTable::getCuentasDeAhorros()->execute(array(), Doctrine_Core::HYDRATE_SCALAR);
         $this->saldo_cuentas = DmlMovimientosTable::getSumaSaldoPositivoDTodo();
         $movs = DmlMovimientosTable::getNumeroDRegistrosPorAnioYCuenta($this->cuentas_ahorros[0]['ah_ah_numero_cuenta'], true)->execute();

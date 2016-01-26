@@ -245,7 +245,54 @@ class Singleton {
      * @return string Ruta sonde se encuentran los archivos csv
      */
     public function rutaPrincipalFixtures() {
-        return 'D:\VGN-FW280FY\Descargas\\';
+        return 'C:\Users\Oswaldo\Downloads\\';
     }
+    
+    
+    //C:\Users\Oswaldo\Downloads
+    public function array_to_csv($arrayDoctrine) {
+        $file = 'C:\Users\Oswaldo\Downloads\file.csv';
+        // Realizando un trim al arreglo de datos
+        // ya que el fixtures me pone un salto de linea
+        // al momento de realizar load:custom
+        $myFields = '';
+        $arrayCustom = array();
+        foreach ($arrayDoctrine as $k => $fields):
+            foreach ($fields as $field => $value):
+                if (214 != strlen($myFields)) {
+                    $myFields += $field.',';
+                }
+                if ('mo_mini_detalle_json' == $field):
+                    $fields[$field] = trim($value);
+                endif;
+            endforeach;
+            echo "<pre>";
+                var_dump(strlen($myFields));
+            echo "</pre>";
+            echo "<pre>";
+                var_dump(strlen($myFields));
+            echo "</pre>";
+            die();
+            $arrayCustom[$k] = $fields;
+        endforeach;
+        
+//        echo "<pre>";
+//        print_r($arrayCustom);
+//        echo "</pre>";
+//        die();
+        
+        $fp = fopen($file, 'w');
 
+        foreach ($arrayCustom as $k => $fields):
+            if (0 == $k) {
+                // aqui debo guardar los campos en el archivo
+                // csv
+                $myFields += rtrim($myFields);
+                file_put_contents($file, $myFields, FILE_APPEND);
+            }
+            //fputcsv($fp, $fields);
+        endforeach;
+
+        fclose($fp);
+    }
 }

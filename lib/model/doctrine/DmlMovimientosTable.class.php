@@ -170,5 +170,13 @@ class DmlMovimientosTable extends Doctrine_Table {
 
         return $saldos;
     }
+    
+    public static function getBkpCSV() {
+        $select = 'mo.*';
+        
+        return DmlMovimientosTable::getAlias()
+                ->addSelect($select)
+                ->orderBy('mo.id DESC');
+    }
 
 }

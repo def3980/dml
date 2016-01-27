@@ -171,12 +171,16 @@ class DmlMovimientosTable extends Doctrine_Table {
         return $saldos;
     }
     
-    public static function getBkpCSV() {
-        $select = 'mo.*';
-        
-        return DmlMovimientosTable::getAlias()
-                ->addSelect($select)
-                ->orderBy('mo.id DESC');
+    /**
+     * Devuelve todos los campos y datos de la tabla 'dml_movimientos'
+     * que podrán ser utilizados de diferentes maneras en los datos que devuelve
+     * Doctrine
+     * 
+     * @return type Doctrine
+     */
+    public static function getBkpDmlMovimientosCSV() {
+//        return DmlMovimientosTable::getAlias()->orderBy('mo.id DESC');
+        return DmlMovimientosTable::getAlias()->orderBy('mo.id DESC');
     }
 
 }

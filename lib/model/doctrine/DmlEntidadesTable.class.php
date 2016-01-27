@@ -20,4 +20,25 @@ class DmlEntidadesTable extends Doctrine_Table {
         return Doctrine_Core::getTable('DmlEntidades');
     }
 
+    /**
+     * getAlias devuelve una instancia de la clase del modelo DmlEntidades y ya
+     * indicado un alias por defecto.
+     * 
+     * @return type instancia con un alias definido
+     */
+    private static function getAlias() {
+        return DmlEntidadesTable::getInstance()->createQuery('en');
+    }
+
+    /**
+     * Devuelve todos los campos y datos de la tabla 'dml_entidades'
+     * que podrán ser utilizados de diferentes maneras en los datos que devuelve
+     * Doctrine
+     * 
+     * @return type Doctrine
+     */
+    public static function getBkpDmlEntidadesCSV() {
+        return DmlEntidadesTable::getAlias();
+    }
+
 }

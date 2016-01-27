@@ -11,4 +11,5 @@ all:
     numero_documento: 15
     movimientos_bancarios: 7
     sharefile_per_file: 3
-    list_for_fixtures: '["DmlAhorros.csv","DmlBeneficiarios.csv","DmlContratosBancarios.csv","DmlEntidades.csv","DmlMovimientos.csv","DmlPersonas.csv","DmlTarjetasCreditoDebito.csv","DmlTiposCuentas.csv","DmlTiposGastos.csv","DmlTiposTarjetasCreditoDebito.csv"]'
+    list_for_fixtures: '["DmlAhorros","DmlBeneficiarios","DmlContratosBancarios","DmlEntidades","DmlMovimientos","DmlPersonas","DmlTarjetasCreditoDebito","DmlTiposCuentas","DmlTiposGastos","DmlTiposTarjetasCreditoDebito"]'
+    path_csv: 'D:\VGN-FW280FY\Descargas\\'

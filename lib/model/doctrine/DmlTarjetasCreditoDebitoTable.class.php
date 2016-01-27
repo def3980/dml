@@ -61,4 +61,15 @@ class DmlTarjetasCreditoDebitoTable extends Doctrine_Table {
                 ->addSelect($select);
     }
 
+    /**
+     * Devuelve todos los campos y datos de la tabla 'dml_tarjetas_credito_debito'
+     * que podrán ser utilizados de diferentes maneras en los datos que devuelve
+     * Doctrine
+     * 
+     * @return type Doctrine
+     */
+    public static function getBkpDmlTarjetasCreditoDebitoCSV() {
+        return DmlTarjetasCreditoDebitoTable::getAlias();
+    }
+
 }

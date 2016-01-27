@@ -245,13 +245,13 @@ class Singleton {
      * @return string Ruta sonde se encuentran los archivos csv
      */
     public function rutaPrincipalFixtures() {
-        return 'Z:\Corei7\Descargas\\';
+        return sfConfig::get('app_path_csv');
     }
     
     
     //C:\Users\Oswaldo\Downloads
-    public function array_to_csv($arrayDoctrine) {
-        $file = 'Z:\Corei7\Descargas\file.csv';
+    public function array_to_csv($arrayDoctrine, $fileNameWithExt) {
+        $file = sfConfig::get('app_path_csv').$fileNameWithExt;
         // Realizando un trim al arreglo de datos
         // ya que el fixtures me pone un salto de linea
         // al momento de realizar load:custom

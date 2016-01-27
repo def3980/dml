@@ -48,5 +48,16 @@ class DmlAhorrosTable extends Doctrine_Table {
                 ->andWhere('pe.id = ?', array(sfContext::getInstance()->getUser()->getAttribute('id')));
         return $sql;
     }
+    
+    /**
+     * Devuelve todos los campos y datos de la tabla 'dml_ahorros'
+     * que podrán ser utilizados de diferentes maneras en los datos que devuelve
+     * Doctrine
+     * 
+     * @return type Doctrine
+     */
+    public static function getBkpDmlAhorrosCSV() {
+        return DmlAhorrosTable::getAlias();
+    }
 
 }

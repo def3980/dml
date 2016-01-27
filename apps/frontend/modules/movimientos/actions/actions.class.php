@@ -26,11 +26,6 @@ class movimientosActions extends sfActions {
         );
 
     public function executeIndex(sfWebRequest $request) {
-        echo "<pre>";
-        print_r(json_decode(sfConfig::get('app_list_for_fixtures')));
-        echo "</pre>";
-        die();
-        Singleton::getInstance()->array_to_csv(DmlMovimientosTable::getBkpCSV()->execute(null, 3));
         $this->movimientos = new sfDoctrinePager('DmlMovimientos', sfConfig::get('app_max_per_page'));
         $this->movimientos->setQuery(DmlMovimientosTable::getListaDeMovimientos($request->getParameter('cuenta')));
         $this->movimientos->setPage($request->getParameter('pagina', 1));
@@ -182,6 +177,26 @@ class movimientosActions extends sfActions {
                     'cuenta_mov' => number_format($cuenta_mov, 0, ',', '.'),
                     'cuenta_mov_total' => number_format($cuenta_mov_total, 0, ',', '.')
                 )
+            )
+        );
+    }
+    
+    public function executeBkpInCSV(sfWebRequest $request) {
+        foreach (json_decode(sfConfig::get('app_list_for_fixtures')) as $k => $v):
+//            if (6 == $k) {
+//                echo "<pre>";
+//                print_r(array("{$v}Table", "getBkp{$v}CSV"));
+//                echo "</pre>";
+//                die();
+//            }
+            $arrData = call_user_func(array("{$v}Table", "getBkp{$v}CSV"))->execute(null, 3);
+            Singleton::getInstance()->array_to_csv($arrData, "{$v}.csv");
+        endforeach;
+        
+        return $this->redirect(
+            $this->generateUrl(
+                'json',
+                array('message' => 'Backup realizado exitosamente...')
             )
         );
     }

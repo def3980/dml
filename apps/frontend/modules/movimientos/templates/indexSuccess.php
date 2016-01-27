@@ -116,7 +116,7 @@
                                     <div class="navbar-form pull-left">
                                         <input type="text" class="span5 txtSrch" placeholder="Buscar..." />
                                         <button type="button" class="btn btnSrch">Buscar</button>
-                                        <button type="button" class="btn btnSrch"><i class="icon-hdd"></i></button>
+                                        <button type="button" class="btn bkpInCSV"><i class="icon-hdd"></i></button>
                                     </div>
                                     <ul class="nav pull-right">
                                         <li><a href="javascript:void(0)">Cuentas bancarias</a></li>
@@ -447,6 +447,14 @@
                     $('.btnc').attr('disabled', false);
                     location.href = '<?php echo url_for('@movimientos') ?>';
                 });
+                
+                /* -------------------------------------------------- bkp_csv */
+                $('.bkpInCSV').bind('click', function() {
+                    $.post('<?=url_for('movimientos/bkpInCSV')?>', null, function(data) {
+                        console.log(data);
+                    }, 'json');
+                });
+                /* -----------------------------------------------fin bkp_csv */
             });
         </script>
 <?php end_slot() ?>

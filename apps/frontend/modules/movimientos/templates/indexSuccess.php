@@ -108,13 +108,14 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </a>
-                                <a class="brand" href="#">Dml</a>
+                                <a class="brand" href="#">Filtros:</a>
                                 <div class="nav-collapse collapse navbar-inverse-collapse">
-                                    <ul class="nav">
-                                        <li class="active"><a href="javascript:void(0)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Inicio&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
-                                    </ul>
                                     <div class="navbar-form pull-left">
-                                        <input type="text" class="span5 txtSrch" placeholder="Buscar..." />
+                                        <div class="btn-group" data-toggle="buttons-checkbox">
+                                            <button type="button" class="btn active">Con.</button>
+                                            <button type="button" class="btn">Doc.</button>
+                                        </div>
+                                        <input type="text" class="span4 txtSrch" placeholder="Buscar..." />
                                         <button type="button" class="btn btnSrch">Buscar</button>
                                         <button type="button" class="btn bkpInCSV"><i class="icon-hdd"></i></button>
                                     </div>
@@ -154,7 +155,7 @@
                             </tr>
                         </thead>
                         <tbody>
-<?php include_partial('movimientos', array('movimientos' => $movimientos)) ?>
+<?php include_partial('movimientos', array('movimientos' => $movimientos, 'moCon' => '')) ?>
                         </tbody>
                     </table>
                     <div class="row">

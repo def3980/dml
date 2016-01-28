@@ -2,7 +2,7 @@
                             <tr>
                                 <td><?php echo link_to(Singleton::getInstance()->dateTimeESN($mo->getMoFecha(), false, true, false), 'movimientos/edit?id='.$mo->getId()) ?></td>
                                 <td>
-                                    <a href="#modal<?php echo $mo->getId() ?>" role="button" data-toggle="modal" title="<?php echo $mo->getMoOficina() ?>"<?php if (!is_null($mo->getMoMiniDetalleJson())) echo ' style="cursor: pointer; color: #F06C00"' ?>><?php echo $mo->getMoConcepto() ?></a>
+                                    <a href="#modal<?php echo $mo->getId() ?>" role="button" data-toggle="modal" data-placement="right" title="<?php echo $mo->getMoOficina() ?>"<?php if (!is_null($mo->getMoMiniDetalleJson())) echo ' style="cursor: pointer; color: #F06C00"' ?>><?php echo str_replace(strtoupper($moCon), '<abbr title="'.strtoupper($moCon).'"><span class="label label-warning">'.strtoupper($moCon).'</span></abbr>', $mo->getMoConcepto()) ?></a>
 <?php if (!is_null($mo->getMoMiniDetalleJson())) include_partial('modal', array('id' => $mo->getId(), 'concepto' => $mo->getMoConcepto(), 'json' => $mo->getMoMiniDetalleJson())) ?>
                                 </td>
                                 <td>

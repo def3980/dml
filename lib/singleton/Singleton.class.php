@@ -248,8 +248,14 @@ class Singleton {
         return sfConfig::get('app_path_csv');
     }
     
-    
-    //C:\Users\Oswaldo\Downloads
+    /**
+     * array_to_csv transforma un arreglo de información en información delimitada
+     * por comas y lo guarda en un archivo con el nombre propuesto en uno de los
+     * parámetros recubidos
+     * 
+     * @param type $arrayDoctrine Arreglo de información
+     * @param type $fileNameWithExt Sring con el nombre del archivo
+     */
     public function array_to_csv($arrayDoctrine, $fileNameWithExt) {
         $file = sfConfig::get('app_path_csv').$fileNameWithExt;
         // Realizando un trim al arreglo de datos
@@ -286,4 +292,5 @@ class Singleton {
         unlink($file);
         rename($tmpname, $file);
     }
+
 }

@@ -112,7 +112,13 @@ class movimientosActions extends sfActions {
             )
         );
         $movimientos->init();
-        return $this->renderPartial('movimientos', array('movimientos' => $movimientos));
+        return $this->renderPartial(
+                    'movimientos',
+                    array(
+                        'movimientos' => $movimientos, 
+                        'moCon' => $request->getParameter('moCon')
+                    )
+                );
     }
     
     public function executeTransactionsPager(sfWebRequest $request) {
@@ -143,7 +149,13 @@ class movimientosActions extends sfActions {
             )
         );
         $movimientos->init();
-        return $this->renderPartial('movimientos', array('movimientos' => $movimientos));
+        return $this->renderPartial(
+                    'movimientos',
+                    array(
+                        'movimientos' => $movimientos, 
+                        'moCon' => $request->getParameter('moCon')
+                    )
+                );
     }
     
     public function executeSearchPager(sfWebRequest $request) {
